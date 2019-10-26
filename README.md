@@ -144,5 +144,8 @@ $${\bf{matLocal}} = {\mathop{\rm FFT}\nolimits} \left( {{\bf{matPad}}} \right)$$
 </center>
 
 
+# 参考资料
 
+* https://www.cnblogs.com/justany/archive/2012/12/06/2804211.html
+* https://blog.csdn.net/qq_16234613/article/details/78909839
 
