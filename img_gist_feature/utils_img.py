@@ -4,6 +4,7 @@ import cv2
 import os
 import imghdr
 
+
 # Is numpy matrix all no-zero data in alpha channel
 def is_single_alpha(np_raw_img):
     if(np_raw_img.shape[-1]!=4):
@@ -13,6 +14,7 @@ def is_single_alpha(np_raw_img):
             return False
     return True
 
+# a image to bgr format  
 def img_2bgr(np_img_in):
     if np_img_in is None:
         return None, -3
