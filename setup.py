@@ -4,7 +4,7 @@ setup(
     name="img_gist_feature",
     version="1.0",
     author="Kalafinaian",
-    author_email="Kalafinaian@outlook.com",
+    author_email="Kalafinaian@qq.com",
     keywords="image gist feature",
     packages=["gist", "feature"],
     description="image gist feature",
