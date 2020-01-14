@@ -14,6 +14,59 @@ def is_single_alpha(np_raw_img):
             return False
     return True
 
+# Convert raw image to small gray image, resize is  n_resize * n_resize
+def raw_img_do_resize_gray(np_img_raw, n_resize):
+    if np_img_raw is None:
+        return None, -3
+
+    n_row = np_img_raw.shape[0]
+    n_col = np_img_raw.shape[1]
+    np_img_resize = np_img_raw
+    if n_row != n_resize or n_col != n_resize:
+        try:
+            np_img_resize = cv2.resize(np_img_raw, (n_resize, n_resize), fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
+        except Exception as e:
+            s_run_msg = 'Error in resize, and err:%s' % str(e)
+            return None, -3
+
+    # Raw Image is BGR imge, so convert rgb to gray
+    np_img_small = None
+    if len(np_img_resize.shape) == 3 and np_img_resize.shape[2] == 3:
+        np_img_small = cv2.cvtColor(np_img_resize, cv2.COLOR_BGR2GRAY)
+    # Raw Image is BGRA imge, there are different situation to solve
+    elif len(np_img_resize.shape) == 3 and np_img_resize.shape[2] == 4:
+        n_sence = 3
+        np_img_small_choose = np.zeros([np_img_resize.shape[0], np_img_resize.shape[1], n_sence], dtype=np.uint8)
+
+        np_img_small_choose[:, :, 0] = 255 - np_img_resize[:, :, 3]
+        np_img_small_choose[:, :, 1] = cv2.cvtColor(np_img_resize, cv2.COLOR_BGRA2GRAY)
+        np_img_small_choose[:, :, 2] = cv2.cvtColor(np_img_resize[:, :, 0:3], cv2.COLOR_BGR2GRAY)
+
+        # Get nonzero element of every resize gray
+        ln_sence_non0_num = []
+        for i in range(n_sence):
+            ln_sence_non0_num.append(len(np_img_small_choose[:, :, i].nonzero()[0]))
+
+        # Which image has most nonzero element
+        if len(set(ln_sence_non0_num)) > 1:
+            n_max_index = ln_sence_non0_num.index(max(ln_sence_non0_num))
+            np_img_small = np_img_small_choose[:, :, n_max_index]
+        else:
+            # Which image has most different element
+            ln_diff_pix_num = []
+            for i in range(n_sence):
+                ln_diff_pix_num.append(len(np.unique(np_img_small_choose[:, :, i])))
+            n_max_index = ln_diff_pix_num.index(max(ln_diff_pix_num))
+            np_img_small = np_img_small_choose[:, :, n_max_index]
+    # Raw Image is gray image
+    elif len(np_img_resize.shape) == 3 and np_img_resize.shape[2] == 1:
+        np_img_small = np_img_resize[:, :, 0]
+    elif len(np_img_resize.shape) == 2:
+        np_img_small = np_img_resize
+
+    #    print(np_img_small.shape)
+    return np_img_small, 0
+    
 # a image to bgr format  
 def img_2bgr(np_img_in):
     if np_img_in is None:
