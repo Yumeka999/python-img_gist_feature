@@ -140,3 +140,49 @@ def is_usable_img(s_img_url):
         return False
     
     return True
+
+# Delank process for gray image
+def small_gray_img_deblank(np_img_raw, n_resize):
+    # ONLY PROCESS GRAY IMAGE
+    if len(np_img_raw.shape) != 2:
+        return None, -1
+
+    # size of image must be n_resize x n_resize
+    n_row, n_col = np_img_raw.shape
+    if n_row != n_resize and n_col != n_resize:
+        s_run_msg = 'size of raw image is not %dx%d' % (n_resize, n_resize)
+        return None, -1
+
+    # OTSU to get binary image
+    try:
+        thrsh, np_img_otsu = cv2.threshold(np_img_raw, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    except Exception as e:
+        s_run_msg = 'url cv threshold otsu error, err:%s' % (str(e))
+        return None, -1
+
+    # find coordinate of balck point of left-top
+    np_blank_index = np.argwhere(np_img_otsu == 0)
+
+    # if no black in small image, so don't need to do deblank
+    if np_blank_index.shape[0] == 0:
+        return np_img_raw, 1
+
+    # Get coordinate of left-top  right-bottom
+    n_row_min = np.min(np_blank_index[:, 0])
+    n_row_max = np.max(np_blank_index[:, 0])
+    n_col_min = np.min(np_blank_index[:, 1])
+    n_col_max = np.max(np_blank_index[:, 1])
+
+    # if no blank so don't need to do deblank
+    if n_row_min == 0 and n_col_min == 0 and n_row_max == n_resize and n_col_max == n_resize:
+        return np_img_otsu, 1
+
+    # get deblank zone of small image
+    np_img_deblank_zone = np_img_raw[n_row_min: n_row_max + 1, n_col_min:n_col_max + 1]
+    try:
+        np_img_deblank_resize = cv2.resize(np_img_deblank_zone, (n_resize, n_resize), fx=0.5, fy=0.5,
+                                           interpolation=cv2.INTER_AREA)
+    except Exception as e:
+        s_run_msg = 'Error in resize, and err:%s' % str(e)
+        return None, -1
+    return np_img_deblank_resize, 0
