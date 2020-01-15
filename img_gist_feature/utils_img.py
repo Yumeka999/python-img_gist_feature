@@ -141,6 +141,12 @@ def is_usable_img(s_img_url):
     
     return True
 
+
+
+
+
+
+
 # Delank process for gray image
 def small_gray_img_deblank(np_img_raw, n_resize):
     # ONLY PROCESS GRAY IMAGE
