@@ -15,32 +15,21 @@ def is_single_alpha(np_raw_img):
     return True
 
 # Convert raw image to small gray image, resize is  n_resize * n_resize
-def raw_img_do_resize_gray(np_img_raw, n_resize):
+def img_2gray(np_img_raw):
     if np_img_raw is None:
         return None, -3
-
-    n_row = np_img_raw.shape[0]
-    n_col = np_img_raw.shape[1]
-    np_img_resize = np_img_raw
-    if n_row != n_resize or n_col != n_resize:
-        try:
-            np_img_resize = cv2.resize(np_img_raw, (n_resize, n_resize), fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
-        except Exception as e:
-            s_run_msg = 'Error in resize, and err:%s' % str(e)
-            return None, -3
-
     # Raw Image is BGR imge, so convert rgb to gray
     np_img_small = None
-    if len(np_img_resize.shape) == 3 and np_img_resize.shape[2] == 3:
-        np_img_small = cv2.cvtColor(np_img_resize, cv2.COLOR_BGR2GRAY)
+    if len(np_img_raw.shape) == 3 and np_img_raw.shape[2] == 3:
+        np_img_small = cv2.cvtColor(np_img_raw, cv2.COLOR_BGR2GRAY)
     # Raw Image is BGRA imge, there are different situation to solve
-    elif len(np_img_resize.shape) == 3 and np_img_resize.shape[2] == 4:
+    elif len(np_img_raw.shape) == 3 and np_img_raw.shape[2] == 4:
         n_sence = 3
-        np_img_small_choose = np.zeros([np_img_resize.shape[0], np_img_resize.shape[1], n_sence], dtype=np.uint8)
+        np_img_small_choose = np.zeros([np_img_raw.shape[0], np_img_raw.shape[1], n_sence], dtype=np.uint8)
 
-        np_img_small_choose[:, :, 0] = 255 - np_img_resize[:, :, 3]
-        np_img_small_choose[:, :, 1] = cv2.cvtColor(np_img_resize, cv2.COLOR_BGRA2GRAY)
-        np_img_small_choose[:, :, 2] = cv2.cvtColor(np_img_resize[:, :, 0:3], cv2.COLOR_BGR2GRAY)
+        np_img_small_choose[:, :, 0] = 255 - np_img_raw[:, :, 3]
+        np_img_small_choose[:, :, 1] = cv2.cvtColor(np_img_raw, cv2.COLOR_BGRA2GRAY)
+        np_img_small_choose[:, :, 2] = cv2.cvtColor(np_img_raw[:, :, 0:3], cv2.COLOR_BGR2GRAY)
 
         # Get nonzero element of every resize gray
         ln_sence_non0_num = []
@@ -59,10 +48,10 @@ def raw_img_do_resize_gray(np_img_raw, n_resize):
             n_max_index = ln_diff_pix_num.index(max(ln_diff_pix_num))
             np_img_small = np_img_small_choose[:, :, n_max_index]
     # Raw Image is gray image
-    elif len(np_img_resize.shape) == 3 and np_img_resize.shape[2] == 1:
-        np_img_small = np_img_resize[:, :, 0]
-    elif len(np_img_resize.shape) == 2:
-        np_img_small = np_img_resize
+    elif len(np_img_raw.shape) == 3 and np_img_raw.shape[2] == 1:
+        np_img_small = np_img_raw[:, :, 0]
+    elif len(np_img_raw.shape) == 2:
+        np_img_small = np_img_raw
 
     #    print(np_img_small.shape)
     return np_img_small, 0
