@@ -5,7 +5,6 @@ import cv2
 import shutil
 import imghdr
 
-
 # @创建文件夹
 # @input:s_path 保存的文件夹
 # @output:
@@ -15,3 +14,12 @@ def recur_mkdir(s_path, run_logger=None):
     else:
         os.makedirs(s_path)
         run_logger and run_logger.info("%s create" % s_path)
+
+# 删除一个文件
+def rm_file(s_file):
+     try: 
+         os.remove(s_file) # 旧文件删除
+     except Exception as e:
+         print('Err: cant'' remove %s, %s' % (s_file, str(e)), 'err')
+         return -1
+     return 0
