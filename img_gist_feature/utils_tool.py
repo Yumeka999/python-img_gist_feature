@@ -23,3 +23,15 @@ def rm_file(s_file):
          print('Err: cant'' remove %s, %s' % (s_file, str(e)), 'err')
          return -1
      return 0
+
+
+
+
+# 复制一个文件
+def cp_file(s_src_file, s_dest_file):
+    try: 
+        shutil.copyfile(s_src_file, s_dest_file) # 旧文件复制到临时文件夹中 
+    except Exception as e:
+        print('Err: cant''t copy %s to %s, %s' % (s_src_file, s_dest_file, str(e)))
+        return -1
+    return 0
