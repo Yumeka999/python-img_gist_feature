@@ -5,8 +5,8 @@ import cv2
 import shutil
 import imghdr
 
-# @创建文件夹
-# @input:s_path 保存的文件夹
+# @Create dir 
+# @input:s_path dir to save
 # @output:
 def recur_mkdir(s_path, run_logger=None):  
     if os.path.exists(s_path) and os.path.isdir(s_path):
@@ -15,7 +15,8 @@ def recur_mkdir(s_path, run_logger=None):
         os.makedirs(s_path)
         run_logger and run_logger.info("%s create" % s_path)
 
-# 删除一个文件
+
+# delete a file 
 def rm_file(s_file):
      try: 
          os.remove(s_file) # 旧文件删除
@@ -25,9 +26,7 @@ def rm_file(s_file):
      return 0
 
 
-
-
-# 复制一个文件
+# copy a file
 def cp_file(s_src_file, s_dest_file):
     try: 
         shutil.copyfile(s_src_file, s_dest_file) # 旧文件复制到临时文件夹中 

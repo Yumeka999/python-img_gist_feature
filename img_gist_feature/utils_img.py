@@ -5,7 +5,7 @@ import os
 import imghdr
 
 
-# Is numpy matrix all no-zero data in alpha channel
+''' Is numpy matrix all no-zero data in alpha channel ''' 
 def is_single_alpha(np_raw_img):
     if(np_raw_img.shape[-1]!=4):
         return False
@@ -14,7 +14,7 @@ def is_single_alpha(np_raw_img):
             return False
     return True
 
-# Convert raw image to small gray image, resize is  n_resize * n_resize
+''' Convert raw image to small gray image, resize is  n_resize * n_resize ''' 
 def img_2gray(np_img_raw):
     if np_img_raw is None:
         return None, -3
@@ -56,7 +56,7 @@ def img_2gray(np_img_raw):
     #    print(np_img_gray.shape)
     return np_img_gray, 0
     
-# a image to bgr format  
+'''  a image to bgr format '''   
 def img_2bgr(np_img_in):
     if np_img_in is None:
         return None, -3
@@ -99,7 +99,8 @@ def img_2bgr(np_img_in):
 
 
     return np_img_bgr, 0
-    
+
+''' resize a image '''     
 def img_resize(np_img_in, n_resize):
     np_img_resize = np_img_in
     n_row, n_col, n_chanel = np_img_resize.shape
@@ -132,51 +133,74 @@ def is_usable_img(s_img_url):
 
 
 
-# Delank process for gray image
-def small_gray_img_deblank(np_img_raw, n_resize):
-    # ONLY PROCESS GRAY IMAGE
-    if len(np_img_raw.shape) != 2:
+''' A image deblank '''
+def img_deblank(np_img_raw):
+    # only gray and color image can be deblanked
+    n_shape_size = len(np_img_raw.shape)
+    if n_shape_size < 2 or n_shape_size > 4 or (n_shape_size == 3 and np_img_raw.shape[2] !=3 ):
         return None, -1
 
-    # size of image must be n_resize x n_resize
-    n_row, n_col = np_img_raw.shape
-    if n_row != n_resize and n_col != n_resize:
-        s_run_msg = 'size of raw image is not %dx%d' % (n_resize, n_resize)
-        return None, -1
+    # gray image strategy
+    if n_shape_size == 2:
+        n_row, n_col = np_img_raw.shape
+        # OTSU to get binary image
+        try:
+            thrsh, np_img_otsu = cv2.threshold(np_img_raw, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+        except Exception as e:
+            s_run_msg = 'url cv threshold otsu error, err:%s' % (str(e))
+            return None, -1
 
-    # OTSU to get binary image
-    try:
-        thrsh, np_img_otsu = cv2.threshold(np_img_raw, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-    except Exception as e:
-        s_run_msg = 'url cv threshold otsu error, err:%s' % (str(e))
-        return None, -1
+        # find coordinate of balck point of left-top
+        np_blank_index = np.argwhere(np_img_otsu == 0)
 
-    # find coordinate of balck point of left-top
-    np_blank_index = np.argwhere(np_img_otsu == 0)
+        # if no black in small image, so don't need to do deblank
+        if np_blank_index.shape[0] == 0:
+            return np_img_raw, 1
 
-    # if no black in small image, so don't need to do deblank
-    if np_blank_index.shape[0] == 0:
-        return np_img_raw, 1
+        # Get coordinate of left-top  right-bottom
+        n_row_min = np.min(np_blank_index[:, 0])
+        n_row_max = np.max(np_blank_index[:, 0])
+        n_col_min = np.min(np_blank_index[:, 1])
+        n_col_max = np.max(np_blank_index[:, 1])
 
-    # Get coordinate of left-top  right-bottom
-    n_row_min = np.min(np_blank_index[:, 0])
-    n_row_max = np.max(np_blank_index[:, 0])
-    n_col_min = np.min(np_blank_index[:, 1])
-    n_col_max = np.max(np_blank_index[:, 1])
+        # if no blank so don't need to do deblank
+        if n_row_min == 0 and n_col_min == 0 and n_row_max == n_row and n_col_max == n_col:
+            return np_img_otsu, 1
 
-    # if no blank so don't need to do deblank
-    if n_row_min == 0 and n_col_min == 0 and n_row_max == n_resize and n_col_max == n_resize:
-        return np_img_otsu, 1
+        # get deblank zone of small image
+        np_img_deblank_zone = np_img_raw[n_row_min: n_row_max + 1, n_col_min:n_col_max + 1]
+        return np_img_deblank_zone, 0
+    else:
+        row, col, c = np_img_raw.shape
 
-    # get deblank zone of small image
-    np_img_deblank_zone = np_img_raw[n_row_min: n_row_max + 1, n_col_min:n_col_max + 1]
-    try:
-        np_img_deblank_resize = cv2.resize(np_img_deblank_zone, (n_resize, n_resize), fx=0.5, fy=0.5,
-                                           interpolation=cv2.INTER_AREA)
-    except Exception as e:
-        s_run_msg = 'Error in resize, and err:%s' % str(e)
-        return None, -1
-    return np_img_deblank_resize, 0
+        tempr0 = 0
+        tempr1 = 0
+        tempc0 = 0
+        tempc1 = 0
+
+        for r in range(row):
+            if np_img_raw[r,:,:].sum() != 765 * col:
+                tempr0 = r
+                break
+
+        for r in range(row-1,0,-1):
+            if np_img_raw[r,:,:].sum() != 765 * col:
+                tempr1 = r
+                break
+
+        for c in range(col):
+            if np_img_raw[:,c,:].sum() != 765 * row:
+                tempc0=c
+                break
+
+        for c in range(col-1, 0,-1):
+            if np_img_raw[:,c,:].sum() != 765 * row:
+                tempc1=c
+                break
+
+        np_img_deblank_zone = np_img_raw[tempr0:tempr1+1, tempc0:tempc1+1,:]
+        return np_img_deblank_zone, 0
+
 
 def get_all_frame_from_gif(s_gif_url):
     return 
