@@ -1,19 +1,20 @@
 import json
 from img_gist_feature.utils_gist import *
+from img_gist_feature.utils_tool import *
 import matplotlib.pyplot as plt
 import cv2
 
 
 def get_img_gist_feat(s_img_url):
     gist_helper = GistUtils()
-    np_img = preproc_img(s_img_url)
-    np_gist = gist_helper.get_gist_vec(np_img)
-    np_gist_L2Norm = np_l2norm(np_gist).reshape(-1)
-    
+    np_img = cv2.imread(s_img_url, -1)
+    np_gist = gist_helper.get_gist_vec(np_img, mode="rgb")
+    np_gist_L2Norm = np_l2norm(np_gist)
     print()
     print("img url: %s" % s_img_url) 
-    print("gist feature:", np_gist)
-    print("gist feature(L2 norm):", np_gist_L2Norm)
+    print("shape ", np_gist.shape)
+    print("gist feature noly show 10dim", np_gist[0,:10], "...")
+    print("gist feature(L2 norm) noly show 10dim", np_gist_L2Norm[0,:10], "...")
     print()
 
     return np_gist_L2Norm
