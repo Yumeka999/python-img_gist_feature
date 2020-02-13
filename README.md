@@ -41,18 +41,48 @@ param.fc_prefilt = 4;
 # 3.1 提取Gist特征
 
 ```
+import cv2
 from img_gist_feature.utils_gist import *
 
 s_img_url = "./test/A.jpg"
 gist_helper = GistUtils()
-np_img = preproc_img(s_img_url)
-np_gist = gist_helper.get_gist_vec(np_img)
 
-print(np_gist)
+np_img = cv2.imread(s_img_url, -1)
+
+print("default: rgb")
+np_gist = gist_helper.get_gist_vec(np_img)
+print("shape ", np_gist.shape)
+print("noly show 10dim", np_gist[0,:10], "...")
+print()
+
+print("convert rgb image")
+np_gist = gist_helper.get_gist_vec(np_img, mode="rgb")
+print("shape ", np_gist.shape)
+print("noly show 10dim", np_gist[0,:10], "...")
+print()
+
+print("convert gray image")
+np_gist = gist_helper.get_gist_vec(np_img, mode="gray")
+print("shape ", np_gist.shape)
+print("noly show 10dim", np_gist[0,:10], "...")
+print()
 
 ```
 运行得到的gist特征为
-[[0.08787015 0.07296596 0.10566235 ... 0.03908335 0.03852283 0.03798099]]
+default: rgb
+shape  (1, 1536)
+noly show 10dim [0.02520592 0.05272802 0.05941689 0.05476999 0.13110509 0.13333975
+ 0.29072759 0.16522023 0.25032277 0.36850457] ...
+
+convert rgb image
+shape  (1, 1536)
+noly show 10dim [0.02520592 0.05272802 0.05941689 0.05476999 0.13110509 0.13333975
+ 0.29072759 0.16522023 0.25032277 0.36850457] ...
+
+convert gray image
+shape  (1, 512)
+noly show 10dim [0.10004389 0.20628179 0.17682694 0.16277722 0.10557428 0.14448622
+ 0.29214159 0.11260066 0.16488087 0.28381876] ...
 
 
 
