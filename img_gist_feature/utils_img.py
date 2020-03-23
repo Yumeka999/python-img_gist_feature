@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-import numpy as np
-import cv2
+
 import os
+import cv2
 import imghdr
+import numpy as np
 
 
 ''' Is numpy matrix all no-zero data in alpha channel ''' 

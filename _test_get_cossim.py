@@ -1,8 +1,12 @@
-import json
-from img_gist_feature.utils_gist import *
-from img_gist_feature.utils_tool import *
-import matplotlib.pyplot as plt
 import cv2
+import sys
+import json
+import matplotlib.pyplot as plt
+
+sys.path.append("./img_gist_feature/")
+
+from utils_gist import *
+from utils_tool import *
 
 
 def get_img_gist_feat(s_img_url):

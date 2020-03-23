@@ -1,5 +1,9 @@
 import cv2
-from img_gist_feature.utils_gist import *
+import sys
+
+sys.path.append("./img_gist_feature/")
+
+from utils_gist import *
 
 s_img_url = "./test/A.jpg"
 gist_helper = GistUtils()
