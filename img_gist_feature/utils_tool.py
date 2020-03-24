@@ -18,6 +18,15 @@ def recur_mkdir(s_path, run_logger=None):
         run_logger and run_logger.info("%s create" % s_path)
 
 
+# Get right string
+def get_usable_str(s_in):
+    s_tmp = s_in  
+    s_unvalid = '<>,\/|,:.,''",*,?\t\r\n'
+    for ch in s_unvalid:
+        s_tmp = s_tmp.replace(ch,'')
+    s_tmp = s_tmp.replace(u'\u3000','')
+    return s_tmp
+
 # delete a file 
 def rm_file(s_file):
      try: 
