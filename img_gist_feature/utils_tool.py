@@ -27,12 +27,15 @@ def get_usable_str(s_in):
     s_tmp = s_tmp.replace(u'\u3000','')
     return s_tmp
 
-# delete a file 
-def rm_file(s_file):
-     try: 
-         os.remove(s_file) # 旧文件删除
+# 删除一个文件
+def rm_file(s_file, run_logger=None):
+     try:
+        if os.path.exists(s_file) and os.path.isfile(s_file): # 旧文件存在则删除
+            os.remove(s_file) 
+        else:
+            run_logger and run_logger.warning('Err: not exists %s' % (s_file, str(e)))
      except Exception as e:
-         print('Err: cant'' remove %s, %s' % (s_file, str(e)), 'err')
+         run_logger and run_logger.error('Err: cant'' remove %s' % (s_file, str(e)))
          return -1
      return 0
 
