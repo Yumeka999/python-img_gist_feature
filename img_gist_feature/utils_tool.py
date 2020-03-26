@@ -39,7 +39,6 @@ def rm_file(s_file, run_logger=None):
          return -1
      return 0
 
-
 # 删除一个文件夹
 def rm_dir(s_dir, run_logger=None):
      try:
