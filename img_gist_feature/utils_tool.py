@@ -40,14 +40,17 @@ def rm_file(s_file, run_logger=None):
      return 0
 
 
-# copy a file
-def cp_file(s_src_file, s_dest_file):
-    try: 
-        shutil.copyfile(s_src_file, s_dest_file) # 旧文件复制到临时文件夹中 
-    except Exception as e:
-        print('Err: cant''t copy %s to %s, %s' % (s_src_file, s_dest_file, str(e)))
-        return -1
-    return 0
+# 删除一个文件夹
+def rm_dir(s_dir, run_logger=None):
+     try:
+        if os.path.exists(s_dir) and os.path.isdir(s_dir): # 旧文件存在则删除
+            shutil.rmtree(s_dir) 
+        else:
+            run_logger and run_logger.error('Err: not exists %s' % (s_file, str(e)))
+     except Exception as e:
+         run_logger and run_logger.error('Err: cant'' remove %s' % (s_file, str(e)))
+         return -1
+     return 0
 
 #@numba.autojit
 def get_all_cos_sim(np_A ,np_B, np_B_L2 = None):
