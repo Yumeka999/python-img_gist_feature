@@ -17,7 +17,6 @@ def recur_mkdir(s_path, run_logger=None):
         os.makedirs(s_path)
         run_logger and run_logger.info("%s create" % s_path)
 
-
 # Get right string
 def get_usable_str(s_in):
     s_tmp = s_in  
@@ -105,3 +104,13 @@ def np_l2norm(np_x):
 
 def get_cos_sim(np_A, np_B):
     return np.inner(np_A, np_B)/(np.linalg.norm(np_A) * np.linalg.norm(np_B))
+
+
+# 复制一个文件
+def cp_file(s_in_url, s_out_url, run_logger=None):
+    try: 
+        shutil.copyfile(s_in_url, s_out_url) # 旧文件复制到临时文件夹中 
+    except Exception as e:
+        run_logger and run_logger.error('Err: cant''t copy %s to %s, %s' % (s_in_url, s_out_url, str(e)))
+        return -1
+    return 0
