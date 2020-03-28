@@ -114,3 +114,12 @@ def cp_file(s_in_url, s_out_url, run_logger=None):
         run_logger and run_logger.error('Err: cant''t copy %s to %s, %s' % (s_in_url, s_out_url, str(e)))
         return -1
     return 0
+
+# 移动一个文件
+def mv_file(s_in_url, s_out_url, run_logger=None):
+    try: 
+        shutil.move(s_in_url, s_out_url) # 旧文件复制到临时文件夹中 
+    except Exception as e:
+        run_logger and run_logger.error('Err: cant''t copy %s to %s, %s' % (s_in_url, s_out_url, str(e)))
+        return -1
+    return 0
