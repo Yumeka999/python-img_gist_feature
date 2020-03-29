@@ -123,3 +123,18 @@ def mv_file(s_in_url, s_out_url, run_logger=None):
         run_logger and run_logger.error('Err: cant''t copy %s to %s, %s' % (s_in_url, s_out_url, str(e)))
         return -1
     return 0
+
+
+# 复制一个文件夹
+def cp_dir(s_in_dir, s_out_dir, run_logger=None): 
+    try:
+        n_ret = 0
+        if os.path.exists(s_out_dir) and os.path.isdir(s_out_dir):
+            n_ret = rm_dir(s_out_dir)
+        if os.path.exists(s_out_dir) and os.path.isfile(s_out_dir):
+            n_ret = rm_file(s_out_dir)
+        n_ret == 0 and shutil.copytree(s_in_dir, s_out_dir) # 旧文件夹复制到临时文件夹中 
+    except Exception as e:
+        run_logger and run_logger.error('Err: cant''t copy %s to %s, %s' % (s_in_dir, s_out_dir, str(e)))
+        return -1
+    return 0
