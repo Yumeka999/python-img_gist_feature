@@ -4,7 +4,7 @@ import os
 import cv2
 import imghdr
 import numpy as np
-
+from PIL import Image
 
 ''' Is numpy matrix all no-zero data in alpha channel ''' 
 def is_single_alpha(np_raw_img):
@@ -198,15 +198,30 @@ def img_deblank(np_img_raw):
             if np_img_raw[:,c,:].sum() != 765 * row:
                 tempc1=c
                 break
-
         np_img_deblank_zone = np_img_raw[tempr0:tempr1+1, tempc0:tempc1+1,:]
         return np_img_deblank_zone, 0
 
+# 从Gif抽取所有图片
+def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_logger=None):
+    recur_mkdir(s_all_frame_out_dor, run_logger)
 
-def get_all_frame_from_gif(s_gif_url):
-    return 
+    f_duration = 0.0
+    try:
+        pil_gif = Image.open(s_gif_url)
+        n_frame = 0
+        while pil_gif:
+            pil_gif.save('%s/%s.png' % (s_all_frame_out_dor, str(n_frame).zfill(3)), 'PNG')
+            n_frame += 1
+            f_duration += pil_gif.info['duration']
+            try:
+                pil_gif.seek(n_frame)
+            except EOFError:
+                return 1, 0.0 # static gif image
+    except Exception as e:
+        run_logger and run_logger.error('Err %s' % (str(e)))
+        return -1, 0.0
 
-
+    return 0, n_frame / f_duration * 1000
 
 # 得到图片的真实格式
 def get_img_obv_and_true_ext(s_img_in_url, run_logger=None):
@@ -229,3 +244,4 @@ def get_img_obv_and_true_ext(s_img_in_url, run_logger=None):
         return s_obv_ext, ""
     else:
         return s_obv_ext, "." + s_true_ext
+
