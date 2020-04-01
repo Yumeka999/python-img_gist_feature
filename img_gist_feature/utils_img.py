@@ -244,4 +244,3 @@ def get_img_obv_and_true_ext(s_img_in_url, run_logger=None):
         return s_obv_ext, ""
     else:
         return s_obv_ext, "." + s_true_ext
-
