@@ -130,6 +130,22 @@ def is_usable_img(s_img_url):
         print('img url:%s, is null mat' % s_img_url)
         return False
     
+    # if len(np_img_in.shape) == 3:
+    #     np_img_gray = cv2.cvtColor(np_img_in, cv2.COLOR_RGB2GRAY)
+    # else:
+    #     np_img_gray = np_img_in
+    # n_h, n_w = np_img_gray.shape  
+    # # 接近底部的连续相邻行一样，认为下载不完整
+    # n_same = 0
+    # for i in range(1, n_h ):
+    #     np_row_unique = np.unique(np_img_gray[n_h - i,:] - np_img_gray[n_h - i-1,:])
+    #     if len(np_row_unique) == 1 and np_row_unique == np.asarray([0]):
+    #         n_same += 1
+    #     else:
+    #         break          
+    # if n_same >= int(n_h/17):
+    #     return False
+    
     return True
 
 
