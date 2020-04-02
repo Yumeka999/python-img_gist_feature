@@ -246,14 +246,7 @@ def get_img_obv_and_true_ext(s_img_in_url, run_logger=None):
     if not os.path.exists(s_img_in_url) or not os.path.isfile(s_img_in_url):
         run_logger and run_logger.warning("%s not exists or not a file" % s_img_in_url)
         return s_obv_ext, ""
-
-    # np_img_in = cv2.imdecode(np.fromfile(s_img_in_url, dtype=np.uint8), -1)
-    # cv2.imread(s_img_in_url, cv2.IMREAD_UNCHANGED)    
-
-    # if np_img_in is None:
-    #     run_logger and run_logger.warning("%s not a iamge" % s_img_in_url)
-    #     return s_obv_ext, ""
-   
+ 
     s_true_ext = imghdr.what(s_img_in_url)
     if s_true_ext is None:
         run_logger and run_logger.warning("%s not a iamge with imghdr" % s_img_in_url)
