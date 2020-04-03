@@ -253,3 +253,11 @@ def get_img_obv_and_true_ext(s_img_in_url, run_logger=None):
         return s_obv_ext, ""
     else:
         return s_obv_ext, "." + s_true_ext
+
+
+
+
+# 从路径读取图片
+def read_img(s_img_in_url):
+    np_img = cv2.imdecode(np.fromfile(s_img_in_url, dtype=np.uint8), cv2.IMREAD_UNCHANGED)
+    return np_img
