@@ -270,3 +270,29 @@ def write_img(s_img_out_url, np_img):
         return -1
     cv2.imencode(s_ext, np_img)[1].tofile(s_img_out_url)
     return 0
+
+
+def img_resize_win(np_img_in, n_max, n_limit_ratio):
+    n_h, n_w = np_img_in.shape[0], np_img_in.shape[1]
+    re_h, re_w = 0, 0
+    b_need_resize = True
+
+    if n_h/n_w > n_limit_ratio or n_w/n_h > n_limit_ratio:  # 宽高比或高宽比大于limit_ratio
+        b_need_resize = False   
+    elif n_w <= n_max and n_h <= n_max: 
+        b_need_resize = False   
+    elif n_w > n_max and n_h <= n_max:  # 如果宽度大于最大值
+        re_w = n_max 
+        re_h = (n_h*re_w)//n_w        
+    elif n_w <= n_max and n_h >= n_max:  # 如果高度大于最大值
+        re_h = n_max     
+        re_w = (n_w*re_h)//n_h          
+    else:
+        re_w = n_max
+        re_h = (n_h*re_w)//n_w
+        if re_h > n_max:
+            re_h = n_max     
+            re_w = (n_w*re_h)//n_h   
+            print(re_w, re_h)
+    np_img_resize = cv2.resize(np_img_in, (re_w, re_h), fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA) if b_need_resize else np_img_in 
+    return np_img_resize
