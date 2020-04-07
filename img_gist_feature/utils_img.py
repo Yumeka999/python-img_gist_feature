@@ -222,22 +222,25 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_logger=None):
     recur_mkdir(s_all_frame_out_dor, run_logger)
 
     f_duration = 0.0
-    try:
-        pil_gif = Image.open(s_gif_url)
-        n_frame = 0
-        while pil_gif:
-            pil_gif.save('%s/%s.png' % (s_all_frame_out_dor, str(n_frame).zfill(3)), 'PNG')
-            n_frame += 1
-            f_duration += pil_gif.info['duration']
-            try:
-                pil_gif.seek(n_frame)
-            except EOFError:
-                return 1, 0.0 # static gif image
-    except Exception as e:
-        run_logger and run_logger.error('Err %s' % (str(e)))
-        return -1, 0.0
+    n_frame_num = 0
+    # try:
+    pil_gif = Image.open(s_gif_url)
+    b_animate = pil_gif.is_animated
+    n_frame_num = pil_gif.n_frames
 
-    return 0, n_frame / f_duration * 1000
+    if not b_animate: # 静态gif
+        return 1, 0.0
+    
+    for i in range(n_frame_num):
+        pil_gif.seek(i)
+
+        f_duration += pil_gif.info['duration']
+        pil_sav = pil_gif.convert('RGB')
+        pil_sav.save('%s/%s.jpg' % (s_all_frame_out_dor, str(i+1).zfill(3)))
+    # except Exception as e:
+    #     run_logger and run_logger.error('Err %s' % (str(e)))
+    #     return -1, 0.0
+    return 0, n_frame_num / f_duration * 1000
 
 # 得到图片的真实格式
 def get_img_obv_and_true_ext(s_img_in_url, run_logger=None):
