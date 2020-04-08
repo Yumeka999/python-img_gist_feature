@@ -300,6 +300,7 @@ def img_resize_win(np_img_in, n_max, n_limit_ratio):
     np_img_resize = cv2.resize(np_img_in, (re_w, re_h), fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA) if b_need_resize else np_img_in 
     return np_img_resize
 
+
 # 判断是否为正确的bpg图片
 def is_bpg_img(s_img_in_url):
     if not os.path.exists(s_img_in_url) or not os.path.isfile(s_img_in_url):
