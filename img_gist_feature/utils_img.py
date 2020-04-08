@@ -218,7 +218,7 @@ def img_deblank(np_img_raw):
         return np_img_deblank_zone, 0
 
 # 从Gif抽取所有图片
-def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_logger=None):
+def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor,  =None):
     recur_mkdir(s_all_frame_out_dor, run_logger)
 
     f_duration = 0.0
@@ -299,3 +299,23 @@ def img_resize_win(np_img_in, n_max, n_limit_ratio):
             print(re_w, re_h)
     np_img_resize = cv2.resize(np_img_in, (re_w, re_h), fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA) if b_need_resize else np_img_in 
     return np_img_resize
+
+# 判断是否为正确的bpg图片
+def is_bpg_img(s_img_in_url):
+    if not os.path.exists(s_img_in_url) or not os.path.isfile(s_img_in_url):
+        return -1
+
+    if not s_img_in_url.endswith(".bpg"):
+        return 1
+
+    with open(s_img_in_url, "rb") as fp:
+        for now in fp:
+            n_byte_1 = now[0]
+            n_byte_2 = now[1]
+            if n_byte_1 == 0x42 and n_byte_2 == 0x50:
+                return 0
+            # print("%#x" % n_byte_1)
+            # print("%#x" % n_byte_2) 
+            break
+    
+    return -1
