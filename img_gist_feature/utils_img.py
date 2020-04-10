@@ -218,7 +218,7 @@ def img_deblank(np_img_raw):
         return np_img_deblank_zone, 0
 
 # 从Gif抽取所有图片
-def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor,  =None):
+def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor,  run_logger=None):
     recur_mkdir(s_all_frame_out_dor, run_logger)
 
     f_duration = 0.0
@@ -269,7 +269,7 @@ def read_img(s_img_in_url):
 # 从路径写入图片
 def write_img(s_img_out_url, np_img):
     s_ext = s_img_out_url[s_img_out_url.rfind("."):]
-    if s_ext.lower() not in [".jpg", ".jpeg", ".png", ".bmp", ".tif", ".webp"]
+    if s_ext.lower() not in [".jpg", ".jpeg", ".png", ".bmp", ".tif", ".webp"]:
         return -1
     cv2.imencode(s_ext, np_img)[1].tofile(s_img_out_url)
     return 0

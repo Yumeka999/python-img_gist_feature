@@ -13,6 +13,7 @@ from utils_img import *
 
 class GistUtils:
     def __init__(self, n_resize=128, n_w=5, ln_orientation=[8, 8, 8, 8], n_block_num=4, n_prefilt=4):
+        # vector dim(single chanle): (8+8+8+8)*(4*4) = 512
         self.n_resize = n_resize
         self.n_boundaryExtension = self.n_resize // 4
         self.n_w = n_w    
