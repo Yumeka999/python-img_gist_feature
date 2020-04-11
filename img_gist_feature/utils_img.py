@@ -261,17 +261,24 @@ def get_img_obv_and_true_ext(s_img_in_url, run_logger=None):
 
 
 # 从路径读取图片
-def read_img(s_img_in_url):
-    np_img = cv2.imdecode(np.fromfile(s_img_in_url, dtype=np.uint8), cv2.IMREAD_UNCHANGED)
+def read_img(s_img_in_url, run_logger=None):
+    try:
+        np_img = cv2.imdecode(np.fromfile(s_img_in_url, dtype=np.uint8), cv2.IMREAD_UNCHANGED)    
+    except Exception as e:
+        run_logger and run_logger.error('Err %s' % str(e))
+        return None
     return np_img
 
-
 # 从路径写入图片
-def write_img(s_img_out_url, np_img):
+def write_img(s_img_out_url, np_img, run_logger=None):
     s_ext = s_img_out_url[s_img_out_url.rfind("."):]
     if s_ext.lower() not in [".jpg", ".jpeg", ".png", ".bmp", ".tif", ".webp"]:
         return -1
-    cv2.imencode(s_ext, np_img)[1].tofile(s_img_out_url)
+    try:
+        cv2.imencode(s_ext, np_img)[1].tofile(s_img_out_url)
+    except Exception as e:
+        run_logger and run_logger.error('Err %s' % str(e))
+        return -1
     return 0
 
 
