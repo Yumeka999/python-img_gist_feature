@@ -102,13 +102,14 @@ def img_2bgr(np_img_in):
     return np_img_bgr, 0
 
 ''' resize a image '''     
-def img_resize(np_img_in, n_resize):
+def img_resize(np_img_in, n_resize, run_logger=None):
     np_img_resize = np_img_in
     n_row, n_col, n_chanel = np_img_resize.shape
     if n_resize > 0 and (n_row != n_resize or n_col != n_resize):
         try:
             np_img_resize = cv2.resize(np_img_resize, (n_resize, n_resize), fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
         except Exception as e:
+            run_logger and run_logger.error('Err %s' % str(e))
             return None, -3
 
     return np_img_resize, 0

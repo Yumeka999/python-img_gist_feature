@@ -59,4 +59,3 @@ if __name__ == "__main__":
     O_IN['s_img_url_a'] = "./test/A.jpg"
     O_IN['s_img_url_b'] = "./test/B.jpg"
     proc_main(O_IN)
-
