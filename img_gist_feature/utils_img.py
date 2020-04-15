@@ -2,9 +2,15 @@
 
 import os
 import cv2
+import sys
 import imghdr
 import numpy as np
 from PIL import Image
+
+S_NOW_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(S_NOW_DIR)
+
+from utils_tool import *
 
 ''' Is numpy matrix all no-zero data in alpha channel ''' 
 def is_single_alpha(np_raw_img):
