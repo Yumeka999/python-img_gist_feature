@@ -7,6 +7,7 @@ import imghdr
 import numpy as np
 from PIL import Image
 
+
 S_NOW_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(S_NOW_DIR)
 
