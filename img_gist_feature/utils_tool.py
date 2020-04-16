@@ -2,10 +2,14 @@
 
 import os
 import cv2
+import sys
 import time
 import imghdr
 import shutil
 import numpy as np
+
+S_NOW_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(S_NOW_DIR)
 
 # @Create dir 
 # @input:s_path dir to save
