@@ -131,8 +131,8 @@ def mv_file(s_in_url, s_out_url, run_logger=None):
 
 # 复制一个文件夹
 def cp_dir(s_in_dir, s_out_dir, run_logger=None): 
-    try:
-        n_ret = 0
+    n_ret = 0
+    try:     
         if os.path.exists(s_out_dir) and os.path.isdir(s_out_dir):
             n_ret = rm_dir(s_out_dir)
         if os.path.exists(s_out_dir) and os.path.isfile(s_out_dir):
@@ -141,4 +141,4 @@ def cp_dir(s_in_dir, s_out_dir, run_logger=None):
     except Exception as e:
         run_logger and run_logger.error('Err: cant''t copy %s to %s, %s' % (s_in_dir, s_out_dir, str(e)))
         return -1
-    return 0
+    return n_ret
