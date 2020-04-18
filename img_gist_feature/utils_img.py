@@ -335,3 +335,27 @@ def is_bpg_img(s_img_in_url, run_logger=None):
         
     run_logger and run_logger.warning("not right bpg")
     return -1
+
+
+
+
+
+
+
+
+
+# 得到直方图均衡图片
+def get_histeq_img(np_img_in):
+    if np_img_in is None:
+        return None
+    
+    n_shape_len = len(np_img_in.shape)
+    np_img_out = None
+    if n_shape_len == 2: # 单通道图
+        np_img_out = cv2.equalizeHist(np_img_in)
+    elif n_shape_len == 3 and np_img_in.shape[2] == 3: # RGB三通道
+        np_img_out = np.zeros(np_img_in.shape)
+        np_img_out[:,:,0] = cv2.equalizeHist(np_img_in[:,:,0])
+        np_img_out[:,:,1] = cv2.equalizeHist(np_img_in[:,:,1])
+        np_img_out[:,:,2] = cv2.equalizeHist(np_img_in[:,:,2])
+    return np_img_out
