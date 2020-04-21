@@ -309,7 +309,6 @@ def img_resize_win(np_img_in, n_max, n_limit_ratio):
         if re_h > n_max:
             re_h = n_max     
             re_w = (n_w*re_h)//n_h   
-            print(re_w, re_h)
     np_img_resize = cv2.resize(np_img_in, (re_w, re_h), fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA) if b_need_resize else np_img_in 
     return np_img_resize
 
