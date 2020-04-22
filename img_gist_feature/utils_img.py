@@ -6,7 +6,7 @@ import sys
 import imghdr
 import numpy as np
 from PIL import Image
-
+from skimage.measure import compare_ssim
 
 S_NOW_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(S_NOW_DIR)
@@ -358,3 +358,8 @@ def get_histeq_img(np_img_in, run_logger=None):
         np_img_out[:,:,1] = cv2.equalizeHist(np_img_in[:,:,1])
         np_img_out[:,:,2] = cv2.equalizeHist(np_img_in[:,:,2])
     return np_img_out
+
+# 计算ssim
+def get_ssim(np_img_A, np_img_B):
+    sim, _ = compare_ssim(np_img_A, np_img_B, full=True)
+    return sim
