@@ -361,5 +361,12 @@ def get_histeq_img(np_img_in, run_logger=None):
 
 # 计算ssim
 def get_ssim(np_img_A, np_img_B):
+    # 必须是灰度图
+    if len(np_img_A.shape) == 3:
+        return -1.0
+
+    if len(np_img_B.shape) == 3:
+        return -1.0
+
     sim, _ = compare_ssim(np_img_A, np_img_B, full=True)
     return sim
