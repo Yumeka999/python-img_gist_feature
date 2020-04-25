@@ -11,15 +11,28 @@ import numpy as np
 S_NOW_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(S_NOW_DIR)
 
-# @Create dir 
-# @input:s_path dir to save
+# @创建文件夹
+# @input:s_path 保存的文件夹
 # @output:
-def recur_mkdir(s_path, run_logger=None):  
+def recur_mkdir(s_path, run_logger=None, b_print=False):  
     if os.path.exists(s_path) and os.path.isdir(s_path):
-        run_logger and run_logger.info("%s has been created" % s_path)
+        run_logger and run_logger.warning("%s has been created" % s_path)
+        b_print and print("%s has been created" % s_path)
+
+        return 1
     else:
-        os.makedirs(s_path)
-        run_logger and run_logger.info("%s create" % s_path)
+        try:
+            os.makedirs(s_path)
+
+            run_logger and run_logger.info("%s create" % s_path)
+            b_print and print("%s create" % s_path)
+
+            return 0
+        except Exception as e:
+            run_logger and run_logger.error("%s" % str(e))
+            b_print and print("%s" % str(e))
+            
+            return -1
 
 # Get right string
 def get_usable_str(s_in):
