@@ -16,21 +16,24 @@ sys.path.append(S_NOW_DIR)
 # @output:
 def recur_mkdir(s_path, run_logger=None, b_print=False):  
     if os.path.exists(s_path) and os.path.isdir(s_path):
-        run_logger and run_logger.warning("%s has been created" % s_path)
-        b_print and print("%s has been created" % s_path)
+        s_msg = "%s has been created" % s_path
+        run_logger and run_logger.warning(s_msg)
+        b_print and print(s_msg)
 
         return 1
     else:
         try:
             os.makedirs(s_path)
-
-            run_logger and run_logger.info("%s create" % s_path)
-            b_print and print("%s create" % s_path)
+            
+            s_msg = "%s create" % s_path
+            run_logger and run_logger.info(s_msg)
+            b_print and print(s_msg)
 
             return 0
         except Exception as e:
-            run_logger and run_logger.error("%s" % str(e))
-            b_print and print("%s" % str(e))
+            s_msg = "%s" % str(e)
+            run_logger and run_logger.error(s_msg)
+            b_print and print(s_msg)
             
             return -1
 
