@@ -140,11 +140,13 @@ def get_cos_sim(np_A, np_B):
 
 
 # 复制一个文件
-def cp_file(s_in_url, s_out_url, run_logger=None):
+def cp_file(s_in_url, s_out_url, run_logger=None, b_print=False):
     try: 
         shutil.copyfile(s_in_url, s_out_url) # 旧文件复制到临时文件夹中 
     except Exception as e:
-        run_logger and run_logger.error('Err: cant''t copy %s to %s, %s' % (s_in_url, s_out_url, str(e)))
+        s_msg = 'Err: cant''t copy %s to %s, %s' % (s_in_url, s_out_url, str(e))
+        run_logger and run_logger.error(s_msg)
+        b_print and print(s_msg)
         return -1
     return 0
 
