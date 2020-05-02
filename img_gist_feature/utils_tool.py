@@ -47,22 +47,23 @@ def get_usable_str(s_in):
     return s_tmp
 
 
-
-
-
 # 删除一个文件
 def rm_file(s_file, run_logger=None, b_print=False):
      try:
         if os.path.exists(s_file) and os.path.isfile(s_file): # 旧文件存在则删除
             os.remove(s_file) 
+            return 0
         else:
-            run_logger and run_logger.warning('Err: not exists %s' % (s_file))
-            b_print and print('Err: not exists %s' % (s_file))
+            s_msg = 'Err: not exists %s' % (s_file)
+            run_logger and run_logger.warning(s_msg)
+            b_print and print(s_msg)
+
+            return 1
      except Exception as e:
-         run_logger and run_logger.error('Err: cant'' remove %s %s' % (s_file, str(e)))
-         b_print and print('Err: cant'' remove %s %s' % (s_file, str(e)))
+         s_msg = 'Err: cant'' remove %s %s' % (s_file, str(e))
+         run_logger and run_logger.error(s_msg)
+         b_print and print(s_msg)
          return -1
-     return 0
 
 # 删除一个文件夹
 def rm_dir(s_dir, run_logger=None, b_print=False):
