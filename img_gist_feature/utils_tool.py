@@ -43,7 +43,6 @@ def get_usable_str(s_in):
     s_tmp = s_tmp.replace(u'\u3000','')
     return s_tmp
 
-
 # 删除一个文件
 def rm_file(s_file, run_logger=None, b_print=False):
      try:
@@ -54,7 +53,6 @@ def rm_file(s_file, run_logger=None, b_print=False):
             s_msg = 'Err: not exists %s' % (s_file)
             run_logger and run_logger.warning(s_msg)
             b_print and print(s_msg)
-
             return 1
      except Exception as e:
          s_msg = 'Err: cant'' remove %s %s' % (s_file, str(e))
