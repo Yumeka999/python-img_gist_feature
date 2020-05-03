@@ -19,7 +19,6 @@ def recur_mkdir(s_path, run_logger=None, b_print=False):
         s_msg = "%s has been created" % s_path
         run_logger and run_logger.warning(s_msg)
         b_print and print(s_msg)
-
         return 1
     else:
         try:
@@ -28,13 +27,11 @@ def recur_mkdir(s_path, run_logger=None, b_print=False):
             s_msg = "%s create" % s_path
             run_logger and run_logger.info(s_msg)
             b_print and print(s_msg)
-
             return 0
         except Exception as e:
             s_msg = "%s" % str(e)
             run_logger and run_logger.error(s_msg)
-            b_print and print(s_msg)
-            
+            b_print and print(s_msg)      
             return -1
 
 # Get right string
