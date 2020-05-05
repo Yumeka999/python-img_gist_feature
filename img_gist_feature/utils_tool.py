@@ -60,24 +60,25 @@ def rm_file(s_file, run_logger=None, b_print=False):
          b_print and print(s_msg)
          return -1
 
+
+
+
 # 删除一个文件夹
 def rm_dir(s_dir, run_logger=None, b_print=False):
      try:
         if os.path.exists(s_dir) and os.path.isdir(s_dir): # 旧文件存在则删除
             shutil.rmtree(s_dir) 
+            return 0
         else:
             s_msg = 'Err: not exists %s' % (s_dir)
             run_logger and run_logger.error(s_msg)
             b_print and print(s_msg)
-
             return 1
      except Exception as e:
          s_msg = 'Err: cant'' remove %s' % (s_dir, str(e))
          run_logger and run_logger.error(s_msg)
          b_print and print(s_msg)
-         
          return -1
-     return 0
 
 #@numba.autojit
 def get_all_cos_sim(np_A ,np_B, np_B_L2 = None):
