@@ -80,6 +80,46 @@ def rm_dir(s_dir, run_logger=None, b_print=False):
          b_print and print(s_msg)
          return -1
 
+# 复制一个文件
+def cp_file(s_in_url, s_out_url, run_logger=None, b_print=False):
+    try: 
+        shutil.copyfile(s_in_url, s_out_url) # 旧文件复制到临时文件夹中 
+        return 0
+    except Exception as e:
+        s_msg = 'Err: cant''t copy %s to %s, %s' % (s_in_url, s_out_url, str(e))
+        run_logger and run_logger.error(s_msg)
+        b_print and print(s_msg)
+        return -1
+
+# 移动一个文件
+def mv_file(s_in_url, s_out_url, run_logger=None, b_print=False):
+    try: 
+        shutil.move(s_in_url, s_out_url) # 旧文件复制到临时文件夹中 
+        return 0
+    except Exception as e:
+        s_msg = 'Err: cant''t copy %s to %s, %s' % (s_in_url, s_out_url, str(e))
+        run_logger and run_logger.error(s_msg)
+        b_print and print(s_msg)
+        
+        return -1
+
+
+# 复制一个文件夹
+def cp_dir(s_in_dir, s_out_dir, run_logger=None, b_print=False): 
+    try:   
+        n_ret = 0  
+        if os.path.exists(s_out_dir) and os.path.isdir(s_out_dir):
+            n_ret = rm_dir(s_out_dir)
+        if os.path.exists(s_out_dir) and os.path.isfile(s_out_dir):
+            n_ret = rm_file(s_out_dir)
+        n_ret == 0 and shutil.copytree(s_in_dir, s_out_dir) # 旧文件夹复制到临时文件夹中 
+        return n_ret
+    except Exception as e:
+        s_msg = 'Err: cant''t copy %s to %s, %s' % (s_in_dir, s_out_dir, str(e))
+        run_logger and run_logger.error("%s" % s_msg)
+        b_print and print(s_msg)
+        return -1
+
 #@numba.autojit
 def get_all_cos_sim(np_A ,np_B, np_B_L2 = None):
     n_num = np_B.shape[0]
@@ -134,44 +174,3 @@ def np_l2norm(np_x):
 
 def get_cos_sim(np_A, np_B):
     return np.inner(np_A, np_B)/(np.linalg.norm(np_A) * np.linalg.norm(np_B))
-
-
-# 复制一个文件
-def cp_file(s_in_url, s_out_url, run_logger=None, b_print=False):
-    try: 
-        shutil.copyfile(s_in_url, s_out_url) # 旧文件复制到临时文件夹中 
-        return 0
-    except Exception as e:
-        s_msg = 'Err: cant''t copy %s to %s, %s' % (s_in_url, s_out_url, str(e))
-        run_logger and run_logger.error(s_msg)
-        b_print and print(s_msg)
-        return -1
-
-# 移动一个文件
-def mv_file(s_in_url, s_out_url, run_logger=None, b_print=False):
-    try: 
-        shutil.move(s_in_url, s_out_url) # 旧文件复制到临时文件夹中 
-        return 0
-    except Exception as e:
-        s_msg = 'Err: cant''t copy %s to %s, %s' % (s_in_url, s_out_url, str(e))
-        run_logger and run_logger.error(s_msg)
-        b_print and print(s_msg)
-        
-        return -1
-
-
-# 复制一个文件夹
-def cp_dir(s_in_dir, s_out_dir, run_logger=None, b_print=False): 
-    try:   
-        n_ret = 0  
-        if os.path.exists(s_out_dir) and os.path.isdir(s_out_dir):
-            n_ret = rm_dir(s_out_dir)
-        if os.path.exists(s_out_dir) and os.path.isfile(s_out_dir):
-            n_ret = rm_file(s_out_dir)
-        n_ret == 0 and shutil.copytree(s_in_dir, s_out_dir) # 旧文件夹复制到临时文件夹中 
-        return n_ret
-    except Exception as e:
-        s_msg = 'Err: cant''t copy %s to %s, %s' % (s_in_dir, s_out_dir, str(e))
-        run_logger and run_logger.error("%s" % s_msg)
-        b_print and print(s_msg)
-        return -1
