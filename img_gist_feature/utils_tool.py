@@ -34,15 +34,6 @@ def recur_mkdir(s_path, run_logger=None, b_print=False):
             b_print and print(s_msg)      
             return -1
 
-# Get right string
-def get_usable_str(s_in):
-    s_tmp = s_in  
-    s_unvalid = '<>,\/|,:.,''",*,?\t\r\n'
-    for ch in s_unvalid:
-        s_tmp = s_tmp.replace(ch,'')
-    s_tmp = s_tmp.replace(u'\u3000','')
-    return s_tmp
-
 # 删除一个文件
 def rm_file(s_file, run_logger=None, b_print=False):
      try:
@@ -119,6 +110,18 @@ def cp_dir(s_in_dir, s_out_dir, run_logger=None, b_print=False):
         run_logger and run_logger.error("%s" % s_msg)
         b_print and print(s_msg)
         return -1
+
+
+
+
+# Get right string
+def get_usable_str(s_in):
+    s_tmp = s_in  
+    s_unvalid = '<>,\/|,:.,''",*,?\t\r\n'
+    for ch in s_unvalid:
+        s_tmp = s_tmp.replace(ch,'')
+    s_tmp = s_tmp.replace(u'\u3000','')
+    return s_tmp
 
 #@numba.autojit
 def get_all_cos_sim(np_A ,np_B, np_B_L2 = None):
