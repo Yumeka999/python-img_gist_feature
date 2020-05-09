@@ -12,8 +12,6 @@ S_NOW_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(S_NOW_DIR)
 
 # @创建文件夹
-# @input:s_path 保存的文件夹
-# @output:
 def recur_mkdir(s_path, run_logger=None, b_print=False):  
     if os.path.exists(s_path) and os.path.isdir(s_path):
         s_msg = "%s has been created" % s_path
@@ -34,42 +32,6 @@ def recur_mkdir(s_path, run_logger=None, b_print=False):
             b_print and print(s_msg)      
             return -1
 
-# 删除一个文件
-def rm_file(s_file, run_logger=None, b_print=False):
-     try:
-        if os.path.exists(s_file) and os.path.isfile(s_file): # 旧文件存在则删除
-            os.remove(s_file) 
-            return 0
-        else:
-            s_msg = 'Err: not exists %s' % (s_file)
-            run_logger and run_logger.warning(s_msg)
-            b_print and print(s_msg)
-            return 1
-     except Exception as e:
-         s_msg = 'Err: cant'' remove %s %s' % (s_file, str(e))
-         run_logger and run_logger.error(s_msg)
-         b_print and print(s_msg)
-         return -1
-
-
-
-
-# 删除一个文件夹
-def rm_dir(s_dir, run_logger=None, b_print=False):
-     try:
-        if os.path.exists(s_dir) and os.path.isdir(s_dir): # 旧文件存在则删除
-            shutil.rmtree(s_dir) 
-            return 0
-        else:
-            s_msg = 'Err: not exists %s' % (s_dir)
-            run_logger and run_logger.error(s_msg)
-            b_print and print(s_msg)
-            return 1
-     except Exception as e:
-         s_msg = 'Err: cant'' remove %s' % (s_dir, str(e))
-         run_logger and run_logger.error(s_msg)
-         b_print and print(s_msg)
-         return -1
 
 # 复制一个文件
 def cp_file(s_in_url, s_out_url, run_logger=None, b_print=False):
@@ -82,17 +44,7 @@ def cp_file(s_in_url, s_out_url, run_logger=None, b_print=False):
         b_print and print(s_msg)
         return -1
 
-# 移动一个文件
-def mv_file(s_in_url, s_out_url, run_logger=None, b_print=False):
-    try: 
-        shutil.move(s_in_url, s_out_url) # 旧文件复制到临时文件夹中 
-        return 0
-    except Exception as e:
-        s_msg = 'Err: cant''t copy %s to %s, %s' % (s_in_url, s_out_url, str(e))
-        run_logger and run_logger.error(s_msg)
-        b_print and print(s_msg)
-        
-        return -1
+
 
 
 # 复制一个文件夹
@@ -110,6 +62,54 @@ def cp_dir(s_in_dir, s_out_dir, run_logger=None, b_print=False):
         run_logger and run_logger.error("%s" % s_msg)
         b_print and print(s_msg)
         return -1
+
+
+# 移动一个文件
+def mv_file(s_in_url, s_out_url, run_logger=None, b_print=False):
+    try: 
+        shutil.move(s_in_url, s_out_url) # 旧文件复制到临时文件夹中 
+        return 0
+    except Exception as e:
+        s_msg = 'Err: cant''t copy %s to %s, %s' % (s_in_url, s_out_url, str(e))
+        run_logger and run_logger.error(s_msg)
+        b_print and print(s_msg)  
+        return -1
+    
+
+
+# 删除一个文件
+def rm_file(s_file, run_logger=None, b_print=False):
+     try:
+        if os.path.exists(s_file) and os.path.isfile(s_file): # 旧文件存在则删除
+            os.remove(s_file) 
+            return 0
+        else:
+            s_msg = 'Err: not exists %s' % (s_file)
+            run_logger and run_logger.warning(s_msg)
+            b_print and print(s_msg)
+            return 1
+     except Exception as e:
+         s_msg = 'Err: cant'' remove %s %s' % (s_file, str(e))
+         run_logger and run_logger.error(s_msg)
+         b_print and print(s_msg)
+         return -1
+
+# 删除一个文件夹
+def rm_dir(s_dir, run_logger=None, b_print=False):
+     try:
+        if os.path.exists(s_dir) and os.path.isdir(s_dir): # 旧文件存在则删除
+            shutil.rmtree(s_dir) 
+            return 0
+        else:
+            s_msg = 'Err: not exists %s' % (s_dir)
+            run_logger and run_logger.error(s_msg)
+            b_print and print(s_msg)
+            return 1
+     except Exception as e:
+         s_msg = 'Err: cant'' remove %s' % (s_dir, str(e))
+         run_logger and run_logger.error(s_msg)
+         b_print and print(s_msg)
+         return -1
 
 
 
