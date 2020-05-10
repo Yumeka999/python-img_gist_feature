@@ -129,21 +129,41 @@ def img_resize(np_img_in, n_resize, run_logger=None, b_print=False):
 
 
 ''' A image is usable image  '''
-def is_usable_img(s_img_url):
-    if not os.path.exists(s_img_url): return False
-         
-    if imghdr.what(s_img_url) is None: return False
-            
+# 判断图片文件是否正常
+def is_usable_img(s_img_url, run_logger=None, b_print=False):
+    if not os.path.exists(s_img_url): 
+        s_msg = "not find %s" % s_img_url
+        run_logger and run_logger.warning(s_msg)
+        b_print and print(s_msg)
+        return False
+     
+    if s_img_url.rfind('.gif') > 0: return True
+    
+    if s_img_url.rfind('.bpg') > 0: 
+        if is_bpg_img(s_img_url) == 0: 
+            return True
+        else:
+            return False
+
     try:
         np_img_in = cv2.imdecode(np.fromfile(s_img_url, dtype=np.uint8),-1)
     except Exception as e:
-        print('img url:%s, err:%s' % (s_img_url, str(e)))
+        s_msg = 'img url:%s, err:%s' % (s_img_url, str(e))
+        run_logger and run_logger.error(s_msg)
+        b_print and print(s_msg)
         return False 
 
     if np_img_in is None:
-        print('img url:%s, is null mat' % s_img_url)
+        run_logger and run_logger.error('img url:%s, is null mat' % s_img_url)
         return False
     
+    n_h, n_w = np_img_in.shape[0], np_img_in.shape[1]
+    if n_h < 200 or n_w < 200: 
+        s_msg = 'img url:%s, smart' % s_img_url
+        run_logger and run_logger.error(s_msg)
+        b_print and print(s_msg)
+        return False
+
     # if len(np_img_in.shape) == 3:
     #     np_img_gray = cv2.cvtColor(np_img_in, cv2.COLOR_RGB2GRAY)
     # else:
@@ -158,7 +178,7 @@ def is_usable_img(s_img_url):
     #     else:
     #         break          
     # if n_same >= int(n_h/17):
-    #     return False
+    #     return False        
     
     return True
 
