@@ -109,17 +109,23 @@ def img_2bgr(np_img_in):
     return np_img_bgr, 0
 
 ''' resize a image '''     
-def img_resize(np_img_in, n_resize, run_logger=None):
+def img_resize(np_img_in, n_resize, run_logger=None, b_print=False):
     np_img_resize = np_img_in
     n_row, n_col, n_chanel = np_img_resize.shape
-    if n_resize > 0 and (n_row != n_resize or n_col != n_resize):
+    if n_resize > 0:
         try:
             np_img_resize = cv2.resize(np_img_resize, (n_resize, n_resize), fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
+            return np_img_resize, 0
         except Exception as e:
-            run_logger and run_logger.error('Err %s' % str(e))
+            s_msg = 'resize err:%s' % str(e)
+            run_logger and run_logger.error(s_msg)
+            b_print and print(s_msg)
             return None, -3
-
-    return np_img_resize, 0
+    else:
+        s_msg = 'resize < 0' 
+        run_logger and run_logger.error(s_msg)
+        b_print and print(s_msg)
+        return None, -2
 
 
 ''' A image is usable image  '''
