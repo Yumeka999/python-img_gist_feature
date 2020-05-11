@@ -258,6 +258,10 @@ def img_deblank(np_img_raw, run_logger=None, b_print=False):
 
 
 
+
+
+
+
 # 从Gif抽取所有图片
 def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_logger=None, b_print=False):
     recur_mkdir(s_all_frame_out_dor, run_logger)
@@ -286,6 +290,7 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_logger=None, b_pr
         return -1, 0.0
 
     return 0, n_frame_num / f_duration * 1000
+
 
 # 得到图片的真实格式
 def get_img_obv_and_true_ext(s_img_in_url, run_logger=None):
