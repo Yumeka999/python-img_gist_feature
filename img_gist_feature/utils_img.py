@@ -251,12 +251,20 @@ def img_deblank(np_img_raw, run_logger=None, b_print=False):
         np_img_deblank_zone = np_img_raw[tempr0:tempr1+1, tempc0:tempc1+1,:]
         return np_img_deblank_zone, 0
 
+
+
+
+
+
+
+
 # 从Gif抽取所有图片
-def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor,  run_logger=None):
+def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_logger=None, b_print=False):
     recur_mkdir(s_all_frame_out_dor, run_logger)
 
     f_duration = 0.0
     n_frame_num = 0
+
     try:
         pil_gif = Image.open(s_gif_url)
         b_animate = pil_gif.is_animated
@@ -272,8 +280,11 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor,  run_logger=None):
             pil_sav = pil_gif.convert('RGB')
             pil_sav.save('%s/%s.jpg' % (s_all_frame_out_dor, str(i+1).zfill(3)))
     except Exception as e:
-        run_logger and run_logger.error('Err %s' % (str(e)))
+        s_msg = 'Err %s' % (str(e))
+        run_logger and run_logger.error(s_msg)
+        b_print and print(s_msg)
         return -1, 0.0
+
     return 0, n_frame_num / f_duration * 1000
 
 # 得到图片的真实格式
