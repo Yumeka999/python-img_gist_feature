@@ -292,6 +292,8 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_logger=None, b_pr
     return 0, n_frame_num / f_duration * 1000
 
 
+
+
 # 得到图片的真实格式
 def get_img_obv_and_true_ext(s_img_in_url, run_logger=None):
     _, s_obv_ext = os.path.splitext(s_img_in_url)  # 获取图片的后缀名
