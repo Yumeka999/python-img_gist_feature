@@ -325,6 +325,14 @@ def get_img_obv_and_true_ext(s_img_in_url, run_logger=None, b_print=False):
 
 
 
+
+
+
+
+
+
+
+
 # 从路径读取图片
 def read_img(s_img_in_url, run_logger=None):
     try:
