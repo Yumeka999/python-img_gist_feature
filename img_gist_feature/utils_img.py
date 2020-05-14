@@ -415,9 +415,12 @@ def is_bpg_img(s_img_in_url, run_logger=None, b_print=False):
 
 
 # 得到直方图均衡图片
-def get_histeq_img(np_img_in, run_logger=None):
+def get_histeq_img(np_img_in, run_logger=None, b_print=False):
     if np_img_in is None:
-        run_logger and run_logger.warning("input is null")
+        s_msg = "input is null"
+        run_logger and run_logger.warning()
+        b_print and print(s_msg)
+        
         return None
     
     n_shape_len = len(np_img_in.shape)
