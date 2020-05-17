@@ -407,13 +407,6 @@ def is_bpg_img(s_img_in_url, run_logger=None, b_print=False):
     b_print and print(m_msg)
     return -1
 
-
-
-
-
-
-
-
 # 得到直方图均衡图片
 def get_histeq_img(np_img_in, run_logger=None, b_print=False):
     if np_img_in is None:
@@ -435,7 +428,7 @@ def get_histeq_img(np_img_in, run_logger=None, b_print=False):
     return np_img_out
 
 # 计算ssim
-def get_ssim(np_img_A, np_img_B):
+def get_ssim(np_img_A, np_img_B, run_logger=None, b_print=False):
     # 必须是灰度图
     if len(np_img_A.shape) == 3:
         return -1.0
