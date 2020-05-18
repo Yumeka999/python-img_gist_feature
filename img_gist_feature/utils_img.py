@@ -387,8 +387,8 @@ def is_bpg_img(s_img_in_url, run_logger=None, b_print=False):
 
     if not s_img_in_url.endswith(".bpg"):
         s_msg = "not endwith .bpg"
-        run_logger and run_logger.warning(m_msg)
-        b_print and print(m_msg)
+        run_logger and run_logger.warning(s_msg)
+        b_print and print(s_msg)
 
         return 1
 
@@ -402,9 +402,9 @@ def is_bpg_img(s_img_in_url, run_logger=None, b_print=False):
             # print("%#x" % n_byte_2) 
             break
     
-    m_msg = "not right bpg"
-    run_logger and run_logger.warning(m_msg)
-    b_print and print(m_msg)
+    s_msg = "not right bpg"
+    run_logger and run_logger.warning(s_msg)
+    b_print and print(s_msg)
     return -1
 
 # 得到直方图均衡图片
