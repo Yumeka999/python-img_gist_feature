@@ -405,6 +405,7 @@ def is_bpg_img(s_img_in_url, run_logger=None, b_print=False):
     s_msg = "not right bpg"
     run_logger and run_logger.warning(s_msg)
     b_print and print(s_msg)
+
     return -1
 
 # 得到直方图均衡图片
@@ -431,9 +432,17 @@ def get_histeq_img(np_img_in, run_logger=None, b_print=False):
 def get_ssim(np_img_A, np_img_B, run_logger=None, b_print=False):
     # 必须是灰度图
     if len(np_img_A.shape) == 3:
+        s_msg = "input A is not gray image"
+        run_logger and run_logger.erro(s_msg)
+        b_print and b_print(s_msg)
+
         return -1.0
 
     if len(np_img_B.shape) == 3:
+        s_msg = "input B is not gray image"
+        run_logger and run_logger.erro(s_msg)
+        b_print and b_print(s_msg)
+
         return -1.0
 
     sim, _ = compare_ssim(np_img_A, np_img_B, full=True)
