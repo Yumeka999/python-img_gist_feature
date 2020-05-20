@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
 
 import os
-import cv2
 import sys
+import cv2
 import imghdr
 import numpy as np
 from PIL import Image
-from skimage.measure import compare_ssim
+from PIL import ImageFile
+
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 S_NOW_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(S_NOW_DIR)
 
-from utils_tool import *
+from util__base import *
 
 ''' Is numpy matrix all no-zero data in alpha channel ''' 
 def is_single_alpha(np_raw_img):
@@ -126,6 +128,8 @@ def img_resize(np_img_in, n_resize, run_logger=None, b_print=False):
         run_logger and run_logger.error(s_msg)
         b_print and print(s_msg)
         return None, -2
+
+    
 
 
 ''' A image is usable image  '''
@@ -251,17 +255,6 @@ def img_deblank(np_img_raw, run_logger=None, b_print=False):
         np_img_deblank_zone = np_img_raw[tempr0:tempr1+1, tempc0:tempc1+1,:]
         return np_img_deblank_zone, 0
 
-
-
-
-
-
-
-
-
-
-
-
 # 从Gif抽取所有图片
 def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_logger=None, b_print=False):
     recur_mkdir(s_all_frame_out_dor, run_logger)
@@ -290,6 +283,8 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_logger=None, b_pr
         return -1, 0.0
 
     return 0, n_frame_num / f_duration * 1000
+
+
 
 
 
@@ -323,16 +318,6 @@ def get_img_obv_and_true_ext(s_img_in_url, run_logger=None, b_print=False):
         return s_obv_ext, "." + s_true_ext
 
 
-
-
-
-
-
-
-
-
-
-
 # 从路径读取图片
 def read_img(s_img_in_url, run_logger=None):
     try:
@@ -354,7 +339,7 @@ def write_img(s_img_out_url, np_img, run_logger=None):
         return -1
     return 0
 
-
+# 将图片大小限制在窗口内
 def img_resize_win(np_img_in, n_max, n_limit_ratio):
     n_h, n_w = np_img_in.shape[0], np_img_in.shape[1]
     re_h, re_w = 0, 0
@@ -387,8 +372,8 @@ def is_bpg_img(s_img_in_url, run_logger=None, b_print=False):
 
     if not s_img_in_url.endswith(".bpg"):
         s_msg = "not endwith .bpg"
-        run_logger and run_logger.warning(s_msg)
-        b_print and print(s_msg)
+        run_logger and run_logger.warning(m_msg)
+        b_print and print(m_msg)
 
         return 1
 
@@ -402,11 +387,11 @@ def is_bpg_img(s_img_in_url, run_logger=None, b_print=False):
             # print("%#x" % n_byte_2) 
             break
     
-    s_msg = "not right bpg"
-    run_logger and run_logger.warning(s_msg)
-    b_print and print(s_msg)
-
+    m_msg = "not right bpg"
+    run_logger and run_logger.warning(m_msg)
+    b_print and print(m_msg)
     return -1
+
 
 # 得到直方图均衡图片
 def get_histeq_img(np_img_in, run_logger=None, b_print=False):
