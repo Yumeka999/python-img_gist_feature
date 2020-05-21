@@ -1,17 +1,20 @@
 # -*- coding: utf-8 -*-
 
 import os
-import cv2
 import sys
-import time
-import imghdr
+import cv2
 import shutil
+import imghdr
 import numpy as np
+from PIL import Image
+
 
 S_NOW_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(S_NOW_DIR)
 
-# @创建文件夹
+
+
+# Creat Directory
 def recur_mkdir(s_path, run_logger=None, b_print=False):  
     if os.path.exists(s_path) and os.path.isdir(s_path):
         s_msg = "%s has been created" % s_path
@@ -94,6 +97,7 @@ def rm_file(s_file, run_logger=None, b_print=False):
          b_print and print(s_msg)
          return -1
 
+
 # 删除一个文件夹
 def rm_dir(s_dir, run_logger=None, b_print=False):
      try:
@@ -111,16 +115,14 @@ def rm_dir(s_dir, run_logger=None, b_print=False):
          b_print and print(s_msg)
          return -1
 
-
-
-
-# Get right string
+# 正确字符串转化
 def get_usable_str(s_in):
     s_tmp = s_in  
     s_unvalid = '<>,\/|,:.,''",*,?\t\r\n'
     for ch in s_unvalid:
         s_tmp = s_tmp.replace(ch,'')
     s_tmp = s_tmp.replace(u'\u3000','')
+    s_tmp = s_tmp.replace('🔥','')
     return s_tmp
 
 #@numba.autojit

@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 sys.path.append("./img_gist_feature/")
 
 from utils_gist import *
-from utils_tool import *
+from util__base import *
 
 
 def get_img_gist_feat(s_img_url):

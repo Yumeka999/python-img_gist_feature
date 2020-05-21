@@ -9,7 +9,7 @@ import numpy as np
 S_NOW_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(S_NOW_DIR)
 
-from utils_img import *
+from util__img import *
 
 class GistUtils:
     def __init__(self, n_resize=128, n_w=5, ln_orientation=[8, 8, 8, 8], n_block_num=4, n_prefilt=4):
