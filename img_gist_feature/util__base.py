@@ -36,10 +36,10 @@ def recur_mkdir(s_path, run_logger=None, b_print=False):
             return -1
 
 
-# 复制一个文件
+# Copy a file
 def cp_file(s_in_url, s_out_url, run_logger=None, b_print=False):
     try: 
-        shutil.copyfile(s_in_url, s_out_url) # 旧文件复制到临时文件夹中 
+        shutil.copyfile(s_in_url, s_out_url) # Copy a old file to tmp dir 
         return 0
     except Exception as e:
         s_msg = 'Err: cant''t copy %s to %s, %s' % (s_in_url, s_out_url, str(e))
