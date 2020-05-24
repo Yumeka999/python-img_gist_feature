@@ -39,7 +39,7 @@ def recur_mkdir(s_path, run_logger=None, b_print=False):
 # Copy a file
 def cp_file(s_in_url, s_out_url, run_logger=None, b_print=False):
     try: 
-        shutil.copyfile(s_in_url, s_out_url) # Copy a old file to tmp dir 
+        shutil.copyfile(s_in_url, s_out_url) # Copy 
         return 0
     except Exception as e:
         s_msg = 'Err: cant''t copy %s to %s, %s' % (s_in_url, s_out_url, str(e))
@@ -50,7 +50,7 @@ def cp_file(s_in_url, s_out_url, run_logger=None, b_print=False):
 
 
 
-# 复制一个文件夹
+# Copy a dir
 def cp_dir(s_in_dir, s_out_dir, run_logger=None, b_print=False): 
     try:   
         n_ret = 0  
@@ -58,7 +58,7 @@ def cp_dir(s_in_dir, s_out_dir, run_logger=None, b_print=False):
             n_ret = rm_dir(s_out_dir)
         if os.path.exists(s_out_dir) and os.path.isfile(s_out_dir):
             n_ret = rm_file(s_out_dir)
-        n_ret == 0 and shutil.copytree(s_in_dir, s_out_dir) # 旧文件夹复制到临时文件夹中 
+        n_ret == 0 and shutil.copytree(s_in_dir, s_out_dir) # using copytree
         return n_ret
     except Exception as e:
         s_msg = 'Err: cant''t copy %s to %s, %s' % (s_in_dir, s_out_dir, str(e))
