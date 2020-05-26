@@ -77,11 +77,10 @@ def mv_file(s_in_url, s_out_url, run_logger=None, b_print=False):
         return -1
     
 
-
-# 删除一个文件
+# Delete a file
 def rm_file(s_file, run_logger=None, b_print=False):
      try:
-        if os.path.exists(s_file) and os.path.isfile(s_file): # 旧文件存在则删除
+        if os.path.exists(s_file) and os.path.isfile(s_file): # judge is a file
             os.remove(s_file) 
             return 0
         else:
