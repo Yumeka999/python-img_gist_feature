@@ -95,10 +95,10 @@ def rm_file(s_file, run_logger=None, b_print=False):
          return -1
 
 
-# 删除一个文件夹
+# Delete a directory
 def rm_dir(s_dir, run_logger=None, b_print=False):
      try:
-        if os.path.exists(s_dir) and os.path.isdir(s_dir): # 旧文件存在则删除
+        if os.path.exists(s_dir) and os.path.isdir(s_dir): # is a directory
             shutil.rmtree(s_dir) 
             return 0
         else:
