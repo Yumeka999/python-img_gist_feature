@@ -112,7 +112,7 @@ def rm_dir(s_dir, run_logger=None, b_print=False):
          b_print and print(s_msg)
          return -1
 
-# 正确字符串转化
+# Get right string
 def get_usable_str(s_in):
     s_tmp = s_in  
     s_unvalid = '<>,\/|,:.,''",*,?\t\r\n'
