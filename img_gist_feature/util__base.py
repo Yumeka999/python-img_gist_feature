@@ -122,6 +122,7 @@ def get_usable_str(s_in):
     s_tmp = s_tmp.replace('🔥','')
     return s_tmp
 
+# Get all cos sim
 #@numba.autojit
 def get_all_cos_sim(np_A ,np_B, np_B_L2 = None):
     n_num = np_B.shape[0]
