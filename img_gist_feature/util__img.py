@@ -133,7 +133,6 @@ def img_resize(np_img_in, n_resize, run_logger=None, b_print=False):
 
 
 ''' A image is usable image  '''
-# 判断图片文件是否正常
 def is_usable_img(s_img_url, run_logger=None, b_print=False):
     if not os.path.exists(s_img_url): 
         s_msg = "not find %s" % s_img_url
