@@ -254,7 +254,12 @@ def img_deblank(np_img_raw, run_logger=None, b_print=False):
         np_img_deblank_zone = np_img_raw[tempr0:tempr1+1, tempc0:tempc1+1,:]
         return np_img_deblank_zone, 0
 
-# 从Gif抽取所有图片
+
+
+
+
+
+#  Get all frame form gif
 def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_logger=None, b_print=False):
     recur_mkdir(s_all_frame_out_dor, run_logger)
 
