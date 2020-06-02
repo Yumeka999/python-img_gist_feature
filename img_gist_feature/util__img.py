@@ -271,7 +271,8 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_logger=None, b_pr
         b_animate = pil_gif.is_animated
         n_frame_num = pil_gif.n_frames
 
-        if not b_animate: # 静态gif
+
+        if not b_animate: # static gif
             return 1, 0.0
         
         for i in range(n_frame_num):
