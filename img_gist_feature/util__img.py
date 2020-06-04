@@ -294,9 +294,9 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_logger=None, b_pr
 
 
 
-# 得到图片的真实格式
+# Get real format of a image
 def get_img_obv_and_true_ext(s_img_in_url, run_logger=None, b_print=False):
-    _, s_obv_ext = os.path.splitext(s_img_in_url)  # 获取图片的后缀名
+    _, s_obv_ext = os.path.splitext(s_img_in_url)  # Get extension name of a image
 
     if not os.path.exists(s_img_in_url) or not os.path.isfile(s_img_in_url):
         s_msg = "%s not exists or not a file" % s_img_in_url
