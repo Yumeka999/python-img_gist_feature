@@ -323,7 +323,7 @@ def get_img_obv_and_true_ext(s_img_in_url, run_logger=None, b_print=False):
         return s_obv_ext, "." + s_true_ext
 
 
-# 从路径读取图片
+# Get numpy array from path of image
 def read_img(s_img_in_url, run_logger=None):
     try:
         np_img = cv2.imdecode(np.fromfile(s_img_in_url, dtype=np.uint8), cv2.IMREAD_UNCHANGED)    
