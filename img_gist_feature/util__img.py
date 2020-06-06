@@ -332,7 +332,7 @@ def read_img(s_img_in_url, run_logger=None):
         return None
     return np_img
 
-# 从路径写入图片
+# Write a image with url
 def write_img(s_img_out_url, np_img, run_logger=None):
     s_ext = s_img_out_url[s_img_out_url.rfind("."):]
     if s_ext.lower() not in [".jpg", ".jpeg", ".png", ".bmp", ".tif", ".webp"]:
