@@ -322,7 +322,6 @@ def get_img_obv_and_true_ext(s_img_in_url, run_logger=None, b_print=False):
     else:
         return s_obv_ext, "." + s_true_ext
 
-
 # Get numpy array from path of image
 def read_img(s_img_in_url, run_logger=None):
     try:
@@ -344,7 +343,7 @@ def write_img(s_img_out_url, np_img, run_logger=None):
         return -1
     return 0
 
-# 将图片大小限制在窗口内
+# Resize a image in window size
 def img_resize_win(np_img_in, n_max, n_limit_ratio):
     n_h, n_w = np_img_in.shape[0], np_img_in.shape[1]
     re_h, re_w = 0, 0
