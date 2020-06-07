@@ -369,7 +369,7 @@ def img_resize_win(np_img_in, n_max, n_limit_ratio):
     return np_img_resize
 
 
-# 判断是否为正确的bpg图片
+# A image is right bpg format?
 def is_bpg_img(s_img_in_url, run_logger=None, b_print=False):
     if not os.path.exists(s_img_in_url) or not os.path.isfile(s_img_in_url):
         return -1
