@@ -397,7 +397,7 @@ def is_bpg_img(s_img_in_url, run_logger=None, b_print=False):
     return -1
 
 
-# 得到直方图均衡图片
+# Get histogram equalization image 
 def get_histeq_img(np_img_in, run_logger=None, b_print=False):
     if np_img_in is None:
         s_msg = "input is null"
@@ -408,9 +408,9 @@ def get_histeq_img(np_img_in, run_logger=None, b_print=False):
     
     n_shape_len = len(np_img_in.shape)
     np_img_out = None
-    if n_shape_len == 2: # 单通道图
+    if n_shape_len == 2: # Single chanle image
         np_img_out = cv2.equalizeHist(np_img_in)
-    elif n_shape_len == 3 and np_img_in.shape[2] == 3: # RGB三通道
+    elif n_shape_len == 3 and np_img_in.shape[2] == 3: # RGB three chanle
         np_img_out = np.zeros(np_img_in.shape)
         np_img_out[:,:,0] = cv2.equalizeHist(np_img_in[:,:,0])
         np_img_out[:,:,1] = cv2.equalizeHist(np_img_in[:,:,1])
