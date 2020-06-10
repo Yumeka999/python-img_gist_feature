@@ -260,6 +260,18 @@ def img_deblank(np_img_raw, run_logger=None, b_print=False):
 
 
 #  Get all frame form gif
+''' 
+模式
+1             1位像素，黑和白，存成8位的像素
+L             8位像素，黑白
+P             8位像素，使用调色板映射到任何其他模式
+RGB           3×8位像素，真彩
+RGBA          4×8位像素，真彩+透明通道
+CMYK          4×8位像素，颜色隔离
+YCbCr         3×8位像素，彩色视频格式
+I             32位整型像素
+F             32位浮点型像素
+''' 
 def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_logger=None, b_print=False):
     recur_mkdir(s_all_frame_out_dor, run_logger)
 
@@ -271,7 +283,6 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_logger=None, b_pr
         b_animate = pil_gif.is_animated
         n_frame_num = pil_gif.n_frames
 
-
         if not b_animate: # static gif
             return 1, 0.0
         
@@ -279,15 +290,21 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_logger=None, b_pr
             pil_gif.seek(i)
 
             f_duration += pil_gif.info['duration']
-            pil_sav = pil_gif.convert('RGB')
-            pil_sav.save('%s/%s.jpg' % (s_all_frame_out_dor, str(i+1).zfill(3)))
+            pil_sav = pil_gif
+            if pil_gif.mode == "P":  
+                pil_sav = pil_gif.convert("RGB")
+            elif pil_gif.mode == "RGBA":
+                pil_sav = pil_gif.convert("RGB")
+           
+            pil_sav.save(os.path.join(s_all_frame_out_dor, "%s.jpg" % str(i+1).zfill(3)))
+        return 0, n_frame_num / f_duration * 1000
+
     except Exception as e:
         s_msg = 'Err %s' % (str(e))
         run_logger and run_logger.error(s_msg)
         b_print and print(s_msg)
         return -1, 0.0
 
-    return 0, n_frame_num / f_duration * 1000
 
 
 
