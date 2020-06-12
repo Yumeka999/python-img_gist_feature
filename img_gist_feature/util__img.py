@@ -434,7 +434,7 @@ def get_histeq_img(np_img_in, run_logger=None, b_print=False):
         np_img_out[:,:,2] = cv2.equalizeHist(np_img_in[:,:,2])
     return np_img_out
 
-# 计算ssim
+# Compute ssim
 def get_ssim(np_img_A, np_img_B, run_logger=None, b_print=False):
     # 必须是灰度图
     if len(np_img_A.shape) == 3:
