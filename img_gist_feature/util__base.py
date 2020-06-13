@@ -12,8 +12,6 @@ from PIL import Image
 S_NOW_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(S_NOW_DIR)
 
-
-
 # Creat Directory
 def recur_mkdir(s_path, run_logger=None, b_print=False):  
     if os.path.exists(s_path) and os.path.isdir(s_path):
