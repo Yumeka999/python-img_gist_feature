@@ -65,10 +65,8 @@ def cp_dir(s_in_dir, s_out_dir, run_logger=None, b_print=False):
         return -1
 
 
-
-
-# Move a file 
-def mv_file(s_in_url, s_out_url, run_logger=None, b_print=False):
+# Move a file or directory
+def mv_file_dir(s_in_url, s_out_url, run_logger=None, b_print=False):
     try: 
         shutil.move(s_in_url, s_out_url) # using shutil.move
         return 0
