@@ -36,34 +36,31 @@ def recur_mkdir(s_path, run_logger=None, b_print=False):
             return -1
 
 
-# Copy a file
-def cp_file(s_in_url, s_out_url, run_logger=None, b_print=False):
-    try: 
-        shutil.copyfile(s_in_url, s_out_url) # Copy a old file to tmp dir 
-        return 0
-    except Exception as e:
-        s_msg = 'Err: cant''t copy %s to %s, %s' % (s_in_url, s_out_url, str(e))
-        run_logger and run_logger.error(s_msg)
-        b_print and print(s_msg)
-        return -1
-
-
-# Copy a directory
-def cp_dir(s_in_dir, s_out_dir, run_logger=None, b_print=False): 
-    try:   
-        n_ret = 0  
-        if os.path.exists(s_out_dir) and os.path.isdir(s_out_dir):
-            n_ret = rm_dir(s_out_dir)
-        if os.path.exists(s_out_dir) and os.path.isfile(s_out_dir):
-            n_ret = rm_file(s_out_dir)
-        n_ret == 0 and shutil.copytree(s_in_dir, s_out_dir) # using copytree
-        return n_ret
-    except Exception as e:
-        s_msg = 'Err: cant''t copy %s to %s, %s' % (s_in_dir, s_out_dir, str(e))
-        run_logger and run_logger.error("%s" % s_msg)
-        b_print and print(s_msg)
-        return -1
-
+# Copy a file or directory
+def cp_file_dir(s_in_url, s_out_url, run_logger=None, b_print=False):
+    if os.path.isfile(s_in_url):
+        try: 
+            shutil.copyfile(s_in_url, s_out_url) # Copy a old file to tmp dir 
+            return 0
+        except Exception as e:
+            s_msg = 'Err: cant''t copy %s to %s, %s' % (s_in_url, s_out_url, str(e))
+            run_logger and run_logger.error(s_msg)
+            b_print and print(s_msg)
+            return -1
+    elif os.path.isdir(s_in_url):
+        try:   
+            n_ret = 0  
+            if os.path.exists(s_out_dir) and os.path.isdir(s_out_dir):
+                n_ret = rm_dir(s_out_dir)
+            if os.path.exists(s_out_dir) and os.path.isfile(s_out_dir):
+                n_ret = rm_file(s_out_dir)
+            n_ret == 0 and shutil.copytree(s_in_dir, s_out_dir) # using copytree
+            return n_ret
+        except Exception as e:
+            s_msg = 'Err: cant''t copy %s to %s, %s' % (s_in_dir, s_out_dir, str(e))
+            run_logger and run_logger.error("%s" % s_msg)
+            b_print and print(s_msg)
+            return -1
 
 # Move a file or directory
 def mv_file_dir(s_in_url, s_out_url, run_logger=None, b_print=False):
