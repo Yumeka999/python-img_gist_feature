@@ -75,36 +75,18 @@ def mv_file_dir(s_in_url, s_out_url, run_logger=None, b_print=False):
     
 
 # Delete a file
-def rm_file(s_file, run_logger=None, b_print=False):
-     try:
-        if os.path.exists(s_file) and os.path.isfile(s_file): # judge is a file
-            os.remove(s_file) 
+def rm_file_dir(s_in_url, run_logger=None, b_print=False):
+    try:
+        if os.path.exists(s_in_url): # is a directory
+            shutil.rmtree(s_in_url) 
             return 0
         else:
-            s_msg = 'Err: not exists %s' % (s_file)
-            run_logger and run_logger.warning(s_msg)
-            b_print and print(s_msg)
-            return 1
-     except Exception as e:
-         s_msg = 'Err: cant'' remove %s %s' % (s_file, str(e))
-         run_logger and run_logger.error(s_msg)
-         b_print and print(s_msg)
-         return -1
-
-
-# Delete a directory
-def rm_dir(s_dir, run_logger=None, b_print=False):
-     try:
-        if os.path.exists(s_dir) and os.path.isdir(s_dir): # is a directory
-            shutil.rmtree(s_dir) 
-            return 0
-        else:
-            s_msg = 'Err: not exists %s' % (s_dir)
+            s_msg = 'Err: not exists %s' % (s_in_url)
             run_logger and run_logger.error(s_msg)
             b_print and print(s_msg)
             return 1
-     except Exception as e:
-         s_msg = 'Err: cant'' remove %s' % (s_dir, str(e))
+    except Exception as e:
+         s_msg = 'Err: cant'' remove %s' % (s_in_url, str(e))
          run_logger and run_logger.error(s_msg)
          b_print and print(s_msg)
          return -1
