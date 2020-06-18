@@ -119,9 +119,11 @@ def get_all_cos_sim(np_A ,np_B, np_B_L2 = None, run_logger=None, b_print=False):
         t1 = time.clock()  
         np_B_L2 = np.linalg.norm(np_B, axis = 1)
         t2 = time.clock()
-        print('B L2 time',t2 - t1)
-    
-    
+
+        s_msg = "B L2 time %.3f" % (t2-t1)
+        run_logger and run_logger.info(s_msg)
+        b_print and print(s_msg)
+
     t1 = time.clock()
     np_inner = np_A.dot(np_B.T)
     
