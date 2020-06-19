@@ -131,8 +131,11 @@ def get_all_cos_sim(np_A ,np_B, np_B_L2 = None, run_logger=None, b_print=False):
     np_cos_sim = np_inner/(np_A_L2 * np_B_L2)
     np_cos_sim = 0.5 + 0.5 * np_cos_sim
     t2 = time.clock()
-    print('cos time', t2 -t1)
-    
+
+    s_msg = "cos time %.3f" % (t2-t1)
+    run_logger and run_logger.info(s_msg)
+    b_print and print(s_msg)
+
     return np_cos_sim
     
 def np_l2norm(np_x):
