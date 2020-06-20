@@ -106,7 +106,7 @@ def get_usable_str(s_in):
 def get_all_cos_sim(np_A ,np_B, np_B_L2 = None, run_logger=None, b_print=False):
     n_num = np_B.shape[0]
     
-    t1 = time.clock()  
+    t1 = time.time()  
     np_A_L2 = np.linalg.norm(np_A)
     np_A_L2 = np.tile(np_A_L2, (1, n_num))   
     t2 = time.clock()
