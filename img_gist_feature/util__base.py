@@ -109,7 +109,7 @@ def get_all_cos_sim(np_A ,np_B, np_B_L2 = None, run_logger=None, b_print=False):
     t1 = time.time()  
     np_A_L2 = np.linalg.norm(np_A)
     np_A_L2 = np.tile(np_A_L2, (1, n_num))   
-    t2 = time.clock()
+    t2 = time.time()
 
     s_msg = "A L2 time %.3f" % (t2-t1)
     run_logger and run_logger.info(s_msg)
