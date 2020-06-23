@@ -13,27 +13,20 @@ S_NOW_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(S_NOW_DIR)
 
 
-
 # Creat Directory
-def recur_mkdir(s_path, run_logger=None, b_print=False):  
+def recur_mkdir(s_path, run_log=None, b_print=False):  
+    n_ret = 0
     if os.path.exists(s_path) and os.path.isdir(s_path):
-        s_msg = "%s has been created" % s_path
-        run_logger and run_logger.warning(s_msg)
-        b_print and print(s_msg)
-        return 1
+        n_ret, s_msg = 1, "%s has been created" % s_path
     else:
         try:
             os.makedirs(s_path)
-           
             s_msg = "%s create" % s_path
-            run_logger and run_logger.info(s_msg)
-            b_print and print(s_msg)
-            return 0
         except Exception as e:
-            s_msg = "%s" % str(e)
-            run_logger and run_logger.error(s_msg)
-            b_print and print(s_msg)      
-            return -1
+            n_ret, s_msg = -1, "mkdir err: %s" % str(e)    
+    run_log and run_log.warning(s_msg)
+    b_print and print(s_msg)
+    return n_ret
 
 # Copy a file or directory
 def cp_file_dir(s_in_url, s_out_url, run_logger=None, b_print=False):
