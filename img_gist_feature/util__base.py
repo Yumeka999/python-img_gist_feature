@@ -29,7 +29,7 @@ def recur_mkdir(s_path, run_log=None, b_print=False):
     return n_ret
 
 # Copy a file or directory
-def cp_file_dir(s_in_url, s_out_url, run_logger=None, b_print=False):
+def cp_file_dir(s_in_url, s_out_url, run_log=None, b_print=False):
     if os.path.exists(s_out_url):  rm_file_dir(s_out_url)
     cp_func = shutil.copyfile if os.path.isfile(s_in_url) else shutil.copytree
 
@@ -38,7 +38,7 @@ def cp_file_dir(s_in_url, s_out_url, run_logger=None, b_print=False):
         return 0     
     except Exception as e:
         s_msg = 'Err: cant''t copy %s to %s, %s' % (s_in_url, s_out_url, str(e))
-        run_logger and run_logger.error(s_msg)
+        run_log and run_log.error(s_msg)
         b_print and print(s_msg)
         return -1
    
