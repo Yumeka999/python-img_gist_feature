@@ -43,13 +43,13 @@ def cp_file_dir(s_in_url, s_out_url, run_log=None, b_print=False):
         return -1
    
 # Move a file or directory
-def mv_file_dir(s_in_url, s_out_url, run_logger=None, b_print=False):
+def mv_file_dir(s_in_url, s_out_url, run_log=None, b_print=False):
     try: 
         shutil.move(s_in_url, s_out_url) # using shutil.move
         return 0
     except Exception as e:
         s_msg = 'Err: cant''t copy %s to %s, %s' % (s_in_url, s_out_url, str(e))
-        run_logger and run_logger.error(s_msg)
+        run_log and run_log.error(s_msg)
         b_print and print(s_msg)  
         return -1
     
