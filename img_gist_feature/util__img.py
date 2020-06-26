@@ -111,7 +111,7 @@ def img_2bgr(np_img_in):
     return np_img_bgr, 0
 
 ''' resize a image '''     
-def img_resize(np_img_in, n_resize, run_logger=None, b_print=False):
+def img_resize(np_img_in, n_resize, run_log=None, b_print=False):
     np_img_resize = np_img_in
     n_row, n_col, n_chanel = np_img_resize.shape
     if n_resize > 0:
@@ -120,12 +120,12 @@ def img_resize(np_img_in, n_resize, run_logger=None, b_print=False):
             return np_img_resize, 0
         except Exception as e:
             s_msg = 'resize err:%s' % str(e)
-            run_logger and run_logger.error(s_msg)
+            run_log and run_log.error(s_msg)
             b_print and print(s_msg)
             return None, -3
     else:
         s_msg = 'resize < 0' 
-        run_logger and run_logger.error(s_msg)
+        run_log and run_log.error(s_msg)
         b_print and print(s_msg)
         return None, -2
 
