@@ -42,6 +42,7 @@ def cp_file_dir(s_in_url, s_out_url, run_log=None, b_print=False):
         b_print and print(s_msg)
         return -1
    
+
 # Move a file or directory
 def mv_file_dir(s_in_url, s_out_url, run_log=None, b_print=False):
     try: 
@@ -54,20 +55,23 @@ def mv_file_dir(s_in_url, s_out_url, run_log=None, b_print=False):
         return -1
     
 
+
+
+
 # Delete a file
-def rm_file_dir(s_in_url, run_logger=None, b_print=False):
+def rm_file_dir(s_in_url, run_log=None, b_print=False):
     try:
         if os.path.exists(s_in_url): # is a directory
             shutil.rmtree(s_in_url) 
             return 0
         else:
             s_msg = 'Err: not exists %s' % (s_in_url)
-            run_logger and run_logger.error(s_msg)
+            run_log and run_log.error(s_msg)
             b_print and print(s_msg)
             return 1
     except Exception as e:
          s_msg = 'Err: cant'' remove %s, %s' % (s_in_url, str(e))
-         run_logger and run_logger.error(s_msg)
+         run_log and run_log.error(s_msg)
          b_print and print(s_msg)
          return -1
 
