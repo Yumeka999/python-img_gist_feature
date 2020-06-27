@@ -133,10 +133,10 @@ def img_resize(np_img_in, n_resize, run_log=None, b_print=False):
 
 
 ''' A image is usable image  '''
-def is_usable_img(s_img_url, run_logger=None, b_print=False):
+def is_usable_img(s_img_url, run_log=None, b_print=False):
     if not os.path.exists(s_img_url): 
         s_msg = "not find %s" % s_img_url
-        run_logger and run_logger.warning(s_msg)
+        run_log and run_log.warning(s_msg)
         b_print and print(s_msg)
         return False
      
@@ -152,18 +152,18 @@ def is_usable_img(s_img_url, run_logger=None, b_print=False):
         np_img_in = cv2.imdecode(np.fromfile(s_img_url, dtype=np.uint8),-1)
     except Exception as e:
         s_msg = 'img url:%s, err:%s' % (s_img_url, str(e))
-        run_logger and run_logger.error(s_msg)
+        run_log and run_log.error(s_msg)
         b_print and print(s_msg)
         return False 
 
     if np_img_in is None:
-        run_logger and run_logger.error('img url:%s, is null mat' % s_img_url)
+        run_log and run_log.error('img url:%s, is null mat' % s_img_url)
         return False
     
     n_h, n_w = np_img_in.shape[0], np_img_in.shape[1]
     if n_h < 200 or n_w < 200: 
         s_msg = 'img url:%s, smart' % s_img_url
-        run_logger and run_logger.error(s_msg)
+        run_log and run_log.error(s_msg)
         b_print and print(s_msg)
         return False
 
