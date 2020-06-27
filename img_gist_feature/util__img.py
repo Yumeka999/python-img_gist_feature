@@ -188,7 +188,7 @@ def is_usable_img(s_img_url, run_log=None, b_print=False):
 
 
 ''' A image deblank '''
-def img_deblank(np_img_raw, run_logger=None, b_print=False):
+def img_deblank(np_img_raw, run_log=None, b_print=False):
     # only gray and color image can be deblanked
     n_shape_size = len(np_img_raw.shape)
     if n_shape_size < 2 or n_shape_size > 4 or (n_shape_size == 3 and np_img_raw.shape[2] !=3 ):
@@ -200,7 +200,7 @@ def img_deblank(np_img_raw, run_logger=None, b_print=False):
             thrsh, np_img_otsu = cv2.threshold(np_img_raw, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
         except Exception as e:
             s_msg = 'url cv threshold otsu error, err:%s' % (str(e))
-            run_logger and run_logger.error(s_msg)
+            run_log and run_log.error(s_msg)
             b_print and print(s_msg)
             return None, -1
 
