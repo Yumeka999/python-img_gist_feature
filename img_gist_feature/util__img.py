@@ -312,12 +312,12 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_log=None, b_print
 
 
 # Get real format of a image
-def get_img_obv_and_true_ext(s_img_in_url, run_logger=None, b_print=False):
+def get_img_obv_and_true_ext(s_img_in_url, run_log=None, b_print=False):
     _, s_obv_ext = os.path.splitext(s_img_in_url)  # Get extension name of a image
 
     if not os.path.exists(s_img_in_url) or not os.path.isfile(s_img_in_url):
         s_msg = "%s not exists or not a file" % s_img_in_url
-        run_logger and run_logger.warning(s_msg)
+        run_log and run_log.warning(s_msg)
         b_print and print(s_msg)
 
         return s_obv_ext, ""
@@ -332,7 +332,7 @@ def get_img_obv_and_true_ext(s_img_in_url, run_logger=None, b_print=False):
     s_true_ext = imghdr.what(s_img_in_url)
     if s_true_ext is None:
         s_msg = "%s not a iamge with imghdr" % s_img_in_url
-        run_logger and run_logger.warning(s_msg)
+        run_log and run_log.warning(s_msg)
         b_print and print(s_msg)
         
         return s_obv_ext, s_obv_ext
