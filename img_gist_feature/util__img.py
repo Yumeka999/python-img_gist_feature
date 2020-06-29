@@ -272,8 +272,8 @@ YCbCr         3×8位像素，彩色视频格式
 I             32位整型像素
 F             32位浮点型像素
 ''' 
-def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_logger=None, b_print=False):
-    recur_mkdir(s_all_frame_out_dor, run_logger)
+def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_log=None, b_print=False):
+    recur_mkdir(s_all_frame_out_dor, run_log)
 
     f_duration = 0.0
     n_frame_num = 0
@@ -301,7 +301,7 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_logger=None, b_pr
 
     except Exception as e:
         s_msg = 'Err %s' % (str(e))
-        run_logger and run_logger.error(s_msg)
+        run_log and run_log.error(s_msg)
         b_print and print(s_msg)
         return -1, 0.0
 
