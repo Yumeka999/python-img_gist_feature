@@ -340,11 +340,11 @@ def get_img_obv_and_true_ext(s_img_in_url, run_log=None, b_print=False):
         return s_obv_ext, "." + s_true_ext
 
 # Get numpy array from path of image
-def read_img(s_img_in_url, run_logger=None):
+def read_img(s_img_in_url, run_log=None):
     try:
         np_img = cv2.imdecode(np.fromfile(s_img_in_url, dtype=np.uint8), cv2.IMREAD_UNCHANGED)    
     except Exception as e:
-        run_logger and run_logger.error('Err %s' % str(e))
+        run_log and run_log.error('Err %s' % str(e))
         return None
     return np_img
 
