@@ -349,14 +349,14 @@ def read_img(s_img_in_url, run_log=None):
     return np_img
 
 # Write a image with url
-def write_img(s_img_out_url, np_img, run_logger=None):
+def write_img(s_img_out_url, np_img, run_log=None):
     s_ext = s_img_out_url[s_img_out_url.rfind("."):]
     if s_ext.lower() not in [".jpg", ".jpeg", ".png", ".bmp", ".tif", ".webp"]:
         return -1
     try:
         cv2.imencode(s_ext, np_img)[1].tofile(s_img_out_url)
     except Exception as e:
-        run_logger and run_logger.error('Err %s' % str(e))
+        run_log and run_log.error('Err %s' % str(e))
         return -1
     return 0
 
