@@ -407,7 +407,6 @@ def is_bpg_img(s_img_in_url, run_log=None, b_print=False):
             # print("%#x" % n_byte_1)
             # print("%#x" % n_byte_2) 
             break
-    
     m_msg = "not right bpg"
     run_log and run_log.warning(m_msg)
     b_print and print(m_msg)
