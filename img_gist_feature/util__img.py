@@ -387,13 +387,13 @@ def img_resize_win(np_img_in, n_max, n_limit_ratio):
 
 
 # A image is right bpg format?
-def is_bpg_img(s_img_in_url, run_logger=None, b_print=False):
+def is_bpg_img(s_img_in_url, run_log=None, b_print=False):
     if not os.path.exists(s_img_in_url) or not os.path.isfile(s_img_in_url):
         return -1
 
     if not s_img_in_url.endswith(".bpg"):
         s_msg = "not endwith .bpg"
-        run_logger and run_logger.warning(m_msg)
+        run_log and run_log.warning(s_msg)
         b_print and print(m_msg)
 
         return 1
@@ -409,7 +409,7 @@ def is_bpg_img(s_img_in_url, run_logger=None, b_print=False):
             break
     
     m_msg = "not right bpg"
-    run_logger and run_logger.warning(m_msg)
+    run_log and run_log.warning(m_msg)
     b_print and print(m_msg)
     return -1
 
