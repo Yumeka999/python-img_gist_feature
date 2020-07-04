@@ -414,10 +414,10 @@ def is_bpg_img(s_img_in_url, run_log=None, b_print=False):
 
 
 # Get histogram equalization image 
-def get_histeq_img(np_img_in, run_logger=None, b_print=False):
+def get_histeq_img(np_img_in, run_log=None, b_print=False):
     if np_img_in is None:
         s_msg = "input is null"
-        run_logger and run_logger.warning()
+        run_log and run_log.warning()
         b_print and print(s_msg)
         
         return None
