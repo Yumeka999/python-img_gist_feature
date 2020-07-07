@@ -305,12 +305,6 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_log=None, b_print
         b_print and print(s_msg)
         return -1, 0.0
 
-
-
-
-
-
-
 # Get real format of a image
 def get_img_obv_and_true_ext(s_img_in_url, run_log=None, b_print=False):
     _, s_obv_ext = os.path.splitext(s_img_in_url)  # Get extension name of a image
