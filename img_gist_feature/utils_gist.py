@@ -27,7 +27,7 @@ class GistUtils:
         
     def get_gist_vec(self, np_img_raw, mode="rgb"):
         # resize 
-        np_img_resize, n_ret = img_resize(np_img_raw, self.n_resize)
+        np_img_resize, n_ret = img_resize(np_img_raw, (self.n_resize, self.n_resize))
         if n_ret != 0:
             print("image resize error")
             return None

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-
 import os
 import sys
 import cv2
+import imageio
 import imghdr
 import numpy as np
 from PIL import Image
@@ -111,12 +111,12 @@ def img_2bgr(np_img_in):
     return np_img_bgr, 0
 
 ''' resize a image '''     
-def img_resize(np_img_in, n_resize, run_log=None, b_print=False):
+def img_resize(np_img_in, ln_resize, run_log=None, b_print=False):
     np_img_resize = np_img_in
     n_row, n_col, n_chanel = np_img_resize.shape
-    if n_resize > 0:
+    if ln_resize is not None:
         try:
-            np_img_resize = cv2.resize(np_img_resize, (n_resize, n_resize), fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
+            np_img_resize = cv2.resize(np_img_resize, ln_resize, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
             return np_img_resize, 0
         except Exception as e:
             s_msg = 'resize err:%s' % str(e)
@@ -124,7 +124,7 @@ def img_resize(np_img_in, n_resize, run_log=None, b_print=False):
             b_print and print(s_msg)
             return None, -3
     else:
-        s_msg = 'resize < 0' 
+        s_msg = 'resize is null' 
         run_log and run_log.error(s_msg)
         b_print and print(s_msg)
         return None, -2
@@ -304,6 +304,16 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_log=None, b_print
         run_log and run_log.error(s_msg)
         b_print and print(s_msg)
         return -1, 0.0
+
+def gen_gif_from_frames(ls_img_path, s_gif_path, ln_resize=None):
+    lnp_frame = []
+    for e in ls_img_path:
+        np_img = read_img(e)
+        if ln_resize is not None:
+            np_img, n_ret = img_resize(np_img, ln_resize)
+        np_img = np_img[:,:,::-1]
+        lnp_frame.append(np_img)
+    imageio.mimsave(s_gif_path, lnp_frame, 'GIF', duration=0.06)
 
 # Get real format of a image
 def get_img_obv_and_true_ext(s_img_in_url, run_log=None, b_print=False):
