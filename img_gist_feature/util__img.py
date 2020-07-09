@@ -305,7 +305,7 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_log=None, b_print
         b_print and print(s_msg)
         return -1, 0.0
 
-def gen_gif_from_frames(ls_img_path, s_gif_path, ln_resize=None):
+def gen_gif_from_frames(ls_img_path, s_gif_path, ln_resize=None, f_fps=0.06):
     lnp_frame = []
     for e in ls_img_path:
         np_img = read_img(e)
@@ -313,7 +313,7 @@ def gen_gif_from_frames(ls_img_path, s_gif_path, ln_resize=None):
             np_img, n_ret = img_resize(np_img, ln_resize)
         np_img = np_img[:,:,::-1]
         lnp_frame.append(np_img)
-    imageio.mimsave(s_gif_path, lnp_frame, 'GIF', duration=0.06)
+    imageio.mimsave(s_gif_path, lnp_frame, 'GIF', duration=1./f_fps)
 
 # Get real format of a image
 def get_img_obv_and_true_ext(s_img_in_url, run_log=None, b_print=False):
