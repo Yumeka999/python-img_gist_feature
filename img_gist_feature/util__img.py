@@ -305,7 +305,7 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_log=None, b_print
         b_print and print(s_msg)
         return -1, 0.0
 
-def gen_gif_from_frames(ls_img_path, s_gif_path, ln_resize=None, f_fps=0.06):
+def gen_gif_from_frames(ls_img_path, s_gif_path, ln_resize=None, f_fps=0.06, run_log=None, b_print=False):
     lnp_frame = []
     for e in ls_img_path:
         np_img = read_img(e)
@@ -408,8 +408,6 @@ def is_bpg_img(s_img_in_url, run_log=None, b_print=False):
             n_byte_2 = now[1]
             if n_byte_1 == 0x42 and n_byte_2 == 0x50:
                 return 0
-            # print("%#x" % n_byte_1)
-            # print("%#x" % n_byte_2) 
             break
     m_msg = "not right bpg"
     run_log and run_log.warning(m_msg)
