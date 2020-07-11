@@ -60,9 +60,11 @@ def mv_file_dir(s_in_url, s_out_url, run_log=None, b_print=False):
 
 # Delete a file
 def rm_file_dir(s_in_url, run_log=None, b_print=False):
+    rm_func = os.remove if os.path.isfile(s_in_url) else shutil.rmtree
+
     try:
         if os.path.exists(s_in_url): # is a directory
-            shutil.rmtree(s_in_url) 
+            rm_func(s_in_url) 
             return 0
         else:
             s_msg = 'Err: not exists %s' % (s_in_url)
