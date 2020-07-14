@@ -398,8 +398,7 @@ def is_bpg_img(s_img_in_url, run_log=None, b_print=False):
     if not s_img_in_url.endswith(".bpg"):
         s_msg = "not endwith .bpg"
         run_log and run_log.warning(s_msg)
-        b_print and print(m_msg)
-
+        b_print and print(s_msg)
         return 1
 
     with open(s_img_in_url, "rb") as fp:
@@ -409,11 +408,10 @@ def is_bpg_img(s_img_in_url, run_log=None, b_print=False):
             if n_byte_1 == 0x42 and n_byte_2 == 0x50:
                 return 0
             break
-    m_msg = "not right bpg"
-    run_log and run_log.warning(m_msg)
-    b_print and print(m_msg)
+    s_msg = "not right bpg"
+    run_log and run_log.warning(s_msg)
+    b_print and print(s_msg)
     return -1
-
 
 # Get histogram equalization image 
 def get_histeq_img(np_img_in, run_log=None, b_print=False):
@@ -421,7 +419,6 @@ def get_histeq_img(np_img_in, run_log=None, b_print=False):
         s_msg = "input is null"
         run_log and run_log.warning()
         b_print and print(s_msg)
-        
         return None
     
     n_shape_len = len(np_img_in.shape)
@@ -443,6 +440,6 @@ def get_ssim(np_img_A, np_img_B, run_log=None, b_print=False):
         run_log and run_log.erro(s_msg)
         b_print and b_print(s_msg)
         return -1.0
-
+    
     sim, _ = compare_ssim(np_img_A, np_img_B, full=True)
     return sim
