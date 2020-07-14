@@ -274,9 +274,7 @@ F             32位浮点型像素
 ''' 
 def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_log=None, b_print=False):
     recur_mkdir(s_all_frame_out_dor, run_log)
-
-    f_duration = 0.0
-    n_frame_num = 0
+    f_duration, n_frame_num = 0.0, 0
 
     try:
         pil_gif = Image.open(s_gif_url)
@@ -298,7 +296,6 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_log=None, b_print
            
             pil_sav.save(os.path.join(s_all_frame_out_dor, "%s.jpg" % str(i+1).zfill(3)))
         return 0, n_frame_num / f_duration * 1000
-
     except Exception as e:
         s_msg = 'Err %s' % (str(e))
         run_log and run_log.error(s_msg)
@@ -323,7 +320,6 @@ def get_img_obv_and_true_ext(s_img_in_url, run_log=None, b_print=False):
         s_msg = "%s not exists or not a file" % s_img_in_url
         run_log and run_log.warning(s_msg)
         b_print and print(s_msg)
-
         return s_obv_ext, ""
 
     # np_img_in = cv2.imdecode(np.fromfile(s_img_in_url, dtype=np.uint8), -1)
@@ -359,10 +355,11 @@ def write_img(s_img_out_url, np_img, run_log=None):
         return -1
     try:
         cv2.imencode(s_ext, np_img)[1].tofile(s_img_out_url)
+        return 0
     except Exception as e:
         run_log and run_log.error('Err %s' % str(e))
         return -1
-    return 0
+    
 
 # Resize a image in window size
 def img_resize_win(np_img_in, n_max, n_limit_ratio):
