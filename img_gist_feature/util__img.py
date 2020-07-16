@@ -106,8 +106,6 @@ def img_2bgr(np_img_in):
     elif len(np_img_in.shape) == 2:
         np_img_bgr = np.tile(np_img_in, (3, 1, 1))     # 256x256 ==> 3x256x256
         np_img_bgr = np.transpose(np_img_bgr, (1, 2, 0))  # 3x256x256 ==> 256x256x3
-
-
     return np_img_bgr, 0
 
 ''' resize a image '''     
