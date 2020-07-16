@@ -62,8 +62,6 @@ def img_2gray(np_img_raw):
         np_img_gray = np_img_raw[:, :, 0]
     elif len(np_img_raw.shape) == 2:
         np_img_gray = np_img_raw
-
-    #    print(np_img_gray.shape)
     return np_img_gray, 0
     
 '''  a image to bgr format '''   
@@ -435,6 +433,5 @@ def get_ssim(np_img_A, np_img_B, run_log=None, b_print=False):
         run_log and run_log.erro(s_msg)
         b_print and b_print(s_msg)
         return -1.0
-    
     sim, _ = compare_ssim(np_img_A, np_img_B, full=True)
     return sim
