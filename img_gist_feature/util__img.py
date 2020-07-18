@@ -17,10 +17,10 @@ from util__base import *
 
 ''' Is numpy matrix all no-zero data in alpha channel ''' 
 def is_single_alpha(np_raw_img):
-    if(np_raw_img.shape[-1]!=4):
+    if np_raw_img.shape[-1] != 4:
         return False
     for i in range(3):
-        if(sum(sum(np_raw_img[:,:,i]>0)))!=0:
+        if sum(sum(np_raw_img[:,:,i]>0)) != 0:
             return False
     return True
 
