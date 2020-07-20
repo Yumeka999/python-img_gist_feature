@@ -40,9 +40,8 @@ def img_2gray(np_img_raw):
         np_img_gray_choose[:, :, 0] = 255 - np_img_raw[:, :, 3]
         np_img_gray_choose[:, :, 1] = cv2.cvtColor(np_img_raw, cv2.COLOR_BGRA2GRAY)
         np_img_gray_choose[:, :, 2] = cv2.cvtColor(np_img_raw[:, :, 0:3], cv2.COLOR_BGR2GRAY)
-
-        # Get nonzero element of every resize gray
-        ln_sence_non0_num = []
+   
+        ln_sence_non0_num = [] # Get nonzero element of every resize gray
         for i in range(n_sence):
             ln_sence_non0_num.append(len(np_img_gray_choose[:, :, i].nonzero()[0]))
 
@@ -67,10 +66,8 @@ def img_2gray(np_img_raw):
 '''  a image to bgr format '''   
 def img_2bgr(np_img_in):
     if np_img_in is None:
-        return None, -3
-    
-    # if raw image is uint16 so conver to uint8 
-    np_img_bgr = None
+        return None, -3 
+    np_img_bgr = None # if raw image is uint16 so conver to uint8 
     if len(np_img_in.shape) == 3 and np_img_in.shape[2] == 3: # Raw Image is BGR imge, so continue
         np_img_bgr = np_img_in
     elif len(np_img_in.shape) == 3 and np_img_in.shape[2] == 4: # Raw Image is BGRA imge, there are different situation to solve
