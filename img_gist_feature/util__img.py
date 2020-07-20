@@ -56,8 +56,7 @@ def img_2gray(np_img_raw):
                 ln_diff_pix_num.append(len(np.unique(np_img_gray_choose[:, :, i])))
             n_max_index = ln_diff_pix_num.index(max(ln_diff_pix_num))
             np_img_gray = np_img_gray_choose[:, :, n_max_index]
-    # Raw Image is gray image
-    elif len(np_img_raw.shape) == 3 and np_img_raw.shape[2] == 1:
+    elif len(np_img_raw.shape) == 3 and np_img_raw.shape[2] == 1: # Raw Image is gray image
         np_img_gray = np_img_raw[:, :, 0]
     elif len(np_img_raw.shape) == 2:
         np_img_gray = np_img_raw
