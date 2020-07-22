@@ -56,7 +56,8 @@ def img_2gray(np_img_raw):
                 ln_diff_pix_num.append(len(np.unique(np_img_gray_choose[:, :, i])))
             n_max_index = ln_diff_pix_num.index(max(ln_diff_pix_num))
             np_img_gray = np_img_gray_choose[:, :, n_max_index]
-    elif len(np_img_raw.shape) == 3 and np_img_raw.shape[2] == 1: # Raw Image is gray image
+    # Raw Image is gray image
+    elif len(np_img_raw.shape) == 3 and np_img_raw.shape[2] == 1:
         np_img_gray = np_img_raw[:, :, 0]
     elif len(np_img_raw.shape) == 2:
         np_img_gray = np_img_raw
@@ -71,9 +72,7 @@ def img_2bgr(np_img_in):
         np_img_bgr = np_img_in
     elif len(np_img_in.shape) == 3 and np_img_in.shape[2] == 4: # Raw Image is BGRA imge, there are different situation to solve
         h, w, c = np_img_in.shape
-
-        np_img_bgr_1 = cv2.cvtColor(np_img_in, cv2.COLOR_BGRA2BGR)
-       
+        np_img_bgr_1 = cv2.cvtColor(np_img_in, cv2.COLOR_BGRA2BGR)    
         b, g, r, a = cv2.split(np_img_in)
         b = cv2.convertScaleAbs(b, alpha=(255.0/65535.0)) # (b/256).astype('uint8')
         g = cv2.convertScaleAbs(g, alpha=(255.0/65535.0))
