@@ -101,7 +101,6 @@ def img_2bgr(np_img_in):
 ''' resize a image '''     
 def img_resize(np_img_in, ln_resize, run_log=None, b_print=False):
     np_img_resize = np_img_in
-    n_row, n_col, n_chanel = np_img_resize.shape
     if ln_resize is not None:
         try:
             np_img_resize = cv2.resize(np_img_resize, ln_resize, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
@@ -116,9 +115,6 @@ def img_resize(np_img_in, ln_resize, run_log=None, b_print=False):
         run_log and run_log.error(s_msg)
         b_print and print(s_msg)
         return None, -2
-
-    
-
 
 ''' A image is usable image  '''
 def is_usable_img(s_img_url, run_log=None, b_print=False):
