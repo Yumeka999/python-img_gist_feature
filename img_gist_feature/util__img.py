@@ -90,10 +90,7 @@ def img_2bgr(np_img_in):
 
         n_info_1 = len(np.unique(np_img_gray_1))
         n_info_2 = len(np.unique(np_img_gray_2))    
-        if n_info_1 >= n_info_2:
-            np_img_bgr = np_img_bgr_1
-        else:
-            np_img_bgr = np_img_bgr_2
+        np_img_bgr = np_img_bgr_1 if n_info_1 >= n_info_2 else np_img_bgr_2
     elif len(np_img_in.shape) == 3 and np_img_in.shape[2] == 1: # Raw Image is gray image
         np_img_bgr = np.tile(np_img_in, (1, 1, 3))     # 256x256x1 ==> 256x256x3
     elif len(np_img_in.shape) == 2:
