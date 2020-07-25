@@ -127,11 +127,7 @@ def is_usable_img(s_img_url, run_log=None, b_print=False):
     if s_img_url.rfind('.gif') > 0: return True
     
     if s_img_url.rfind('.bpg') > 0: 
-        if is_bpg_img(s_img_url) == 0: 
-            return True
-        else:
-            return False
-
+        return True if is_bpg_img(s_img_url) == 0 else False
     try:
         np_img_in = cv2.imdecode(np.fromfile(s_img_url, dtype=np.uint8),-1)
     except Exception as e:
