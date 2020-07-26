@@ -138,8 +138,7 @@ def is_usable_img(s_img_url, run_log=None, b_print=False):
 
     if np_img_in is None:
         run_log and run_log.error('img url:%s, is null mat' % s_img_url)
-        return False
-    
+        return False   
     n_h, n_w = np_img_in.shape[0], np_img_in.shape[1]
     if n_h < 200 or n_w < 200: 
         s_msg = 'img url:%s, smart' % s_img_url
@@ -162,10 +161,7 @@ def is_usable_img(s_img_url, run_log=None, b_print=False):
     #         break          
     # if n_same >= int(n_h/17):
     #     return False        
-    
     return True
-
-
 
 ''' A image deblank '''
 def img_deblank(np_img_raw, run_log=None, b_print=False):
@@ -183,7 +179,6 @@ def img_deblank(np_img_raw, run_log=None, b_print=False):
             run_log and run_log.error(s_msg)
             b_print and print(s_msg)
             return None, -1
-
         # find coordinate of balck point of left-top
         np_blank_index = np.argwhere(np_img_otsu == 0)
 
