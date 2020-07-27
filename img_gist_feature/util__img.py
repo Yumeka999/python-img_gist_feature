@@ -176,15 +176,13 @@ def img_deblank(np_img_raw, run_log=None, b_print=False):
             run_log and run_log.error(s_msg)
             b_print and print(s_msg)
             return None, -1
-        # find coordinate of balck point of left-top
-        np_blank_index = np.argwhere(np_img_otsu == 0)
+        np_blank_index = np.argwhere(np_img_otsu == 0) # find coordinate of balck point of left-top
 
         # if no black in small image, so don't need to do deblank
         if np_blank_index.shape[0] == 0:
             return np_img_raw, 1
 
-        # Get coordinate of left-top  right-bottom
-        n_row_min = np.min(np_blank_index[:, 0])
+        n_row_min = np.min(np_blank_index[:, 0]) # Get coordinate of left-top  right-bottom
         n_row_max = np.max(np_blank_index[:, 0])
         n_col_min = np.min(np_blank_index[:, 1])
         n_col_max = np.max(np_blank_index[:, 1])
@@ -198,12 +196,10 @@ def img_deblank(np_img_raw, run_log=None, b_print=False):
         return np_img_deblank_zone, 0
     else:
         row, col, c = np_img_raw.shape
-
         tempr0 = 0
         tempr1 = 0
         tempc0 = 0
         tempc1 = 0
-
         for r in range(row):
             if np_img_raw[r,:,:].sum() != 765 * col:
                 tempr0 = r
@@ -225,11 +221,6 @@ def img_deblank(np_img_raw, run_log=None, b_print=False):
                 break
         np_img_deblank_zone = np_img_raw[tempr0:tempr1+1, tempc0:tempc1+1,:]
         return np_img_deblank_zone, 0
-
-
-
-
-
 
 #  Get all frame form gif
 ''' 
