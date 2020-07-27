@@ -123,9 +123,7 @@ def is_usable_img(s_img_url, run_log=None, b_print=False):
         run_log and run_log.warning(s_msg)
         b_print and print(s_msg)
         return False
-     
     if s_img_url.rfind('.gif') > 0: return True
-    
     if s_img_url.rfind('.bpg') > 0: 
         return True if is_bpg_img(s_img_url) == 0 else False
     try:
@@ -135,7 +133,6 @@ def is_usable_img(s_img_url, run_log=None, b_print=False):
         run_log and run_log.error(s_msg)
         b_print and print(s_msg)
         return False 
-
     if np_img_in is None:
         run_log and run_log.error('img url:%s, is null mat' % s_img_url)
         return False   
@@ -308,8 +305,7 @@ def get_img_obv_and_true_ext(s_img_in_url, run_log=None, b_print=False):
     if s_true_ext is None:
         s_msg = "%s not a iamge with imghdr" % s_img_in_url
         run_log and run_log.warning(s_msg)
-        b_print and print(s_msg)
-        
+        b_print and print(s_msg) 
         return s_obv_ext, s_obv_ext
     else:
         return s_obv_ext, "." + s_true_ext
@@ -361,18 +357,14 @@ def img_resize_win(np_img_in, n_max, n_limit_ratio):
     np_img_resize = cv2.resize(np_img_in, (re_w, re_h), fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA) if b_need_resize else np_img_in 
     return np_img_resize
 
-
 # A image is right bpg format?
 def is_bpg_img(s_img_in_url, run_log=None, b_print=False):
-    if not os.path.exists(s_img_in_url) or not os.path.isfile(s_img_in_url):
-        return -1
-
+    if not os.path.exists(s_img_in_url) or not os.path.isfile(s_img_in_url): return -1
     if not s_img_in_url.endswith(".bpg"):
         s_msg = "not endwith .bpg"
         run_log and run_log.warning(s_msg)
         b_print and print(s_msg)
         return 1
-
     with open(s_img_in_url, "rb") as fp:
         for now in fp:
             n_byte_1 = now[0]
@@ -392,7 +384,6 @@ def get_histeq_img(np_img_in, run_log=None, b_print=False):
         run_log and run_log.warning()
         b_print and print(s_msg)
         return None
-    
     n_shape_len = len(np_img_in.shape)
     np_img_out = None
     if n_shape_len == 2: # Single chanle image
