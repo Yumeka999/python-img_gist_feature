@@ -142,7 +142,6 @@ def is_usable_img(s_img_url, run_log=None, b_print=False):
         run_log and run_log.error(s_msg)
         b_print and print(s_msg)
         return False
-
     # if len(np_img_in.shape) == 3:
     #     np_img_gray = cv2.cvtColor(np_img_in, cv2.COLOR_RGB2GRAY)
     # else:
@@ -177,22 +176,16 @@ def img_deblank(np_img_raw, run_log=None, b_print=False):
             b_print and print(s_msg)
             return None, -1
         np_blank_index = np.argwhere(np_img_otsu == 0) # find coordinate of balck point of left-top
-
-        # if no black in small image, so don't need to do deblank
-        if np_blank_index.shape[0] == 0:
+    
+        if np_blank_index.shape[0] == 0: # if no black in small image, so don't need to do deblank
             return np_img_raw, 1
-
         n_row_min = np.min(np_blank_index[:, 0]) # Get coordinate of left-top  right-bottom
         n_row_max = np.max(np_blank_index[:, 0])
         n_col_min = np.min(np_blank_index[:, 1])
-        n_col_max = np.max(np_blank_index[:, 1])
-
-        # if no blank so don't need to do deblank
-        if n_row_min == 0 and n_col_min == 0 and n_row_max == n_row and n_col_max == n_col:
+        n_col_max = np.max(np_blank_index[:, 1]) 
+        if n_row_min == 0 and n_col_min == 0 and n_row_max == n_row and n_col_max == n_col: # if no blank so don't need to do deblank
             return np_img_otsu, 1
-
-        # get deblank zone of small image
-        np_img_deblank_zone = np_img_raw[n_row_min: n_row_max + 1, n_col_min:n_col_max + 1]
+        np_img_deblank_zone = np_img_raw[n_row_min: n_row_max + 1, n_col_min:n_col_max + 1] # get deblank zone of small image
         return np_img_deblank_zone, 0
     else:
         row, col, c = np_img_raw.shape
@@ -204,7 +197,6 @@ def img_deblank(np_img_raw, run_log=None, b_print=False):
             if np_img_raw[r,:,:].sum() != 765 * col:
                 tempr0 = r
                 break
-
         for r in range(row-1,0,-1):
             if np_img_raw[r,:,:].sum() != 765 * col:
                 tempr1 = r
