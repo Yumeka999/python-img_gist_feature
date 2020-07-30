@@ -176,7 +176,6 @@ def img_deblank(np_img_raw, run_log=None, b_print=False):
             b_print and print(s_msg)
             return None, -1
         np_blank_index = np.argwhere(np_img_otsu == 0) # find coordinate of balck point of left-top
-    
         if np_blank_index.shape[0] == 0: # if no black in small image, so don't need to do deblank
             return np_img_raw, 1
         n_row_min = np.min(np_blank_index[:, 0]) # Get coordinate of left-top  right-bottom
@@ -262,20 +261,16 @@ def gen_gif_from_frames(ls_img_path, s_gif_path, ln_resize=None, f_fps=0.06, run
 # Get real format of a image
 def get_img_obv_and_true_ext(s_img_in_url, run_log=None, b_print=False):
     _, s_obv_ext = os.path.splitext(s_img_in_url)  # Get extension name of a image
-
     if not os.path.exists(s_img_in_url) or not os.path.isfile(s_img_in_url):
         s_msg = "%s not exists or not a file" % s_img_in_url
         run_log and run_log.warning(s_msg)
         b_print and print(s_msg)
         return s_obv_ext, ""
-
     # np_img_in = cv2.imdecode(np.fromfile(s_img_in_url, dtype=np.uint8), -1)
     # cv2.imread(s_img_in_url, cv2.IMREAD_UNCHANGED)    
-
     # if np_img_in is None:
     #     run_logger and run_logger.warning("%s not a iamge" % s_img_in_url)
     #     return s_obv_ext, ""
-   
     s_true_ext = imghdr.what(s_img_in_url)
     if s_true_ext is None:
         s_msg = "%s not a iamge with imghdr" % s_img_in_url
