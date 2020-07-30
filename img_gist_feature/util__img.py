@@ -201,12 +201,10 @@ def img_deblank(np_img_raw, run_log=None, b_print=False):
             if np_img_raw[r,:,:].sum() != 765 * col:
                 tempr1 = r
                 break
-
         for c in range(col):
             if np_img_raw[:,c,:].sum() != 765 * row:
                 tempc0=c
                 break
-
         for c in range(col-1, 0,-1):
             if np_img_raw[:,c,:].sum() != 765 * row:
                 tempc1=c
@@ -230,25 +228,19 @@ F             32位浮点型像素
 def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_log=None, b_print=False):
     recur_mkdir(s_all_frame_out_dor, run_log)
     f_duration, n_frame_num = 0.0, 0
-
     try:
         pil_gif = Image.open(s_gif_url)
         b_animate = pil_gif.is_animated
         n_frame_num = pil_gif.n_frames
-
-        if not b_animate: # static gif
-            return 1, 0.0
-        
+        if not b_animate:  return 1, 0.0 # static gif   
         for i in range(n_frame_num):
             pil_gif.seek(i)
-
             f_duration += pil_gif.info['duration']
             pil_sav = pil_gif
             if pil_gif.mode == "P":  
                 pil_sav = pil_gif.convert("RGB")
             elif pil_gif.mode == "RGBA":
-                pil_sav = pil_gif.convert("RGB")
-           
+                pil_sav = pil_gif.convert("RGB")   
             pil_sav.save(os.path.join(s_all_frame_out_dor, "%s.jpg" % str(i+1).zfill(3)))
         return 0, n_frame_num / f_duration * 1000
     except Exception as e:
