@@ -301,13 +301,11 @@ def write_img(s_img_out_url, np_img, run_log=None):
         run_log and run_log.error('Err %s' % str(e))
         return -1
     
-
 # Resize a image in window size
 def img_resize_win(np_img_in, n_max, n_limit_ratio):
     n_h, n_w = np_img_in.shape[0], np_img_in.shape[1]
     re_h, re_w = 0, 0
     b_need_resize = True
-
     if n_h/n_w > n_limit_ratio or n_w/n_h > n_limit_ratio:  # If weight/hight > limit_ratio or hight/weight > limit_ratio
         b_need_resize = False   
     elif n_w <= n_max and n_h <= n_max: 
