@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import os
 import sys
 import cv2
@@ -8,10 +7,8 @@ import imghdr
 import numpy as np
 from PIL import Image
 
-
 S_NOW_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(S_NOW_DIR)
-
 
 # Creat Directory
 def recur_mkdir(s_path, run_log=None, b_print=False):  
@@ -32,7 +29,6 @@ def recur_mkdir(s_path, run_log=None, b_print=False):
 def cp_file_dir(s_in_url, s_out_url, run_log=None, b_print=False):
     if os.path.exists(s_out_url):  rm_file_dir(s_out_url)
     cp_func = shutil.copyfile if os.path.isfile(s_in_url) else shutil.copytree
-
     try:
         cp_func(s_in_url, s_out_url) # Copy a old file to tmp dir 
         return 0     
@@ -42,7 +38,6 @@ def cp_file_dir(s_in_url, s_out_url, run_log=None, b_print=False):
         b_print and print(s_msg)
         return -1
    
-
 # Move a file or directory
 def mv_file_dir(s_in_url, s_out_url, run_log=None, b_print=False):
     try: 
@@ -54,10 +49,6 @@ def mv_file_dir(s_in_url, s_out_url, run_log=None, b_print=False):
         b_print and print(s_msg)  
         return -1
     
-
-
-
-
 # Delete a file
 def rm_file_dir(s_in_url, run_log=None, b_print=False):
     try:
@@ -82,5 +73,4 @@ def get_usable_str(s_in):
     for ch in s_unvalid:
         s_tmp = s_tmp.replace(ch,'')
     s_tmp = s_tmp.replace(u'\u3000','')
-    
     return s_tmp
