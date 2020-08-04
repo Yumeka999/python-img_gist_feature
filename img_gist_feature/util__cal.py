@@ -30,7 +30,6 @@ def get_all_cos_sim(np_A ,np_B, np_B_L2 = None, run_logger=None, b_print=False):
     t1 = time.time()
     np_inner = np_A.dot(np_B.T)
     
-
     np_cos_sim = np_inner/(np_A_L2 * np_B_L2)
     np_cos_sim = 0.5 + 0.5 * np_cos_sim
     t2 = time.time()
@@ -58,9 +57,8 @@ def np_l2norm(np_x):
     
 #    print(np_x_L2.shape)
     np_x_L2Norm = np_x * np_x_L2_1
-    
-    # if value is nan and set 0.0
-    np_where_are_nans = np.isnan(np_x_L2Norm)
+      
+    np_where_are_nans = np.isnan(np_x_L2Norm) # if value is nan and set 0.0
     np_x_L2Norm[np_where_are_nans] = 0.0
     
     return np_x_L2Norm
