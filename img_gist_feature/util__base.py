@@ -61,10 +61,10 @@ def rm_file_dir(s_in_url, run_log=None, b_print=False):
             b_print and print(s_msg)
             return 1
     except Exception as e:
-         s_msg = 'Err: cant'' remove %s, %s' % (s_in_url, str(e))
-         run_log and run_log.error(s_msg)
-         b_print and print(s_msg)
-         return -1
+        s_msg = 'Err: cant'' remove %s, %s' % (s_in_url, str(e))
+        run_log and run_log.error(s_msg)
+        b_print and print(s_msg)
+        return -1
 
 # Get right string
 def get_usable_str(s_in):
