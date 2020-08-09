@@ -212,10 +212,10 @@ def img_deblank(np_img_raw, run_log=None, b_print=False):
 
 #  Get all frame form gif
 ''' 
-模式
-1             1位像素，黑和白，存成8位的像素
-L             8位像素，黑白
-P             8位像素，使用调色板映射到任何其他模式
+Mode
+1             1 bit pixel, black and white, save 8 bit pixel
+L             8 bit pixel, black and white位像素，黑白
+P             8 bit pixel, mapping other mode with using color palette
 RGB           3×8位像素，真彩
 RGBA          4×8位像素，真彩+透明通道
 CMYK          4×8位像素，颜色隔离
