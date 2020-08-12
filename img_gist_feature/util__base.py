@@ -216,7 +216,7 @@ Mode
 1             1 bit pixel, black and white, save 8 bit pixel
 L             8 bit pixel, black and white位像素，黑白
 P             8 bit pixel, mapping other mode with using color palette
-RGB           3×8位像素，真彩
+RGB           3×8 bit pixel, true color
 RGBA          4×8位像素，真彩+透明通道
 CMYK          4×8位像素，颜色隔离
 YCbCr         3×8位像素，彩色视频格式
