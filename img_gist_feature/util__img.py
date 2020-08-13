@@ -147,7 +147,6 @@ def is_usable_img(s_img_url, run_log=None, b_print=False):
     # else:
     #     np_img_gray = np_img_in
     # n_h, n_w = np_img_gray.shape  
-    # # 接近底部的连续相邻行一样，认为下载不完整
     # n_same = 0
     # for i in range(1, n_h ):
     #     np_row_unique = np.unique(np_img_gray[n_h - i,:] - np_img_gray[n_h - i-1,:])
@@ -213,11 +212,11 @@ def img_deblank(np_img_raw, run_log=None, b_print=False):
 
 #  Get all frame form gif
 ''' 
-模式
-1             1位像素，黑和白，存成8位的像素
-L             8位像素，黑白
-P             8位像素，使用调色板映射到任何其他模式
-RGB           3×8位像素，真彩
+Mode
+1             1 bit pixel, black and white, save 8 bit pixel
+L             8 bit pixel, black and white
+P             8 bit pixel, mapping other mode with using color palette
+RGB           3×8 bit pixel, true color
 RGBA          4×8位像素，真彩+透明通道
 CMYK          4×8位像素，颜色隔离
 YCbCr         3×8位像素，彩色视频格式
@@ -365,7 +364,7 @@ def get_histeq_img(np_img_in, run_log=None, b_print=False):
 
 # Compute ssim
 def get_ssim(np_img_A, np_img_B, run_log=None, b_print=False):
-    # 必须是灰度图
+    # Must gray image
     if len(np_img_A.shape) == 3 or len(np_img_B.shape) == 3:
         s_msg = "input A or B is not gray image, A:%s, B:%s" % (str(np_img_A.shape), str(np_img_B.shape))
         run_log and run_log.erro(s_msg)
