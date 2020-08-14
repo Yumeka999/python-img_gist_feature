@@ -82,12 +82,9 @@ def img_2bgr(np_img_in):
         not_a = cv2.bitwise_not(a)
         not_a = cv2.cvtColor(not_a, cv2.COLOR_GRAY2BGR) 
         new_img = cv2.bitwise_and(new_img, new_img, mask = a)
-        np_img_bgr_2 = cv2.add(new_img, not_a)
-
-        # Which image has most not white
-        np_img_gray_1 = cv2.cvtColor(cv2.convertScaleAbs(np_img_bgr_1, alpha=(255.0/65535.0)), cv2.COLOR_BGR2GRAY)
+        np_img_bgr_2 = cv2.add(new_img, not_a) 
+        np_img_gray_1 = cv2.cvtColor(cv2.convertScaleAbs(np_img_bgr_1, alpha=(255.0/65535.0)), cv2.COLOR_BGR2GRAY) # Which image has most not white
         np_img_gray_2 = cv2.cvtColor(np_img_bgr_2, cv2.COLOR_BGR2GRAY)
-
         n_info_1 = len(np.unique(np_img_gray_1))
         n_info_2 = len(np.unique(np_img_gray_2))    
         np_img_bgr = np_img_bgr_1 if n_info_1 >= n_info_2 else np_img_bgr_2
