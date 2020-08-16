@@ -138,21 +138,7 @@ def is_usable_img(s_img_url, run_log=None, b_print=False):
         s_msg = 'img url:%s, smart' % s_img_url
         run_log and run_log.error(s_msg)
         b_print and print(s_msg)
-        return False
-    # if len(np_img_in.shape) == 3:
-    #     np_img_gray = cv2.cvtColor(np_img_in, cv2.COLOR_RGB2GRAY)
-    # else:
-    #     np_img_gray = np_img_in
-    # n_h, n_w = np_img_gray.shape  
-    # n_same = 0
-    # for i in range(1, n_h ):
-    #     np_row_unique = np.unique(np_img_gray[n_h - i,:] - np_img_gray[n_h - i-1,:])
-    #     if len(np_row_unique) == 1 and np_row_unique == np.asarray([0]):
-    #         n_same += 1
-    #     else:
-    #         break          
-    # if n_same >= int(n_h/17):
-    #     return False        
+        return False  
     return True
 
 ''' A image deblank '''
@@ -361,8 +347,7 @@ def get_histeq_img(np_img_in, run_log=None, b_print=False):
 
 # Compute ssim
 def get_ssim(np_img_A, np_img_B, run_log=None, b_print=False):
-    # Must gray image
-    if len(np_img_A.shape) == 3 or len(np_img_B.shape) == 3:
+    if len(np_img_A.shape) == 3 or len(np_img_B.shape) == 3:     # Must gray image
         s_msg = "input A or B is not gray image, A:%s, B:%s" % (str(np_img_A.shape), str(np_img_B.shape))
         run_log and run_log.erro(s_msg)
         b_print and b_print(s_msg)
