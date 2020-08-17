@@ -20,16 +20,15 @@ def is_single_alpha(np_raw_img):
     if np_raw_img.shape[-1] != 4:
         return False
     for i in range(3):
-        if sum(sum(np_raw_img[:,:,i]>0)) != 0:
-            return False
+        if sum(sum(np_raw_img[:,:,i]>0)) != 0: 
+            return False        
     return True
 
 ''' Convert raw image to small gray image, resize is  n_resize * n_resize ''' 
 def img_2gray(np_img_raw):
     if np_img_raw is None:
         return None, -3
-    # Raw Image is BGR imge, so convert rgb to gray
-    np_img_gray = None
+    np_img_gray = None # Raw Image is BGR imge, so convert rgb to gray
     if len(np_img_raw.shape) == 3 and np_img_raw.shape[2] == 3:
         np_img_gray = cv2.cvtColor(np_img_raw, cv2.COLOR_BGR2GRAY)
     # Raw Image is BGRA imge, there are different situation to solve
@@ -131,7 +130,9 @@ def is_usable_img(s_img_url, run_log=None, b_print=False):
         b_print and print(s_msg)
         return False 
     if np_img_in is None:
-        run_log and run_log.error('img url:%s, is null mat' % s_img_url)
+        s_msg = 'img url:%s, is null mat' % s_img_url
+        run_log and run_log.error(s_msg)
+        b_print and print(s_msg)
         return False   
     n_h, n_w = np_img_in.shape[0], np_img_in.shape[1]
     if n_h < 200 or n_w < 200: 
