@@ -248,11 +248,6 @@ def get_img_obv_and_true_ext(s_img_in_url, run_log=None, b_print=False):
         run_log and run_log.warning(s_msg)
         b_print and print(s_msg)
         return s_obv_ext, ""
-    # np_img_in = cv2.imdecode(np.fromfile(s_img_in_url, dtype=np.uint8), -1)
-    # cv2.imread(s_img_in_url, cv2.IMREAD_UNCHANGED)    
-    # if np_img_in is None:
-    #     run_logger and run_logger.warning("%s not a iamge" % s_img_in_url)
-    #     return s_obv_ext, ""
     s_true_ext = imghdr.what(s_img_in_url)
     if s_true_ext is None:
         s_msg = "%s not a iamge with imghdr" % s_img_in_url
