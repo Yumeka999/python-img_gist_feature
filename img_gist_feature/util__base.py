@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-import cv2
 import shutil
-import imghdr
-import numpy as np
 from PIL import Image
 
 S_NOW_DIR = os.path.dirname(os.path.abspath(__file__))
