@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
+
 import os
 import sys
 import cv2
-import imageio
 import imghdr
+import imageio
 import numpy as np
-from PIL import Image
-from PIL import ImageFile
+from PIL import Image, ImageFile
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
