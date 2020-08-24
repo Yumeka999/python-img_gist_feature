@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-
 import os
 import sys
 import shutil
-from PIL import Image
 
 S_NOW_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(S_NOW_DIR)
