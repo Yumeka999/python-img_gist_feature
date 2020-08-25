@@ -21,7 +21,6 @@ def recur_mkdir(s_path, run_log=None, b_print=False):
     b_print and print(s_msg)
     return n_ret
 
-
 # Copy a file or directory
 def cp_file_dir(s_in_url, s_out_url, run_log=None, b_print=False):
     if os.path.exists(s_out_url):  rm_file_dir(s_out_url)
