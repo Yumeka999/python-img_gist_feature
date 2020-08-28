@@ -7,7 +7,6 @@ import imghdr
 import imageio
 import numpy as np
 from PIL import Image, ImageFile
-
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 S_NOW_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -23,6 +22,7 @@ def is_single_alpha(np_raw_img):
         if sum(sum(np_raw_img[:,:,i]>0)) != 0: 
             return False        
     return True
+
 
 ''' Convert raw image to small gray image, resize is  n_resize * n_resize ''' 
 def img_2gray(np_img_raw):
