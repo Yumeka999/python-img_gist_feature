@@ -61,7 +61,8 @@ def img_2gray(np_img_raw):
     elif len(np_img_raw.shape) == 2:
         np_img_gray = np_img_raw
     return np_img_gray, 0
-    
+
+
 '''  a image to bgr format '''   
 def img_2bgr(np_img_in):
     if np_img_in is None:
@@ -94,6 +95,7 @@ def img_2bgr(np_img_in):
         np_img_bgr = np.transpose(np_img_bgr, (1, 2, 0))  # 3x256x256 ==> 256x256x3
     return np_img_bgr, 0
 
+
 ''' resize a image '''     
 def img_resize(np_img_in, ln_resize, run_log=None, b_print=False):
     np_img_resize = np_img_in
@@ -111,6 +113,7 @@ def img_resize(np_img_in, ln_resize, run_log=None, b_print=False):
         run_log and run_log.error(s_msg)
         b_print and print(s_msg)
         return None, -2
+
 
 ''' A image is usable image  '''
 def is_usable_img(s_img_url, run_log=None, b_print=False):
@@ -141,6 +144,8 @@ def is_usable_img(s_img_url, run_log=None, b_print=False):
         b_print and print(s_msg)
         return False  
     return True
+
+
 
 ''' A image deblank '''
 def img_deblank(np_img_raw, run_log=None, b_print=False):
@@ -194,6 +199,7 @@ def img_deblank(np_img_raw, run_log=None, b_print=False):
         np_img_deblank_zone = np_img_raw[tempr0:tempr1+1, tempc0:tempc1+1,:]
         return np_img_deblank_zone, 0
 
+
 #  Get all frame form gif
 ''' 
 Mode
@@ -231,6 +237,7 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_log=None, b_print
         b_print and print(s_msg)
         return -1, 0.0
 
+
 def gen_gif_from_frames(ls_img_path, s_gif_path, ln_resize=None, f_fps=0.06, run_log=None, b_print=False):
     lnp_frame = []
     for e in ls_img_path:
@@ -240,6 +247,7 @@ def gen_gif_from_frames(ls_img_path, s_gif_path, ln_resize=None, f_fps=0.06, run
         np_img = np_img[:,:,::-1]
         lnp_frame.append(np_img)
     imageio.mimsave(s_gif_path, lnp_frame, 'GIF', duration=1./f_fps)
+
 
 # Get real format of a image
 def get_img_obv_and_true_ext(s_img_in_url, run_log=None, b_print=False):
@@ -258,6 +266,7 @@ def get_img_obv_and_true_ext(s_img_in_url, run_log=None, b_print=False):
     else:
         return s_obv_ext, "." + s_true_ext
 
+
 # Get numpy array from path of image
 def read_img(s_img_in_url, run_log=None):
     try:
@@ -266,6 +275,7 @@ def read_img(s_img_in_url, run_log=None):
         run_log and run_log.error('Err %s' % str(e))
         return None
     return np_img
+
 
 # Write a image with url
 def write_img(s_img_out_url, np_img, run_log=None):
@@ -278,7 +288,8 @@ def write_img(s_img_out_url, np_img, run_log=None):
     except Exception as e:
         run_log and run_log.error('Err %s' % str(e))
         return -1
-    
+
+
 # Resize a image in window size
 def img_resize_win(np_img_in, n_max, n_limit_ratio):
     n_h, n_w = np_img_in.shape[0], np_img_in.shape[1]
@@ -303,6 +314,7 @@ def img_resize_win(np_img_in, n_max, n_limit_ratio):
     np_img_resize = cv2.resize(np_img_in, (re_w, re_h), fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA) if b_need_resize else np_img_in 
     return np_img_resize
 
+
 # A image is right bpg format?
 def is_bpg_img(s_img_in_url, run_log=None, b_print=False):
     if not os.path.exists(s_img_in_url) or not os.path.isfile(s_img_in_url): return -1
@@ -322,6 +334,7 @@ def is_bpg_img(s_img_in_url, run_log=None, b_print=False):
     run_log and run_log.warning(s_msg)
     b_print and print(s_msg)
     return -1
+
 
 # Get histogram equalization image 
 def get_histeq_img(np_img_in, run_log=None, b_print=False):
