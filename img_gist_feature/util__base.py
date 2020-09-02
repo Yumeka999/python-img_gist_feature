@@ -66,6 +66,7 @@ def rm_file_dir(s_in_url, run_log=None, b_print=False):
         b_print and print(s_msg)
         return -1
 
+
 # Get right string
 def get_usable_str(s_in):
     s_tmp = s_in  
