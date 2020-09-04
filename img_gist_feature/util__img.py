@@ -271,11 +271,11 @@ def get_img_obv_and_true_ext(s_img_in_url, run_log=None, b_print=False):
 def read_img(s_img_in_url, run_log=None):
     try:
         np_img = cv2.imdecode(np.fromfile(s_img_in_url, dtype=np.uint8), cv2.IMREAD_UNCHANGED)    
+        return np_img
     except Exception as e:
         run_log and run_log.error('Err %s' % str(e))
         return None
-    return np_img
-
+    
 
 # Write a image with url
 def write_img(s_img_out_url, np_img, run_log=None):
@@ -353,6 +353,9 @@ def get_histeq_img(np_img_in, run_log=None, b_print=False):
         np_img_out[:,:,1] = cv2.equalizeHist(np_img_in[:,:,1])
         np_img_out[:,:,2] = cv2.equalizeHist(np_img_in[:,:,2])
     return np_img_out
+
+
+
 
 # Compute ssim
 def get_ssim(np_img_A, np_img_B, run_log=None, b_print=False):
