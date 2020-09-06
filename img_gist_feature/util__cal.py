@@ -39,6 +39,7 @@ def get_all_cos_sim(np_A ,np_B, np_B_L2 = None, run_logger=None, b_print=False):
     b_print and print(s_msg)
 
     return np_cos_sim
+
     
 def np_l2norm(np_x):
     if len(np_x.shape) > 2:
