@@ -46,23 +46,21 @@ def np_l2norm(np_x):
         return -1
     elif len(np_x.shape) == 1:
         np_x = np_x[:, np.newaxis]
-        np_x = np_x.T
-        
+        np_x = np_x.T       
     # the feature number of input
-    n_feat_num = np_x.shape[1]    
-    
+    n_feat_num = np_x.shape[1]       
     np_x_L2 = np.linalg.norm(np_x, axis = 1)
     np_x_L2 = np_x_L2[:, np.newaxis]
     np_x_L2 = np.tile(np_x_L2, (1,n_feat_num))
     np_x_L2_1 = 1.0/np_x_L2
     
-#    print(np_x_L2.shape)
     np_x_L2Norm = np_x * np_x_L2_1
       
     np_where_are_nans = np.isnan(np_x_L2Norm) # if value is nan and set 0.0
     np_x_L2Norm[np_where_are_nans] = 0.0
     
     return np_x_L2Norm
+
 
 def get_cos_sim(np_A, np_B):
     return np.inner(np_A, np_B)/(np.linalg.norm(np_A) * np.linalg.norm(np_B))
