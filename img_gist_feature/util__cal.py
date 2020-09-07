@@ -37,7 +37,6 @@ def get_all_cos_sim(np_A ,np_B, np_B_L2 = None, run_logger=None, b_print=False):
     s_msg = "cos time %.3f" % (t2-t1)
     run_logger and run_logger.info(s_msg)
     b_print and print(s_msg)
-
     return np_cos_sim
 
     
@@ -45,10 +44,9 @@ def np_l2norm(np_x):
     if len(np_x.shape) > 2:
         return -1
     elif len(np_x.shape) == 1:
-        np_x = np_x[:, np.newaxis]
-        np_x = np_x.T       
-    # the feature number of input
-    n_feat_num = np_x.shape[1]       
+        np_x = np_x[:, np.newaxis].T
+                
+    n_feat_num = np_x.shape[1]  # the feature number of input      
     np_x_L2 = np.linalg.norm(np_x, axis = 1)
     np_x_L2 = np_x_L2[:, np.newaxis]
     np_x_L2 = np.tile(np_x_L2, (1,n_feat_num))
