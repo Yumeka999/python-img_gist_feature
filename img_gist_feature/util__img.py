@@ -369,12 +369,9 @@ def get_ssim(np_img_A, np_img_B, run_log=None, b_print=False):
 
 # Canny edge detect
 def canny_edge_detect(np_img, n_low_limit = 0, n_kernel_size = 3):
-    np_detect_edge = cv2.GaussianBlur(np_img, (3,3), 0)
+    np_gray = img_2gray(np_img)
+    n_ratio = 3
+    np_detect_edge = cv2.GaussianBlur(np_gray, (3,3), 0)
     np_detect_edge = cv2.Canny(np_detect_edge, n_low_limit, n_low_limit * n_ratio, apertureSize = n_kernel_size)
-    dst = cv2.bitwise_and(np_detect_edge, np_detect_edge, mask = detected_edges)  # just add some colours to edges from original image.
-    max_lowThreshold = 100
-    ratio = 3
-    
-    
-    img = cv2.imread('0.jpg')
-    gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    np_canny = cv2.bitwise_and(np_gray, np_gray, mask = np_detect_edge)  # just add some colours to edges from original image. 
+    return np_canny
