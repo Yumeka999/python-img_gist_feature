@@ -368,8 +368,13 @@ def get_ssim(np_img_A, np_img_B, run_log=None, b_print=False):
     return sim
 
 # Canny edge detect
-def canny_edge_detect(np_img, n_low_limit = 0, n_kernel_size = 3):
+def canny_edge_detect(np_img, n_low_limit = 0, n_kernel_size = 3, run_log=None, b_print=False):
     np_gray = img_2gray(np_img)
+    if np_gray is None:
+        s_msg = "err in img_2gray"
+        run_log and run_log.error(s_msg)
+        b_print and print(s_msg)
+        return None
     n_ratio = 3
     np_detect_edge = cv2.GaussianBlur(np_gray, (3,3), 0)
     np_detect_edge = cv2.Canny(np_detect_edge, n_low_limit, n_low_limit * n_ratio, apertureSize = n_kernel_size)
