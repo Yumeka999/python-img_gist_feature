@@ -369,7 +369,7 @@ def get_ssim(np_img_A, np_img_B, run_log=None, b_print=False):
 
 # Canny edge detect
 def canny_edge_detect(np_img, n_low_limit = 0, n_kernel_size = 3, run_log=None, b_print=False):
-    np_gray = img_2gray(np_img)
+    np_gray, n_ret = img_2gray(np_img)
     if np_gray is None:
         s_msg = "err in img_2gray"
         run_log and run_log.error(s_msg)
