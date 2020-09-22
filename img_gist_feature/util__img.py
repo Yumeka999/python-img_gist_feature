@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import os
 import sys
 import cv2
@@ -7,6 +6,7 @@ import imghdr
 import imageio
 import numpy as np
 from PIL import Image, ImageFile
+from skimage.measure import compare_ssim
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 S_NOW_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -25,8 +25,11 @@ def is_single_alpha(np_raw_img):
 
 
 ''' Convert raw image to small gray image, resize is  n_resize * n_resize ''' 
-def img_2gray(np_img_raw):
+def img_2gray(np_img_raw, run_log=None, b_print=False):
     if np_img_raw is None:
+        s_msg = "input image null"
+        run_log and run_log.error(s_msg)
+        b_print and print(s_msg)
         return None, -3
     np_img_gray = None # Raw Image is BGR imge, so convert rgb to gray
     if len(np_img_raw.shape) == 3 and np_img_raw.shape[2] == 3:
@@ -359,13 +362,21 @@ def get_histeq_img(np_img_in, run_log=None, b_print=False):
 
 # Compute ssim
 def get_ssim(np_img_A, np_img_B, run_log=None, b_print=False):
-    if len(np_img_A.shape) == 3 or len(np_img_B.shape) == 3:     # Must gray image
-        s_msg = "input A or B is not gray image, A:%s, B:%s" % (str(np_img_A.shape), str(np_img_B.shape))
+    np_img_gray_A, n_ret_A = img_2gray(np_img_A, b_print=b_print)
+    np_img_gray_B, n_ret_B = img_2gray(np_img_B, b_print=b_print)
+    if n_ret_A !=0 or n_ret_B != 0:     # Must gray image
+        s_msg = "error in img_2gray()"
         run_log and run_log.erro(s_msg)
-        b_print and b_print(s_msg)
+        b_print and print(s_msg)
         return -1.0
-    sim, _ = compare_ssim(np_img_A, np_img_B, full=True)
+    if np_img_gray_A.shape[0:2] != np_img_gray_B.shape[0:2]:
+        s_msg = "shape not same"
+        run_log and run_log.erro(s_msg)
+        b_print and print(s_msg)
+        return -1.0
+    sim, _ = compare_ssim(np_img_A[:,:,0], np_img_B[:,:,0], full=True)
     return sim
+
 
 # Canny edge detect
 def canny_edge_detect(np_img, n_low = 60 , n_high = 180, run_log=None, b_print=False):
