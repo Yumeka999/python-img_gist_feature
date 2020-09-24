@@ -33,9 +33,8 @@ def img_2gray(np_img_raw, run_log=None, b_print=False):
         return None, -3
     np_img_gray = None # Raw Image is BGR imge, so convert rgb to gray
     if len(np_img_raw.shape) == 3 and np_img_raw.shape[2] == 3:
-        np_img_gray = cv2.cvtColor(np_img_raw, cv2.COLOR_BGR2GRAY)
-    # Raw Image is BGRA imge, there are different situation to solve
-    elif len(np_img_raw.shape) == 3 and np_img_raw.shape[2] == 4:
+        np_img_gray = cv2.cvtColor(np_img_raw, cv2.COLOR_BGR2GRAY) 
+    elif len(np_img_raw.shape) == 3 and np_img_raw.shape[2] == 4: # Raw Image is BGRA imge, there are different situation to solve
         n_sence = 3
         np_img_gray_choose = np.zeros([np_img_raw.shape[0], np_img_raw.shape[1], n_sence], dtype=np.uint8)
 
@@ -369,7 +368,7 @@ def get_ssim(np_img_A, np_img_B, run_log=None, b_print=False):
         run_log and run_log.erro(s_msg)
         b_print and print(s_msg)
         return -1.0
-    if np_img_gray_A.shape[0:2] != np_img_gray_B.shape[0:2]:
+    if np_img_gray_A.shape[0:2] != np_img_gray_B.shape[0:2]: 
         s_msg = "shape not same"
         run_log and run_log.erro(s_msg)
         b_print and print(s_msg)
