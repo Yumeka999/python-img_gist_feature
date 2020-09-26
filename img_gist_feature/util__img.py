@@ -15,7 +15,7 @@ sys.path.append(S_NOW_DIR)
 from util__base import *
 
 ''' Is numpy matrix all no-zero data in alpha channel ''' 
-def is_single_alpha(np_raw_img):
+def is_single_alpha(np_raw_img, run_log=None, b_print=False):
     if np_raw_img.shape[-1] != 4:
         return False
     for i in range(3):
@@ -45,9 +45,8 @@ def img_2gray(np_img_raw, run_log=None, b_print=False):
         ln_sence_non0_num = [] # Get nonzero element of every resize gray
         for i in range(n_sence):
             ln_sence_non0_num.append(len(np_img_gray_choose[:, :, i].nonzero()[0]))
-
-        # Which image has most nonzero element
-        if len(set(ln_sence_non0_num)) > 1:
+      
+        if len(set(ln_sence_non0_num)) > 1: # Which image has most nonzero element
             n_max_index = ln_sence_non0_num.index(max(ln_sence_non0_num))
             np_img_gray = np_img_gray_choose[:, :, n_max_index]
         else:
@@ -240,6 +239,9 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_log=None, b_print
         return -1, 0.0
 
 
+'''
+get a gif frome each frame image 
+'''
 def gen_gif_from_frames(ls_img_path, s_gif_path, ln_resize=None, f_fps=0.06, run_log=None, b_print=False):
     lnp_frame = []
     for e in ls_img_path:
@@ -355,9 +357,6 @@ def get_histeq_img(np_img_in, run_log=None, b_print=False):
         np_img_out[:,:,1] = cv2.equalizeHist(np_img_in[:,:,1])
         np_img_out[:,:,2] = cv2.equalizeHist(np_img_in[:,:,2])
     return np_img_out
-
-
-
 
 # Compute ssim
 def get_ssim(np_img_A, np_img_B, run_log=None, b_print=False):
