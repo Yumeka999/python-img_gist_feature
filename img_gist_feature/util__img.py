@@ -65,7 +65,7 @@ def img_2gray(np_img_raw, run_log=None, b_print=False):
 
 
 '''  a image to bgr format '''   
-def img_2bgr(np_img_in):
+def img_2bgr(np_img_in, run_log=None, b_print=False):
     if np_img_in is None:
         return None, -3 
     np_img_bgr = None # if raw image is uint16 so conver to uint8 
@@ -239,9 +239,7 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_log=None, b_print
         return -1, 0.0
 
 
-'''
-get a gif frome each frame image 
-'''
+# get a gif frome each frame image 
 def gen_gif_from_frames(ls_img_path, s_gif_path, ln_resize=None, f_fps=0.06, run_log=None, b_print=False):
     lnp_frame = []
     for e in ls_img_path:
@@ -272,12 +270,14 @@ def get_img_obv_and_true_ext(s_img_in_url, run_log=None, b_print=False):
 
 
 # Get numpy array from path of image
-def read_img(s_img_in_url, run_log=None):
+def read_img(s_img_in_url, run_log=None, b_print=False):
     try:
         np_img = cv2.imdecode(np.fromfile(s_img_in_url, dtype=np.uint8), cv2.IMREAD_UNCHANGED)    
         return np_img
     except Exception as e:
-        run_log and run_log.error('Err %s' % str(e))
+        s_msg = 'Err %s' % str(e)
+        run_log and run_log.error(s_msg)
+        b_print and print(s_msg)
         return None
     
 
