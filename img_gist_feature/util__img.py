@@ -282,7 +282,7 @@ def read_img(s_img_in_url, run_log=None, b_print=False):
     
 
 # Write a image with url
-def write_img(s_img_out_url, np_img, run_log=None):
+def write_img(s_img_out_url, np_img, run_log=None, b_print=False):
     s_ext = s_img_out_url[s_img_out_url.rfind("."):]
     if s_ext.lower() not in [".jpg", ".jpeg", ".png", ".bmp", ".tif", ".webp"]:
         return -1
@@ -295,7 +295,7 @@ def write_img(s_img_out_url, np_img, run_log=None):
 
 
 # Resize a image in window size
-def img_resize_win(np_img_in, n_max, n_limit_ratio):
+def img_resize_win(np_img_in, n_max, n_limit_ratio, run_log=None, b_print=False):
     n_h, n_w = np_img_in.shape[0], np_img_in.shape[1]
     re_h, re_w = 0, 0
     b_need_resize = True
