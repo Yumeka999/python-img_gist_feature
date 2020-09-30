@@ -358,6 +358,7 @@ def get_histeq_img(np_img_in, run_log=None, b_print=False):
         np_img_out[:,:,2] = cv2.equalizeHist(np_img_in[:,:,2])
     return np_img_out
 
+
 # Compute ssim
 def get_ssim(np_img_A, np_img_B, run_log=None, b_print=False):
     np_img_gray_A, n_ret_A = img_2gray(np_img_A, b_print=b_print)
