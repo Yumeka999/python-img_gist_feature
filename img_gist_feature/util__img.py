@@ -25,8 +25,6 @@ def is_single_alpha(np_raw_img, run_log=None, b_print=False):
             return False        
     return True
 
-
-
 ''' 
 Convert raw image to small gray image, resize is  n_resize * n_resize 
 ''' 
@@ -68,7 +66,6 @@ def img_2gray(np_img_raw, run_log=None, b_print=False):
         np_img_gray = np_img_raw
     return np_img_gray, 0
 
-
 '''  
 a image to bgr format 
 '''   
@@ -103,8 +100,9 @@ def img_2bgr(np_img_in, run_log=None, b_print=False):
         np_img_bgr = np.transpose(np_img_bgr, (1, 2, 0))  # 3x256x256 ==> 256x256x3
     return np_img_bgr, 0
 
-
-''' resize a image '''     
+''' 
+resize a image 
+'''     
 def img_resize(np_img_in, ln_resize, run_log=None, b_print=False):
     np_img_resize = np_img_in
     if ln_resize is not None:
