@@ -69,7 +69,9 @@ def img_2gray(np_img_raw, run_log=None, b_print=False):
     return np_img_gray, 0
 
 
-'''  a image to bgr format '''   
+'''  
+a image to bgr format 
+'''   
 def img_2bgr(np_img_in, run_log=None, b_print=False):
     if np_img_in is None:
         return None, -3 
