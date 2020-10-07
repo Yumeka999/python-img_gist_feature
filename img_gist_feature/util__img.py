@@ -133,18 +133,21 @@ def is_usable_img(s_img_url, run_log=None, b_print=False):
         return True
     if s_img_url.rfind('.bpg') > 0: 
         return True if is_bpg_img(s_img_url, run_log, b_print) == 0 else False
+
     try:
         np_img_in = cv2.imdecode(np.fromfile(s_img_url, dtype=np.uint8),-1)
     except Exception as e:
         s_msg = 'img url:%s, err:%s' % (s_img_url, str(e))
         run_log and run_log.error(s_msg)
         b_print and print(s_msg)
-        return False 
+        return False
+
     if np_img_in is None:
         s_msg = 'img url:%s, is null mat' % s_img_url
         run_log and run_log.error(s_msg)
         b_print and print(s_msg)
-        return False   
+        return False
+
     n_h, n_w = np_img_in.shape[0], np_img_in.shape[1]
     if n_h < 200 or n_w < 200: 
         s_msg = 'img url:%s, smart' % s_img_url
@@ -153,9 +156,9 @@ def is_usable_img(s_img_url, run_log=None, b_print=False):
         return False  
     return True
 
-
-
-''' A image deblank '''
+''' 
+A image deblank 
+'''
 def img_deblank(np_img_raw, run_log=None, b_print=False):
     # only gray and color image can be deblanked
     n_shape_size = len(np_img_raw.shape)
@@ -207,9 +210,8 @@ def img_deblank(np_img_raw, run_log=None, b_print=False):
         np_img_deblank_zone = np_img_raw[tempr0:tempr1+1, tempc0:tempc1+1,:]
         return np_img_deblank_zone, 0
 
-
-#  Get all frame form gif
-''' 
+'''
+Get all frame form gif 
 Mode
 1             1 bit pixel, black and white, save 8 bit pixel
 L             8 bit pixel, black and white
@@ -245,8 +247,9 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_log=None, b_print
         b_print and print(s_msg)
         return -1, 0.0
 
-
-# get a gif frome each frame image 
+'''
+get a gif frome each frame image 
+'''
 def gen_gif_from_frames(ls_img_path, s_gif_path, ln_resize=None, f_fps=0.06, run_log=None, b_print=False):
     lnp_frame = []
     for e in ls_img_path:
@@ -256,7 +259,6 @@ def gen_gif_from_frames(ls_img_path, s_gif_path, ln_resize=None, f_fps=0.06, run
         np_img = np_img[:,:,::-1]
         lnp_frame.append(np_img)
     imageio.mimsave(s_gif_path, lnp_frame, 'GIF', duration=1./f_fps)
-
 
 # Get real format of a image
 def get_img_obv_and_true_ext(s_img_in_url, run_log=None, b_print=False):
@@ -274,7 +276,6 @@ def get_img_obv_and_true_ext(s_img_in_url, run_log=None, b_print=False):
         return s_obv_ext, s_obv_ext
     else:
         return s_obv_ext, "." + s_true_ext
-
 
 # Get numpy array from path of image
 def read_img(s_img_in_url, run_log=None, b_print=False):
