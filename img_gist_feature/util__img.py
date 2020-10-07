@@ -120,8 +120,9 @@ def img_resize(np_img_in, ln_resize, run_log=None, b_print=False):
         b_print and print(s_msg)
         return None, -2
 
-
-''' A image is usable image  '''
+''' 
+A image is usable image  
+'''
 def is_usable_img(s_img_url, run_log=None, b_print=False):
     if not os.path.exists(s_img_url): 
         s_msg = "not find %s" % s_img_url
