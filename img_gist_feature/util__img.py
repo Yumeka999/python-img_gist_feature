@@ -260,7 +260,9 @@ def gen_gif_from_frames(ls_img_path, s_gif_path, ln_resize=None, f_fps=0.06, run
         lnp_frame.append(np_img)
     imageio.mimsave(s_gif_path, lnp_frame, 'GIF', duration=1./f_fps)
 
-# Get real format of a image
+'''
+Get real format of a image
+'''
 def get_img_obv_and_true_ext(s_img_in_url, run_log=None, b_print=False):
     _, s_obv_ext = os.path.splitext(s_img_in_url)  # Get extension name of a image
     if not os.path.exists(s_img_in_url) or not os.path.isfile(s_img_in_url):
@@ -269,6 +271,7 @@ def get_img_obv_and_true_ext(s_img_in_url, run_log=None, b_print=False):
         b_print and print(s_msg)
         return s_obv_ext, ""
     s_true_ext = imghdr.what(s_img_in_url)
+    
     if s_true_ext is None:
         s_msg = "%s not a iamge with imghdr" % s_img_in_url
         run_log and run_log.warning(s_msg)
