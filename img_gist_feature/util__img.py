@@ -226,19 +226,24 @@ F             32位浮点型像素
 def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_log=None, b_print=False):
     recur_mkdir(s_all_frame_out_dor, run_log)
     f_duration, n_frame_num = 0.0, 0
+
     try:
         pil_gif = Image.open(s_gif_url)
         b_animate = pil_gif.is_animated
         n_frame_num = pil_gif.n_frames
-        if not b_animate:  return 1, 0.0 # static gif   
+
+        if not b_animate:  return 1, 0.0 # static gif  
+
         for i in range(n_frame_num):
             pil_gif.seek(i)
             f_duration += pil_gif.info['duration']
             pil_sav = pil_gif
+
             if pil_gif.mode == "P":  
                 pil_sav = pil_gif.convert("RGB")
             elif pil_gif.mode == "RGBA":
-                pil_sav = pil_gif.convert("RGB")   
+                pil_sav = pil_gif.convert("RGB") 
+
             pil_sav.save(os.path.join(s_all_frame_out_dor, "%s.jpg" % str(i+1).zfill(3)))
         return 0, n_frame_num / f_duration * 1000
     except Exception as e:
@@ -252,10 +257,13 @@ get a gif frome each frame image
 '''
 def gen_gif_from_frames(ls_img_path, s_gif_path, ln_resize=None, f_fps=0.06, run_log=None, b_print=False):
     lnp_frame = []
+
     for e in ls_img_path:
         np_img = read_img(e)
+
         if ln_resize is not None:
             np_img, n_ret = img_resize(np_img, ln_resize)
+
         np_img = np_img[:,:,::-1]
         lnp_frame.append(np_img)
     imageio.mimsave(s_gif_path, lnp_frame, 'GIF', duration=1./f_fps)
@@ -265,11 +273,13 @@ Get real format of a image
 '''
 def get_img_obv_and_true_ext(s_img_in_url, run_log=None, b_print=False):
     _, s_obv_ext = os.path.splitext(s_img_in_url)  # Get extension name of a image
+
     if not os.path.exists(s_img_in_url) or not os.path.isfile(s_img_in_url):
         s_msg = "%s not exists or not a file" % s_img_in_url
         run_log and run_log.warning(s_msg)
         b_print and print(s_msg)
         return s_obv_ext, ""
+
     s_true_ext = imghdr.what(s_img_in_url)
     
     if s_true_ext is None:
@@ -280,7 +290,9 @@ def get_img_obv_and_true_ext(s_img_in_url, run_log=None, b_print=False):
     else:
         return s_obv_ext, "." + s_true_ext
 
-# Get numpy array from path of image
+'''
+Get numpy array from path of image
+'''
 def read_img(s_img_in_url, run_log=None, b_print=False):
     try:
         np_img = cv2.imdecode(np.fromfile(s_img_in_url, dtype=np.uint8), cv2.IMREAD_UNCHANGED)    
@@ -374,11 +386,13 @@ def get_histeq_img(np_img_in, run_log=None, b_print=False):
 def get_ssim(np_img_A, np_img_B, run_log=None, b_print=False):
     np_img_gray_A, n_ret_A = img_2gray(np_img_A, b_print=b_print)
     np_img_gray_B, n_ret_B = img_2gray(np_img_B, b_print=b_print)
+
     if n_ret_A !=0 or n_ret_B != 0:     # Must gray image
         s_msg = "error in img_2gray()"
         run_log and run_log.erro(s_msg)
         b_print and print(s_msg)
         return -1.0
+        
     if np_img_gray_A.shape[0:2] != np_img_gray_B.shape[0:2]: 
         s_msg = "shape not same"
         run_log and run_log.erro(s_msg)
@@ -391,11 +405,12 @@ def get_ssim(np_img_A, np_img_B, run_log=None, b_print=False):
 # Canny edge detect
 def canny_edge_detect(np_img, n_low = 60 , n_high = 180, run_log=None, b_print=False):
     np_gray, n_ret = img_2gray(np_img)
+
     if np_gray is None:
         s_msg = "err in img_2gray"
         run_log and run_log.error(s_msg)
         b_print and print(s_msg)
-        return None
+        return None     
     np_detect_edge = cv2.GaussianBlur(np_gray, (3, 3), 0)
     np_detect_edge = cv2.Canny(np_detect_edge, n_low, n_high)
     np_canny = cv2.bitwise_and(np_img, np_img, mask = np_detect_edge)  # just add some colours to edges from original image. 
