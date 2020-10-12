@@ -324,6 +324,7 @@ def img_resize_win(np_img_in, n_max, n_limit_ratio, run_log=None, b_print=False)
     n_h, n_w = np_img_in.shape[0], np_img_in.shape[1]
     re_h, re_w = 0, 0
     b_need_resize = True
+
     if n_h/n_w > n_limit_ratio or n_w/n_h > n_limit_ratio:  # If weight/hight > limit_ratio or hight/weight > limit_ratio
         b_need_resize = False   
     elif n_w <= n_max and n_h <= n_max: 
@@ -337,13 +338,17 @@ def img_resize_win(np_img_in, n_max, n_limit_ratio, run_log=None, b_print=False)
     else:
         re_w = n_max
         re_h = (n_h*re_w)//n_w
+
         if re_h > n_max:
             re_h = n_max     
             re_w = (n_w*re_h)//n_h   
     np_img_resize = cv2.resize(np_img_in, (re_w, re_h), fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA) if b_need_resize else np_img_in 
+    
     return np_img_resize
 
-# A image is right bpg format?
+'''
+A image is right bpg format?
+'''
 def is_bpg_img(s_img_in_url, run_log=None, b_print=False):
     if not os.path.exists(s_img_in_url) or not os.path.isfile(s_img_in_url): return -1
     if not s_img_in_url.endswith(".bpg"):
@@ -400,12 +405,14 @@ def get_ssim(np_img_A, np_img_B, run_log=None, b_print=False):
         b_print and print(s_msg)
         return -1.0
     sim, _ = compare_ssim(np_img_A[:,:,0], np_img_B[:,:,0], full=True)
+    
     return sim
 
 
 # Canny edge detect
 def canny_edge_detect(np_img, n_low = 60 , n_high = 180, run_log=None, b_print=False):
     np_gray, n_ret = img_2gray(np_img)
+
     if np_gray is None:
         s_msg = "err in img_2gray"
         run_log and run_log.error(s_msg)
@@ -414,4 +421,5 @@ def canny_edge_detect(np_img, n_low = 60 , n_high = 180, run_log=None, b_print=F
     np_detect_edge = cv2.GaussianBlur(np_gray, (3, 3), 0)
     np_detect_edge = cv2.Canny(np_detect_edge, n_low, n_high)
     np_canny = cv2.bitwise_and(np_img, np_img, mask = np_detect_edge)  # just add some colours to edges from original image. 
+    
     return np_canny
