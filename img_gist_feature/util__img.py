@@ -303,8 +303,9 @@ def read_img(s_img_in_url, run_log=None, b_print=False):
         b_print and print(s_msg)
         return None
     
-
-# Write a image with url
+'''
+Write a image with url
+'''
 def write_img(s_img_out_url, np_img, run_log=None, b_print=False):
     s_ext = s_img_out_url[s_img_out_url.rfind("."):]
     if s_ext.lower() not in [".jpg", ".jpeg", ".png", ".bmp", ".tif", ".webp"]:
@@ -316,8 +317,9 @@ def write_img(s_img_out_url, np_img, run_log=None, b_print=False):
         run_log and run_log.error('Err %s' % str(e))
         return -1
 
-
-# Resize a image in window size
+'''
+Resize a image in window size
+'''
 def img_resize_win(np_img_in, n_max, n_limit_ratio, run_log=None, b_print=False):
     n_h, n_w = np_img_in.shape[0], np_img_in.shape[1]
     re_h, re_w = 0, 0
@@ -341,7 +343,6 @@ def img_resize_win(np_img_in, n_max, n_limit_ratio, run_log=None, b_print=False)
     np_img_resize = cv2.resize(np_img_in, (re_w, re_h), fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA) if b_need_resize else np_img_in 
     return np_img_resize
 
-
 # A image is right bpg format?
 def is_bpg_img(s_img_in_url, run_log=None, b_print=False):
     if not os.path.exists(s_img_in_url) or not os.path.isfile(s_img_in_url): return -1
@@ -362,7 +363,6 @@ def is_bpg_img(s_img_in_url, run_log=None, b_print=False):
     b_print and print(s_msg)
     return -1
 
-
 # Get histogram equalization image 
 def get_histeq_img(np_img_in, run_log=None, b_print=False):
     if np_img_in is None:
@@ -382,6 +382,7 @@ def get_histeq_img(np_img_in, run_log=None, b_print=False):
     return np_img_out
 
 
+
 # Compute ssim
 def get_ssim(np_img_A, np_img_B, run_log=None, b_print=False):
     np_img_gray_A, n_ret_A = img_2gray(np_img_A, b_print=b_print)
@@ -392,7 +393,7 @@ def get_ssim(np_img_A, np_img_B, run_log=None, b_print=False):
         run_log and run_log.erro(s_msg)
         b_print and print(s_msg)
         return -1.0
-        
+
     if np_img_gray_A.shape[0:2] != np_img_gray_B.shape[0:2]: 
         s_msg = "shape not same"
         run_log and run_log.erro(s_msg)
@@ -405,7 +406,6 @@ def get_ssim(np_img_A, np_img_B, run_log=None, b_print=False):
 # Canny edge detect
 def canny_edge_detect(np_img, n_low = 60 , n_high = 180, run_log=None, b_print=False):
     np_gray, n_ret = img_2gray(np_img)
-
     if np_gray is None:
         s_msg = "err in img_2gray"
         run_log and run_log.error(s_msg)
