@@ -368,7 +368,9 @@ def is_bpg_img(s_img_in_url, run_log=None, b_print=False):
     b_print and print(s_msg)
     return -1
 
-# Get histogram equalization image 
+'''
+Get histogram equalization image
+''' 
 def get_histeq_img(np_img_in, run_log=None, b_print=False):
     if np_img_in is None:
         s_msg = "input is null"
@@ -420,6 +422,5 @@ def canny_edge_detect(np_img, n_low = 60 , n_high = 180, run_log=None, b_print=F
         return None     
     np_detect_edge = cv2.GaussianBlur(np_gray, (3, 3), 0)
     np_detect_edge = cv2.Canny(np_detect_edge, n_low, n_high)
-    np_canny = cv2.bitwise_and(np_img, np_img, mask = np_detect_edge)  # just add some colours to edges from original image. 
-    
+    np_canny = cv2.bitwise_and(np_img, np_img, mask = np_detect_edge)  # just add some colours to edges from original image.  
     return np_canny
