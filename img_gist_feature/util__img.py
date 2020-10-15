@@ -418,7 +418,8 @@ def canny_edge_detect(np_img, n_low = 60 , n_high = 180, run_log=None, b_print=F
         s_msg = "err in img_2gray"
         run_log and run_log.error(s_msg)
         b_print and print(s_msg)
-        return None     
+        return None 
+            
     np_detect_edge = cv2.GaussianBlur(np_gray, (3, 3), 0)
     np_detect_edge = cv2.Canny(np_detect_edge, n_low, n_high)
     np_canny = cv2.bitwise_and(np_img, np_img, mask = np_detect_edge)  # just add some colours to edges from original image.  
