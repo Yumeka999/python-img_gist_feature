@@ -395,7 +395,6 @@ Compute ssim
 def get_ssim(np_img_A, np_img_B, run_log=None, b_print=False):
     np_img_gray_A, n_ret_A = img_2gray(np_img_A, b_print=b_print)
     np_img_gray_B, n_ret_B = img_2gray(np_img_B, b_print=b_print)
-
     if n_ret_A !=0 or n_ret_B != 0:     # Must gray image
         s_msg = "error in img_2gray()"
         run_log and run_log.erro(s_msg)
