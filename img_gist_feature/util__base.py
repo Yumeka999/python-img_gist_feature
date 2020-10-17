@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import os
 import sys
 import shutil
@@ -6,8 +7,9 @@ import shutil
 S_NOW_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(S_NOW_DIR)
 
-
-# Creat Directory
+'''
+Creat Directory
+'''
 def recur_mkdir(s_path, run_log=None, b_print=False):  
     n_ret = 0
     if os.path.exists(s_path) and os.path.isdir(s_path):
