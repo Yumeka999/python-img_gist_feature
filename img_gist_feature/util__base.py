@@ -39,8 +39,9 @@ def cp_file_dir(s_in_url, s_out_url, run_log=None, b_print=False):
         b_print and print(s_msg)
         return -1
    
-      
-# Move a file or directory
+'''      
+Move a file or directory
+''' 
 def mv_file_dir(s_in_url, s_out_url, run_log=None, b_print=False):
     try: 
         shutil.move(s_in_url, s_out_url) # using shutil.move
