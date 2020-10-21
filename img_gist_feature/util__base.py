@@ -96,6 +96,9 @@ def get_usable_str(s_in):
     s_tmp = s_tmp.replace(u'\u3000','')
     return s_tmp
 
+
+
+
 # time to millisecond
 def time_2_millsecond(s_time):
     ls_time = s_time.split(":")
