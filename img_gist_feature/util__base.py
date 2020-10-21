@@ -54,11 +54,13 @@ Move a file or directory
 def mv_file_dir(s_in_url, s_out_url, run_log=None, b_print=False):
     try: 
         shutil.move(s_in_url, s_out_url) # using shutil.move
+
         return 0
     except Exception as e:
         s_msg = 'Err: cant''t copy %s to %s, %s' % (s_in_url, s_out_url, str(e))
         run_log and run_log.error(s_msg)
-        b_print and print(s_msg)  
+        b_print and print(s_msg) 
+
         return -1
 
 '''
@@ -68,20 +70,24 @@ def rm_file_dir(s_in_url, run_log=None, b_print=False):
     try:
         if os.path.exists(s_in_url): # is a directory
             shutil.rmtree(s_in_url) 
+
             return 0
         else:
             s_msg = 'Err: not exists %s' % (s_in_url)
             run_log and run_log.error(s_msg)
             b_print and print(s_msg)
+
             return 1
     except Exception as e:
         s_msg = 'Err: cant'' remove %s, %s' % (s_in_url, str(e))
         run_log and run_log.error(s_msg)
         b_print and print(s_msg)
+
         return -1
 
-
-# Get right string
+'''
+Get right string
+'''
 def get_usable_str(s_in):
     s_tmp = s_in  
     s_unvalid = '<>,\/|,:.,''",*,?\t\r\n'
@@ -89,3 +95,9 @@ def get_usable_str(s_in):
         s_tmp = s_tmp.replace(ch,'')
     s_tmp = s_tmp.replace(u'\u3000','')
     return s_tmp
+
+# time to millisecond
+def time_2_millsecond(s_time):
+    ls_time = s_time.split(":")
+    n_hour, n_min, n_second = int(ls_time[0]), int(ls_time[1]), int(ls_time[2])
+    return 1000 * (3600 * n_hour + 60 * n_min + n_second)
