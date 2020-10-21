@@ -94,12 +94,12 @@ def get_usable_str(s_in):
     for ch in s_unvalid:
         s_tmp = s_tmp.replace(ch,'')
     s_tmp = s_tmp.replace(u'\u3000','')
+    
     return s_tmp
 
-
-
-
-# time to millisecond
+'''
+time to millisecond
+'''
 def time_2_millsecond(s_time):
     ls_time = s_time.split(":")
     n_hour, n_min, n_second = int(ls_time[0]), int(ls_time[1]), int(ls_time[2])
