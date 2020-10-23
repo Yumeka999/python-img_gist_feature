@@ -80,7 +80,7 @@ def rm_file_dir(s_in_url, run_log=None, b_print=False):
 '''
 Get right string
 '''
-def get_usable_str(s_in):
+def get_usable_str(s_in, run_log=None, b_print=False):
     s_tmp = s_in  
     s_unvalid = '<>,\/|,:.,''",*,?\t\r\n'
     for ch in s_unvalid:
@@ -91,7 +91,7 @@ def get_usable_str(s_in):
 '''
 time to millisecond
 '''
-def time_2_millsecond(s_time):
+def time_2_millsecond(s_time, run_log=None, b_print=False):
     ls_time = s_time.split(":")
     n_hour, n_min, n_second = int(ls_time[0]), int(ls_time[1]), int(ls_time[2])
     return 1000 * (3600 * n_hour + 60 * n_min + n_second)
