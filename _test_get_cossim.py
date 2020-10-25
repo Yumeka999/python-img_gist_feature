@@ -25,6 +25,7 @@ def get_img_gist_feat(s_img_url):
 
     return np_gist_L2Norm
 
+
 def proc_main(O_IN):
     s_img_url_a = O_IN["s_img_url_a"]
     s_img_url_b = O_IN["s_img_url_b"]
