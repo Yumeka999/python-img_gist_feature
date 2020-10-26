@@ -33,9 +33,9 @@ def cp_file_dir(s_in_url, s_out_url, run_log=None, b_print=False):
             s_msg = 'Err in rm_file_dir'
             run_log and run_log.error(s_msg)
             b_print and print(s_msg)
-            return -1
-    cp_func = shutil.copyfile if os.path.isfile(s_in_url) else shutil.copytree
+            return -1  
     try:
+        cp_func = shutil.copyfile if os.path.isfile(s_in_url) else shutil.copytree
         cp_func(s_in_url, s_out_url) # Copy a old file to tmp dir 
         return 0     
     except Exception as e:
