@@ -106,7 +106,7 @@ def time_2_millsecond(s_time, run_log=None, b_print=False):
 millisecond to time
 '''
 def millisecond_2_time(n_time, run_log=None, b_print=False):
-    n_time = n_time//1000
+    n_time = int(n_time)//1000
     n_h, n_m, n_s = n_time//3600, n_time//60, n_time % 60
     s_time = "%s:%s:%s" % (str(n_h), str(n_m), str(n_s))
     return s_time
