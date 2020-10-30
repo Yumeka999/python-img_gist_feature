@@ -93,13 +93,13 @@ time to millisecond
 '''
 def time_2_millsecond(s_time, run_log=None, b_print=False):
     ls_time = s_time.split(":")
+
     if len(ls_time) != 3:
         s_msg = "err text:%s" % s_time
         b_print and print(s_msg)
         run_log and run_log.error(s_msg)
         return -1
     n_hour, n_min, n_second = int(ls_time[0]), int(ls_time[1]), int(ls_time[2])
-    
     return 1000 * (3600 * n_hour + 60 * n_min + n_second)
 
 '''
@@ -111,7 +111,7 @@ def millisecond_2_time(n_time, run_log=None, b_print=False):
         b_print and print(s_msg)
         run_log and run_log.error(s_msg)
         return ""        
-    n_time = int(n_time)//1000
+    n_time = n_time//1000
     n_h, n_m, n_s = n_time//3600, n_time//60, n_time % 60
     s_time = "%s:%s:%s" % (str(n_h), str(n_m), str(n_s))
     return s_time
