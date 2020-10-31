@@ -25,7 +25,6 @@ def get_img_gist_feat(s_img_url):
 
     return np_gist_L2Norm
 
-
 def proc_main(O_IN):
     s_img_url_a = O_IN["s_img_url_a"]
     s_img_url_b = O_IN["s_img_url_b"]
@@ -35,7 +34,6 @@ def proc_main(O_IN):
 
     f_img_sim = np.inner(np_img_gist_a, np_img_gist_b)
     print("%.23f" % f_img_sim)
-
 
     np_img_group = cv2.imread(s_img_url_a)
     np_img_public = cv2.imread(s_img_url_b)
