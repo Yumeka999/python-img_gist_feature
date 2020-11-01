@@ -23,6 +23,8 @@ def get_img_gist_feat(s_img_url):
     print("gist feature(L2 norm) noly show 10dim", np_gist_L2Norm[0,:10], "...")
     print()
 
+    
+    
     return np_gist_L2Norm
 
 def proc_main(O_IN):
