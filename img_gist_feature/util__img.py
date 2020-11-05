@@ -412,14 +412,19 @@ def get_ssim(np_img_A, np_img_B, run_log=None, b_print=False):
 Canny edge detect
 '''
 def canny_edge_detect(np_img, n_low = 60 , n_high = 180, run_log=None, b_print=False):
-    np_gray, n_ret = img_2gray(np_img)
-
-    if np_gray is None:
-        s_msg = "err in img_2gray"
+    try:
+        np_gray, n_ret = img_2gray(np_img)
+        if np_gray is None:
+            s_msg = "err in img_2gray"
+            run_log and run_log.error(s_msg)
+            b_print and print(s_msg)
+            return None            
+        np_detect_edge = cv2.GaussianBlur(np_gray, (3, 3), 0)
+        np_detect_edge = cv2.Canny(np_detect_edge, n_low, n_high)
+        np_canny = cv2.bitwise_and(np_img, np_img, mask = np_detect_edge)  # just add some colours to edges from original image.    
+        return np_canny
+    except Exception as e:
+        s_msg = 'err %s' % str(e)
         run_log and run_log.error(s_msg)
         b_print and print(s_msg)
-        return None            
-    np_detect_edge = cv2.GaussianBlur(np_gray, (3, 3), 0)
-    np_detect_edge = cv2.Canny(np_detect_edge, n_low, n_high)
-    np_canny = cv2.bitwise_and(np_img, np_img, mask = np_detect_edge)  # just add some colours to edges from original image.    
-    return np_canny
+        return None
