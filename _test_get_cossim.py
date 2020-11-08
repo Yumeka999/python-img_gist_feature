@@ -48,9 +48,7 @@ def proc_main(O_IN):
     ax = fig.add_subplot(1, 2, 2)
     ax.imshow(np_img_public[:,:,::-1])
     ax.set_title("%s" % s_img_url_b, fontsize=20)
-
     fig.savefig("./test/show.jpg")
-
     plt.show()
 
 
