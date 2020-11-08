@@ -40,7 +40,7 @@ def get_all_cos_sim(np_A ,np_B, np_B_L2 = None, run_logger=None, b_print=False):
     return np_cos_sim
 
     
-def np_l2norm(np_x):
+def np_l2norm(np_x, run_log=None, b_print=False):
     if len(np_x.shape) > 2:
         return -1
     elif len(np_x.shape) == 1:
