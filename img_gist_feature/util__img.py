@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import os
 import sys
 import cv2
@@ -68,6 +69,7 @@ a image to bgr format
 def img_2bgr(np_img_in, run_log=None, b_print=False):
     if np_img_in is None:
         return None, -3 
+
     np_img_bgr = None # if raw image is uint16 so conver to uint8 
     if len(np_img_in.shape) == 3 and np_img_in.shape[2] == 3: # Raw Image is BGR imge, so continue
         np_img_bgr = np_img_in
@@ -100,22 +102,15 @@ def img_2bgr(np_img_in, run_log=None, b_print=False):
 resize a image 
 '''     
 def img_resize(np_img_in, ln_resize, run_log=None, b_print=False):
-    np_img_resize = np_img_in
-    if ln_resize is not None:
-        try:
-            np_img_resize = cv2.resize(np_img_resize, ln_resize, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
-            return np_img_resize, 0
-        except Exception as e:
-            s_msg = 'resize err:%s' % str(e)
-            run_log and run_log.error(s_msg)
-            b_print and print(s_msg)
-            return None, -3
-    else:
-        s_msg = 'resize is null' 
+    try:
+        np_img_resize = cv2.resize(np_img_in, ln_resize, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
+        return np_img_resize, 0
+    except Exception as e:
+        s_msg = 'resize err:%s' % str(e)
         run_log and run_log.error(s_msg)
         b_print and print(s_msg)
-        return None, -2
-
+        return None, -3
+    
 ''' 
 A image is usable image  
 '''
@@ -143,7 +138,6 @@ def is_usable_img(s_img_url, run_log=None, b_print=False):
         run_log and run_log.error(s_msg)
         b_print and print(s_msg)
         return False
-
     n_h, n_w = np_img_in.shape[0], np_img_in.shape[1]
     if n_h < 200 or n_w < 200: 
         s_msg = 'img url:%s, smart' % s_img_url
