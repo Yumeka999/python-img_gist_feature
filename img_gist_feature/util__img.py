@@ -19,10 +19,18 @@ from util__base import *
 Is numpy matrix all no-zero data in alpha channel 
 ''' 
 def is_single_alpha(np_raw_img, run_log=None, b_print=False):
-    if np_raw_img.shape[-1] != 4: return False
-    for i in range(3):
-        if sum(sum(np_raw_img[:,:,i]>0)) != 0: return False        
-    return True
+    try:
+        if np_raw_img.shape[-1] != 4: 
+            return False
+        for i in range(3):
+            if sum(sum(np_raw_img[:,:,i]>0)) != 0: 
+                return False        
+        return True
+    except Exception as e:
+        s_msg = "err: %s" % str(e)
+        run_log and run_log.error(s_msg)
+        b_print and print(s_msg)
+        return False
 
 ''' 
 Convert raw image to small gray image, resize is  n_resize * n_resize 
