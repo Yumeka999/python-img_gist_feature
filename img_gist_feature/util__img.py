@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import os
 import sys
 import cv2
@@ -8,12 +7,11 @@ import imageio
 import numpy as np
 from PIL import Image, ImageFile
 from skimage.measure import compare_ssim
-ImageFile.LOAD_TRUNCATED_IMAGES = True
-
 S_NOW_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(S_NOW_DIR)
-
 from util__base import *
+
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 ''' 
 Is numpy matrix all no-zero data in alpha channel 
