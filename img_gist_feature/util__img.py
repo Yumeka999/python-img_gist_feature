@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-
 import os
 import sys
 import cv2
 import imghdr
 import imageio
 import numpy as np
+from PIL import Image
 from skimage.measure import compare_ssim
 S_NOW_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(S_NOW_DIR)
@@ -59,9 +59,8 @@ def img_2gray(np_img_raw, run_log=None, b_print=False):
             for i in range(n_sence):
                 ln_diff_pix_num.append(len(np.unique(np_img_gray_choose[:, :, i])))
             n_max_index = ln_diff_pix_num.index(max(ln_diff_pix_num))
-            np_img_gray = np_img_gray_choose[:, :, n_max_index]
-    # Raw Image is gray image
-    elif len(np_img_raw.shape) == 3 and np_img_raw.shape[2] == 1:
+            np_img_gray = np_img_gray_choose[:, :, n_max_index] 
+    elif len(np_img_raw.shape) == 3 and np_img_raw.shape[2] == 1: # Raw Image is gray image
         np_img_gray = np_img_raw[:, :, 0]
     elif len(np_img_raw.shape) == 2:
         np_img_gray = np_img_raw
@@ -346,6 +345,7 @@ def is_bpg_img(s_img_in_url, run_log=None, b_print=False):
     s_msg = "not right bpg"
     run_log and run_log.warning(s_msg)
     b_print and print(s_msg)
+
     return -1
 
 '''
@@ -367,6 +367,7 @@ def get_histeq_img(np_img_in, run_log=None, b_print=False):
         s_msg = "err:%s" % str(e)
         run_log and run_log.warning()
         b_print and print(s_msg)
+
         return None
 
 '''
@@ -395,13 +396,12 @@ Canny edge detect
 def canny_edge_detect(np_img, n_low = 60 , n_high = 180, run_log=None, b_print=False):
     try:
         np_gray, n_ret = img_2gray(np_img)
-
         if np_gray is None:
             s_msg = "err in img_2gray"
             run_log and run_log.error(s_msg)
             b_print and print(s_msg)
-            return None            
-        
+            
+            return None               
         np_detect_edge = cv2.GaussianBlur(np_gray, (3, 3), 0)
         np_detect_edge = cv2.Canny(np_detect_edge, n_low, n_high)
         np_canny = cv2.bitwise_and(np_img, np_img, mask = np_detect_edge)  # just add some colours to edges from original image.    
