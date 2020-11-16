@@ -59,6 +59,7 @@ def proc_main(O_IN):
 
 
 
+
 if __name__ == "__main__":
     O_IN = {}
     O_IN['s_img_url_a'] = "./test/A.jpg"
