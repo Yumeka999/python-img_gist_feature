@@ -216,23 +216,25 @@ YCbCr         3×8位像素，彩色视频格式
 I             32位整型像素
 F             32位浮点型像素
 ''' 
-def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_log=None, b_print=False):
+def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, b_rgb=False, run_log=None, b_print=False):
     try:
         recur_mkdir(s_all_frame_out_dor, run_log)
         f_duration, n_frame_num = 0.0, 0
         pil_gif = Image.open(s_gif_url)
         b_animate = pil_gif.is_animated
         n_frame_num = pil_gif.n_frames
-        if not b_animate:  return 1, 0.0 # static gif  
+
+        if not b_animate:  
+            return 1, 0.0 # static gif  
         for i in range(n_frame_num):
             pil_gif.seek(i)
             f_duration += pil_gif.info['duration']
             pil_sav = pil_gif
-            if pil_gif.mode == "P":  
+            if b_rgb and pil_gif.mode == "P":  
                 pil_sav = pil_gif.convert("RGB")
-            elif pil_gif.mode == "RGBA":
+            elif b_rgb and pil_gif.mode == "RGBA":
                 pil_sav = pil_gif.convert("RGB") 
-            pil_sav.save(os.path.join(s_all_frame_out_dor, "%s.jpg" % str(i+1).zfill(3)))
+            pil_sav.save(os.path.join(s_all_frame_out_dor, "%s.png" % str(i+1).zfill(3)))
         return 0, n_frame_num / f_duration * 1000
     except Exception as e:
         s_msg = 'Err %s' % (str(e))
@@ -243,15 +245,18 @@ def get_all_frame_from_gif(s_gif_url, s_all_frame_out_dor, run_log=None, b_print
 '''
 get a gif frome each frame image 
 '''
-def gen_gif_from_frames(ls_img_path, s_gif_path, ln_resize=None, f_fps=0.06, run_log=None, b_print=False):
-    lnp_frame = []
-    for e in ls_img_path:
-        np_img = read_img(e)
-        if ln_resize is not None:
-            np_img, n_ret = img_resize(np_img, ln_resize)
-        np_img = np_img[:,:,::-1]
-        lnp_frame.append(np_img)
-    imageio.mimsave(s_gif_path, lnp_frame, 'GIF', duration=1./f_fps)
+def gen_gif_from_frames(ls_img_path, s_gif_path, f_fps=0.06, run_log=None, b_print=False):
+    try:
+        l_img = []
+        for e in ls_img_path:
+            l_img.append(imageio.imread(e))
+        imageio.mimsave(s_gif_path, l_img, 'GIF', duration=f_fps)
+        return 0
+    except Exception as e:
+        s_msg = "err:%s" % str(e)
+        run_log and run_log.error(s_msg)
+        b_print and print(s_msg)
+        return -1
 
 '''
 Get real format of a image
@@ -345,7 +350,6 @@ def is_bpg_img(s_img_in_url, run_log=None, b_print=False):
     s_msg = "not right bpg"
     run_log and run_log.warning(s_msg)
     b_print and print(s_msg)
-
     return -1
 
 '''
@@ -367,7 +371,6 @@ def get_histeq_img(np_img_in, run_log=None, b_print=False):
         s_msg = "err:%s" % str(e)
         run_log and run_log.warning()
         b_print and print(s_msg)
-
         return None
 
 '''
@@ -399,8 +402,7 @@ def canny_edge_detect(np_img, n_low = 60 , n_high = 180, run_log=None, b_print=F
         if np_gray is None:
             s_msg = "err in img_2gray"
             run_log and run_log.error(s_msg)
-            b_print and print(s_msg)
-            
+            b_print and print(s_msg)        
             return None               
         np_detect_edge = cv2.GaussianBlur(np_gray, (3, 3), 0)
         np_detect_edge = cv2.Canny(np_detect_edge, n_low, n_high)
