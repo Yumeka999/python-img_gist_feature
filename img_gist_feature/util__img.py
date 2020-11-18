@@ -334,7 +334,10 @@ def img_resize_win(np_img_in, n_max, n_limit_ratio, run_log=None, b_print=False)
 A image is right bpg format?
 '''
 def is_bpg_img(s_img_in_url, run_log=None, b_print=False):
-    if not os.path.exists(s_img_in_url) or not os.path.isfile(s_img_in_url): 
+    if not os.path.exists(s_img_in_url) or not os.path.isfile(s_img_in_url):
+        s_msg = "the bpg of %s not exists" % s_img_in_url
+        run_log and run_log.warning(s_msg)
+        b_print and print(s_msg) 
         return -1
     if not s_img_in_url.endswith(".bpg"):
         s_msg = "not endwith .bpg"
@@ -357,8 +360,7 @@ Get histogram equalization image
 ''' 
 def get_histeq_img(np_img_in, run_log=None, b_print=False):
     try:   
-        n_shape_len = len(np_img_in.shape)
-        np_img_out = None
+        n_shape_len, np_img_out = len(np_img_in.shape), None
         if n_shape_len == 2: # Single chanle image
             np_img_out = cv2.equalizeHist(np_img_in)
         elif n_shape_len == 3 and np_img_in.shape[2] == 3: # RGB three chanle
