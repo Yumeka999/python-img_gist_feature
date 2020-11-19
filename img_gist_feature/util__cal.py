@@ -16,8 +16,7 @@ def get_all_cos_sim(np_A ,np_B, np_B_L2 = None, run_logger=None, b_print=False):
     np_cos_sim = np_inner/(np_A_L2 * np_B_L2)
     np_cos_sim = 0.5 + 0.5 * np_cos_sim
     return np_cos_sim
-
-    
+  
 def np_l2norm(np_x, run_log=None, b_print=False):
     if len(np_x.shape) > 2:
         return -1
