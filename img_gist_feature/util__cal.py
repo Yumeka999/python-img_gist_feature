@@ -32,6 +32,5 @@ def np_l2norm(np_x, run_log=None, b_print=False):
     np_x_L2Norm[np_where_are_nans] = 0.0
     return np_x_L2Norm
 
-
 def get_cos_sim(np_A, np_B):
     return np.inner(np_A, np_B)/(np.linalg.norm(np_A) * np.linalg.norm(np_B))
