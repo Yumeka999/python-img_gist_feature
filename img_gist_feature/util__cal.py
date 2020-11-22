@@ -31,9 +31,8 @@ def np_l2norm(np_x, run_log=None, b_print=False):
     np_x_L2 = np_x_L2[:, np.newaxis]
     np_x_L2 = np.tile(np_x_L2, (1,n_feat_num))
     np_x_L2_1 = 1.0/np_x_L2   
-    np_x_L2Norm = np_x * np_x_L2_1   
-    np_where_are_nans = np.isnan(np_x_L2Norm) # if value is nan and set 0.0
-    np_x_L2Norm[np_where_are_nans] = 0.0
+    np_x_L2Norm = np_x * np_x_L2_1    
+    np_x_L2Norm[np.isnan(np_x_L2Norm)] = 0.0 # if value is nan and set 0.0
     return np_x_L2Norm
 
 '''
