@@ -35,7 +35,6 @@ def np_l2norm(np_x, run_log=None, b_print=False):
     
     return np_x_L2Norm
       
-
 '''
 get cos similarity
 '''
