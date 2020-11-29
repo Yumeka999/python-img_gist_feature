@@ -21,8 +21,10 @@ def get_all_cos_sim(np_A ,np_B, np_B_L2 = None, run_logger=None, b_print=False):
 get l2 norm of a vector
 '''  
 def np_l2norm(np_x, run_log=None, b_print=False):
-    if len(np_x.shape) > 2: return -1
-    elif len(np_x.shape) == 1: np_x = np_x[:, np.newaxis].T             
+    if len(np_x.shape) > 2: 
+        return -1
+    elif len(np_x.shape) == 1: 
+        np_x = np_x[:, np.newaxis].T             
     n_feat_num = np_x.shape[1]  # the feature number of input      
     np_x_L2 = np.linalg.norm(np_x, axis = 1)
     np_x_L2 = np_x_L2[:, np.newaxis]
@@ -30,8 +32,10 @@ def np_l2norm(np_x, run_log=None, b_print=False):
     np_x_L2_1 = 1.0/np_x_L2   
     np_x_L2Norm = np_x * np_x_L2_1    
     np_x_L2Norm[np.isnan(np_x_L2Norm)] = 0.0 # if value is nan and set 0.0
+    
     return np_x_L2Norm
       
+
 '''
 get cos similarity
 '''
