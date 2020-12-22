@@ -1,5 +1,6 @@
 import cv2
 import sys
+
 sys.path.append("./img_gist_feature/")
 
 from utils_gist import *
