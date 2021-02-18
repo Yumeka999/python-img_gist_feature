@@ -3,7 +3,6 @@
 import os
 import time
 import numpy as np
-
 '''
 Get all cos sim
 '''
@@ -15,7 +14,6 @@ def get_all_cos_sim(np_A ,np_B, np_B_L2 = None, run_logger=None, b_print=False):
     np_inner = np_A.dot(np_B.T)    
     np_cos_sim = 0.5 + 0.5 * np_inner/(np_A_L2 * np_B_L2)
     return np_cos_sim
-
 '''
 get l2 norm of a vector
 '''  
@@ -34,8 +32,7 @@ def np_l2norm(np_x, run_log=None, b_print=False):
     np_x_L2_1 = 1.0/np_x_L2   
     np_x_L2Norm = np_x * np_x_L2_1    
     np_x_L2Norm[np.isnan(np_x_L2Norm)] = 0.0 # if value is nan and set 0.0   
-    return np_x_L2Norm
-                
+    return np_x_L2Norm  
 '''
 get cos similarity
 '''
