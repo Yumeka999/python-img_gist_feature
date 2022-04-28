@@ -35,12 +35,12 @@ def img_2gray(np_img_raw, run_log=None, b_print=False):
     if np_img_raw is None:
         s_msg = "input image null"
         run_log and run_log.error(s_msg)
-        b_print and print(s_msg)
+        b_print and print(s_msg)  #在b_print为False的情况下不打印
         return None, -3
     np_img_gray = None # Raw Image is BGR imge, so convert rgb to gray
     if len(np_img_raw.shape) == 3 and np_img_raw.shape[2] == 3:
         np_img_gray = cv2.cvtColor(np_img_raw, cv2.COLOR_BGR2GRAY) 
-    elif len(np_img_raw.shape) == 3 and np_img_raw.shape[2] == 4: # Raw Image is BGRA imge, there are different situation to solve
+    elif len(np_img_raw.shape) == 3 and np_img_raw.shape[2] == 4: # Raw Image is BGRA imge, it is a different situation to solve
         n_sence = 3
         np_img_gray_choose = np.zeros([np_img_raw.shape[0], np_img_raw.shape[1], n_sence], dtype=np.uint8)
 

@@ -12,7 +12,7 @@ Creat Directory
 '''
 def recur_mkdir(s_path, run_log=None, b_print=False):  
     try:
-        if os.path.exists(s_path) and os.path.isdir(s_path):
+        if os.path.exists(s_path) and os.path.isdir(s_path):# is a directory
             s_msg = "%s has been created" % s_path
             run_log and run_log.warning(s_msg)
             b_print and print(s_msg)
@@ -96,7 +96,7 @@ def get_usable_str(s_in, run_log=None, b_print=False):
 '''
 time to millisecond
 '''
-def time_2_millsecond(s_time, run_log=None, b_print=False):
+def time_2_millsecond(s_time, run_log=None, b_print=False):#calculate time to millisecond
     try:
         ls_time = s_time.split(":")
         n_hour, n_min, n_second = int(ls_time[0]), int(ls_time[1]), int(ls_time[2])
