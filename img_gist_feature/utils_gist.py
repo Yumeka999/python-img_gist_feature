@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-import cv2
 import sys
-import time
-import numpy as np
 
 S_NOW_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(S_NOW_DIR)
@@ -21,18 +18,17 @@ class GistUtils:
         self.ln_orientation = ln_orientation
         self.n_block_num = n_block_num  # MUST n_resize % n_block_num == 0
         self.n_prefilt = n_prefilt
-             
         self.__create_gabor()
         self.__get_gfmat()
         
-    def get_gist_vec(self, np_img_raw, mode="rgb"):
-        # resize 
-        np_img_resize, n_ret = img_resize(np_img_raw, (self.n_resize, self.n_resize))
+    def get_gist_vec(self, raw_img,mode='rgb'):#设置默认参数为rgb
+        # 调整大小
+        np_img_resize, n_ret = img_resize(raw_img, (self.n_resize, self.n_resize))
         if n_ret != 0:
             print("image resize error")
             return None
 
-        # convert gray or rgb
+        # 转化为灰度图或RGB图，均是先转化大小，预过滤，再计算gist
         np_gist = None
         if mode.lower() == "gray":
             np_img_gray, n_ret = img_2gray(np_img_resize)
@@ -42,9 +38,9 @@ class GistUtils:
         elif mode.lower() == "rgb" or mode.lower() == "bgr":
             np_img_bgr, n_ret = img_2bgr(np_img_resize)
             
-            np_img_b = np_img_bgr[:,:,0]
-            np_img_g = np_img_bgr[:,:,1]
-            np_img_r = np_img_bgr[:,:,2]
+            np_img_b = np_img_bgr[:,:,0]#取所有三维数组中的第一维
+            np_img_g = np_img_bgr[:,:,1]#取所有三维数组中的第二维
+            np_img_r = np_img_bgr[:,:,2]#取所有三维数组中的第三维
 
             np_gist_b = self.__get_pre_filt(np_img_b)
             np_gist_g = self.__get_pre_filt(np_img_g)
@@ -55,7 +51,7 @@ class GistUtils:
             np_gist_r = self.__gist_main(np_gist_r)
 
 
-            np_gist = np.hstack([np_gist_b, np_gist_g, np_gist_r])
+            np_gist = [np_gist_b, np_gist_g, np_gist_r]             #分为‘b’,'g','r'三个通三个gist
         else:
             print("input mode error")
         
@@ -78,7 +74,7 @@ class GistUtils:
     def __gist_main(self, np_prefilt_img):
         
         n_b = self.n_boundaryExtension
-        np_pad_img = np.pad(np_prefilt_img, ((n_b, n_b), (n_b, n_b)), 'symmetric')
+        np_pad_img = np.pad(np_prefilt_img, ((n_b, n_b), (n_b, n_b)), 'symmetric')  #在预处理后的图片周围进行对称填充，填充行数为n_b
         np_fft2_img = np.fft.fft2(np_pad_img)
         
     
@@ -99,9 +95,9 @@ class GistUtils:
     def __create_gabor(self):
         n_gabor_size = self.n_resize + 2 * self.n_boundaryExtension
         ln_or = self.ln_orientation
-        
-        n_scales = len(ln_or)
-        n_filters = sum(ln_or)
+
+        n_scales = len(ln_or)   #四个尺度
+        n_filters = sum(ln_or)  #八个方向，8*4=32
         
         np_param = np.zeros((n_filters, 4), dtype = np.float64)
         n_index = 0
@@ -120,7 +116,7 @@ class GistUtils:
         np_res_A = np.fft.fftshift(np.sqrt(np_fx ** 2 + np_fy**2))
         np_res_B = np.fft.fftshift(np.angle(np_fx + 1j*np_fy))
         
-        self.np_gabor = np.zeros((n_gabor_size, n_gabor_size, n_filters), dtype = np.float64)
+        self.np_gabor = np.zeros((n_gabor_size, n_gabor_size, n_filters), dtype = np.float64)   #返回一个用0填充的数组
         for i in range(n_filters):
             np_tr = np_res_B + np_param[i,3]
             np_A  = (np_tr < -np.pi) + 0.0
